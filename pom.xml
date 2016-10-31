@@ -9,7 +9,38 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <lwjgl.version>3.1.0</lwjgl.version>
     </properties>
+    
+    <profiles>
+	<profile>
+            <id>lwjgl-natives-linux></id>
+            <activation>
+                    <os><family>unix</family></os>
+            </activation>
+            <properties>
+                    <lwjgl.natives>natives-linux</lwjgl.natives>
+            </properties>
+	</profile>
+	<profile>
+            <id>lwjgl-natives-macos></id>
+            <activation>
+                    <os><family>mac</family></os>
+            </activation>
+            <properties>
+                    <lwjgl.natives>natives-macos</lwjgl.natives>
+            </properties>
+	</profile>
+	<profile>
+            <id>lwjgl-natives-windows></id>
+            <activation>
+                    <os><family>windows</family></os>
+            </activation>
+            <properties>
+                    <lwjgl.natives>natives-windows</lwjgl.natives>
+            </properties>
+	</profile>
+    </profiles>
     
     <dependencies>
         <dependency>
@@ -18,6 +49,75 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+        
+        <!-- LWJGL dependencies START -->
+	<dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl</artifactId>
+            <version>${lwjgl.version}</version>
+	</dependency>
+	<dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-glfw</artifactId>
+            <version>${lwjgl.version}</version>
+	</dependency>
+	<dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-jemalloc</artifactId>
+            <version>${lwjgl.version}</version>
+	</dependency>
+	<dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-openal</artifactId>
+            <version>${lwjgl.version}</version>
+	</dependency>
+	<dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-opengl</artifactId>
+            <version>${lwjgl.version}</version>
+	</dependency>
+	<dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-stb</artifactId>
+            <version>${lwjgl.version}</version>
+	</dependency>
+
+	<dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl</artifactId>
+            <version>${lwjgl.version}</version>
+            <classifier>${lwjgl.natives}</classifier>
+            <scope>runtime</scope>
+	</dependency>
+	<dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-glfw</artifactId>
+            <version>${lwjgl.version}</version>
+            <classifier>${lwjgl.natives}</classifier>
+            <scope>runtime</scope>
+	</dependency>
+	<dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-jemalloc</artifactId>
+            <version>${lwjgl.version}</version>
+            <classifier>${lwjgl.natives}</classifier>
+            <scope>runtime</scope>
+	</dependency>
+	<dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-openal</artifactId>
+            <version>${lwjgl.version}</version>
+            <classifier>${lwjgl.natives}</classifier>
+            <scope>runtime</scope>
+	</dependency>
+	<dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-stb</artifactId>
+            <version>${lwjgl.version}</version>
+            <classifier>${lwjgl.natives}</classifier>
+            <scope>runtime</scope>
+	</dependency>
+	<!-- LWJGL dependencies END -->
     </dependencies>
     
     <build>
