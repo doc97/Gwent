@@ -74,11 +74,11 @@ Player in turn:
 - [ ] Networking
 - [ ] Turns
 
-### 5th Iteration (Deadline 9.12.2016) ####
+#### 5th Iteration (Deadline 9.12.2016) ####
 - [ ] Graphics engine done
 - [ ] Integrate game logic with graphics engine
 
-### 6th Iteration (Deadline 16.12.2016) ####
+#### 6th Iteration (Deadline 16.12.2016) ####
 - [ ] Bug fixing
 - [ ] Polishing
 - [ ] Finish documentation
