@@ -30,4 +30,8 @@ public class CombatRow {
     public List<Unit> getUnits() {
         return units;
     }
+    
+    public int getUnitCount() {
+        return units.size();
+    }
 }

@@ -20,6 +20,14 @@ public class GameBoard {
     }
 
     public void addUnit(Unit unit, UnitType type, boolean isFriendly) {
+        if (unit == null) {
+            return;
+        }
+        
+        if (!unit.getTypes().contains(type)) {
+            throw new IllegalArgumentException("Unit is not of unit type " + type);
+        }
+        
         CombatRow[] rows = getRows(isFriendly);
         int index = type.getIndex();
         rows[index].addUnit(unit);
@@ -31,6 +39,20 @@ public class GameBoard {
             sum += row.getStrength();
         }
         return sum;
+    }
+    
+    public int getUnitCount(boolean friendly) {
+        int sum = 0;
+        for (CombatRow row : getRows(friendly)) {
+            sum += row.getUnitCount();
+        }
+        return sum;
+    }
+    
+    public int getTotalUnitCount() {
+        int friendlyCount = getUnitCount(true);
+        int enemyCount = getUnitCount(false);
+        return friendlyCount + enemyCount;
     }
 
     private CombatRow[] getRows(boolean friendly) {
