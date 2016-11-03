@@ -1,4 +1,4 @@
-package fi.riissanen.gwent;
+package fi.riissanen.gwent.game;
 
 import fi.riissanen.gwent.engine.EngineLauncher;
 
