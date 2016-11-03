@@ -11,7 +11,7 @@ import org.junit.rules.ExpectedException;
  *
  * @author Daniel
  */
-public class GameBoardTest {
+public class TestGameBoard {
 
     private final GameBoard board = new GameBoard();
     

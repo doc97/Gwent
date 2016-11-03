@@ -26,9 +26,7 @@ public abstract class CardCollection {
 
     public Card getCard(int index) {
         if (index < 0 || index >= cards.size()) {
-            throw new IndexOutOfBoundsException(
-                    "Tried to get a card with index " + index + ", but the "
-                    + "collection only has " + cards.size() + " cards.");
+            return null;
         }
         return cards.get(index);
     }
