@@ -1,6 +1,7 @@
-package fi.riissanen.gwent;
+package fi.riissanen.gwent.engine;
 
-import fi.riissanen.gwent.Logger.LogLevel;
+import fi.riissanen.gwent.engine.Logger.LogLevel;
+import fi.riissanen.gwent.engine.render.SpriteBatch;
 import static org.lwjgl.opengl.GL11.GL_BLEND;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
 import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
@@ -17,17 +18,20 @@ public enum Engine {
     INSTANCE;
 
     public final DisplayManager display = new DisplayManager();
-    public final Logger logger = new Logger();
+    public SpriteBatch batch;
+    public Logger log;
 
     public void initialize() {
         if(!display.createDisplay(1280, 720)) {
-            Engine.INSTANCE.logger.write(LogLevel.ERROR,
-                    "GameLauncher: Failed to initialize render engine");
+            Engine.INSTANCE.log.write(LogLevel.ERROR,
+                    "GameLauncher: Failed to initialize engine");
             return;
         }
+        display.setBackgroundColor(0.5f, 0, 0.25f, 1);
 
-        display.setBackgroundColor(0, 0, 0, 1);
-
+        batch = new SpriteBatch();
+        log = new Logger();
+        
         // We are not using depth for 2D
         glDisable(GL_DEPTH_TEST);
 
@@ -38,5 +42,6 @@ public enum Engine {
 
     public void dispose() {
         display.dispose();
+        batch.dispose();
     }
 }

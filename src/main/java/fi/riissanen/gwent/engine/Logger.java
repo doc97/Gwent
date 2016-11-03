@@ -1,6 +1,5 @@
-package fi.riissanen.gwent;
+package fi.riissanen.gwent.engine;
 
-import static java.lang.StrictMath.log;
 import java.util.EnumMap;
 
 /**

@@ -1,4 +1,4 @@
-package fi.riissanen.gwent;
+package fi.riissanen.gwent.engine;
 
 /**
  * The launcher containing the main()-method

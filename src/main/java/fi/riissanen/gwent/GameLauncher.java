@@ -1,5 +1,7 @@
 package fi.riissanen.gwent;
 
+import fi.riissanen.gwent.engine.EngineLauncher;
+
 /**
  * The launcher containing the main()-method
  * @author Daniel

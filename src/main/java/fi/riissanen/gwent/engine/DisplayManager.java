@@ -1,6 +1,6 @@
-package fi.riissanen.gwent;
+package fi.riissanen.gwent.engine;
 
-import fi.riissanen.gwent.Logger.LogLevel;
+import fi.riissanen.gwent.engine.Logger.LogLevel;
 import static java.sql.Types.NULL;
 import org.lwjgl.glfw.GLFW;
 import static org.lwjgl.glfw.GLFW.GLFW_RESIZABLE;
@@ -38,7 +38,7 @@ import static org.lwjgl.opengl.GL11.glEnable;
 public class DisplayManager {
     
     private static GLFWWindowSizeCallback resizeCallback;
-    private static final String title = "Gwent";
+    private static final String TITLE = "Gwent";
     
     private long window;
     private int width, height;
@@ -46,7 +46,7 @@ public class DisplayManager {
     
     public boolean createDisplay(int width, int height) {
         if(window != 0) {
-            Engine.INSTANCE.logger.write(LogLevel.INFO,
+            Engine.INSTANCE.log.write(LogLevel.INFO,
                     "DisplayManager: Window has already been created");
             return false;
         }
@@ -60,7 +60,7 @@ public class DisplayManager {
         glfwDefaultWindowHints();
         glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
         glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
-        window = glfwCreateWindow(width, height, title, NULL, NULL);
+        window = glfwCreateWindow(width, height, TITLE, NULL, NULL);
         if(window == NULL)
             throw new RuntimeException("Failed to create GLFW window");
 
