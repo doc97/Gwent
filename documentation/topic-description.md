@@ -1,6 +1,6 @@
 ## Design document ##
 
-Description
+###Description###
 ---
 A clone of the card game Gwent from The Witcher 3. The game is played between
 two players both starting with 10 cards in their hands and is turn-based. The
@@ -14,11 +14,11 @@ the round. The battle score is reset every round. A game is won with 2 round
 wins. No cards are drawn between rounds, unless an ability or effect orders
 so.
 
-Users
+###Users###
 ---
 Two players play against each other with their decks
 
-Actions:
+###Actions###
 ---
     Before match both players:
     - Select a faction
