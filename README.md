@@ -1,8 +1,8 @@
 # Gwent - A clone of The Witcher 3's card game #
 
 Welcome, this is a Java project for a course at the [University of Helsinki][1].
-The project is using Agile developement and is test-driven. Documentation is a key
-part of this project and will be kept updated.
+The project is using Agile development and is test-driven. Documentation is a key
+part of this project and will be kept up-to-date.
 
 ### Documentation ###
 - [Design document][2]
