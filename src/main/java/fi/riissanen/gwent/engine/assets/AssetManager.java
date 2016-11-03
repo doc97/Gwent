@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- *
+ * Manages asset loading and retrieval
  * @author Daniel
  */
 public class AssetManager {

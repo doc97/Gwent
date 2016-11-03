@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fi.riissanen.gwent.engine.render;
 
 import static org.lwjgl.opengl.GL11.GL_FALSE;
@@ -11,7 +6,7 @@ import static org.lwjgl.opengl.GL20.GL_COMPILE_STATUS;
 import static org.lwjgl.opengl.GL20.glUseProgram;
 
 /**
- *
+ * Represents an OpenGL shader program
  * @author Daniel
  */
 public class ShaderProgram {

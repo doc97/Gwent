@@ -32,7 +32,8 @@ import static org.lwjgl.opengl.GL11.glClearColor;
 import static org.lwjgl.opengl.GL11.glEnable;
 
 /**
- *
+ * Manages the everything display related, such as GLFW window creation,
+ * resizing and updating.
  * @author Daniel
  */
 public class DisplayManager {
