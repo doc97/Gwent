@@ -12,6 +12,13 @@
         <lwjgl.version>3.1.0</lwjgl.version>
     </properties>
     
+    <repositories>
+        <repository>
+            <id>local-maven-repo</id>
+            <url>file:///${basedir}/local-maven-repo</url>
+        </repository>
+    </repositories>
+    
     <profiles>
 	<profile>
             <id>lwjgl-natives-linux></id>
@@ -118,6 +125,11 @@
             <scope>runtime</scope>
 	</dependency>
 	<!-- LWJGL dependencies END -->
+        <dependency>
+            <groupId>org.l33tlabs.twl</groupId>
+            <artifactId>pngdecoder</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
     
     <build>
