@@ -5,5 +5,6 @@ Day        | Hours | Description
 01.11.2016 | 3.0h  | Programming game engine, project planning
 02.11.2016 | 0.5h  | Programming game engine
 03.11.2016 | 2.0h  | Programming game engine
-03.11.2016 | 1.0h  | Design document and README
+03.11.2016 | 1.5h  | Design document and README
 03.11.2016 | 1.5h  | Programming game logic
+03.11.2016 | 1.5h  | Programming unit tests

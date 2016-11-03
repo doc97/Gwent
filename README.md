@@ -13,6 +13,6 @@ If you find any issues, please use the [Github issue tracker][4]
 
 <!-- Links -->
 [1]: https://www.cs.helsinki.fi/home/
-[2]: documentation/topic-description.md
-[3]: documentation/time.md
+[2]: documentation/aiheenKuvausJaRakenne.md
+[3]: documentation/tuntikirjanpito.md
 [4]: https://github.com/doc97/Gwent/issues?state=open
