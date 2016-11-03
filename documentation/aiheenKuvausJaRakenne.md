@@ -55,15 +55,16 @@ Player in turn:
 	- Server
 
 #### 1st Iteration (Deadline 11.11.2016) ####
-- [ ] Game board (Combat rows)
-- [ ] Deck
-- [ ] Hand
-- [ ] Card
+- [x] Game board (Combat rows)
+- [x] Deck
+- [x] Hand
+- [x] Card
 
 #### 2nd Iteration (Deadline 18.11.2016) ####
 - [ ] Card types
 - [ ] Card abilities
 - [ ] Neutral cards (Weather cards)
+- [ ] Game system (Playable for 1)
 
 #### 3rd Iteration (Deadline 25.11.2016) ####
 - [ ] Factions
