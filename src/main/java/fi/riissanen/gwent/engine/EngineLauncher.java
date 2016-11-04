@@ -1,5 +1,8 @@
 package fi.riissanen.gwent.engine;
 
+import fi.riissanen.gwent.engine.interfaces.Game;
+import static org.lwjgl.glfw.GLFW.glfwGetTime;
+
 /**
  * The launcher containing the main()-method
  * @author Daniel
@@ -7,8 +10,10 @@ package fi.riissanen.gwent.engine;
 public class EngineLauncher implements Runnable {
     
     private Thread thread;
+    private Game game;
     
-    public void start() {
+    public void start(Game game) {
+        this.game = game;
         thread = new Thread(this, "Gwent");
         thread.start();
     }
@@ -16,8 +21,26 @@ public class EngineLauncher implements Runnable {
     @Override
     public void run() {
         Engine.INSTANCE.initialize();
+        game.create();
+        
+        double lastTime = Engine.INSTANCE.getTime();
+        int frames = 0;
         while(!Engine.INSTANCE.display.windowShouldClose()) {
+            double currentTime = Engine.INSTANCE.getTime();
+            frames++;
+            double delta = currentTime - lastTime;
+            if (currentTime - lastTime >= 1.0) {
+                double time = 1000.0 / frames;
+                Engine.INSTANCE.log.write(Logger.LogLevel.INFO, time + " ms/frame");
+                frames = 0;
+                lastTime += 1.0;
+            }
+            
+            game.render(delta);
             Engine.INSTANCE.display.updateDisplay();
         }
+        
+        game.dispose();
+        Engine.INSTANCE.dispose();
     }
 }
