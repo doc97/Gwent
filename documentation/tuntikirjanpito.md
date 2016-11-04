@@ -8,3 +8,4 @@ Day        | Hours | Description
 03.11.2016 | 1.5h  | Design document and README
 03.11.2016 | 1.5h  | Programming game logic
 03.11.2016 | 1.5h  | Programming unit tests
+04.11.2016 | 11:00-| Programming game engine

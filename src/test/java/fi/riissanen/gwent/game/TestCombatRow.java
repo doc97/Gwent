@@ -1,5 +1,8 @@
 package fi.riissanen.gwent.game;
 
+import fi.riissanen.gwent.game.combat.UnitType;
+import fi.riissanen.gwent.game.combat.Unit;
+import fi.riissanen.gwent.game.combat.CombatRow;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.assertEquals;

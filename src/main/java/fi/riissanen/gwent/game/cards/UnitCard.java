@@ -1,6 +1,6 @@
 package fi.riissanen.gwent.game.cards;
 
-import fi.riissanen.gwent.game.Unit;
+import fi.riissanen.gwent.game.combat.Unit;
 
 /**
  * A {@link Card} that contains a unit

@@ -1,4 +1,4 @@
-package fi.riissanen.gwent.game;
+package fi.riissanen.gwent.game.combat;
 
 import java.util.EnumSet;
 import java.util.List;

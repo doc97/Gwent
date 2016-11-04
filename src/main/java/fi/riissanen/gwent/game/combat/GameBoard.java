@@ -1,4 +1,4 @@
-package fi.riissanen.gwent.game;
+package fi.riissanen.gwent.game.combat;
 
 /**
  * A class representing the game board
