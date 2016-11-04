@@ -11,7 +11,7 @@ public class UnitCard implements Card {
 
     private final Unit unit;
 
-    private UnitCard(Unit unit) {
+    public UnitCard(Unit unit) {
         this.unit = unit;
     }
 

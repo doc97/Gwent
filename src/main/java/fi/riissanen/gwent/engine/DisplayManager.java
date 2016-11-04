@@ -44,6 +44,7 @@ public class DisplayManager {
     private long window;
     private int width, height;
     private boolean shouldResize = true;
+    private boolean shouldClose = false;
     
     public boolean createDisplay(int width, int height) {
         if(window != 0) {
@@ -94,8 +95,12 @@ public class DisplayManager {
         glfwPollEvents();
     }
     
-    public boolean windowShouldClose() {
-        return GLFW.glfwWindowShouldClose(window);
+    public void close() {
+        shouldClose = true;
+    }
+    
+    public boolean shouldClose() {
+        return GLFW.glfwWindowShouldClose(window) || shouldClose;
     }
     
     public void setBackgroundColor(float r, float g, float b, float a) {

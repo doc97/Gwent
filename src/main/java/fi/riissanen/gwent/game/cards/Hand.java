@@ -6,7 +6,7 @@ package fi.riissanen.gwent.game.cards;
  */
 public class Hand extends CardCollection {
 
-    private static final int STARTING_HAND_CARD_COUNT = 10;
+    public static final int STARTING_HAND_CARD_COUNT = 10;
 
     public boolean validateStartingHand() {
         return getCardCount() == STARTING_HAND_CARD_COUNT;

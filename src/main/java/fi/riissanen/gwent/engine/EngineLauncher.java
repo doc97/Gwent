@@ -25,13 +25,12 @@ public class EngineLauncher implements Runnable {
         
         double lastTime = Engine.INSTANCE.getTime();
         int frames = 0;
-        while(!Engine.INSTANCE.display.windowShouldClose()) {
+        while(!Engine.INSTANCE.display.shouldClose()) {
             double currentTime = Engine.INSTANCE.getTime();
             frames++;
             double delta = currentTime - lastTime;
             if (currentTime - lastTime >= 1.0) {
-                double time = 1000.0 / frames;
-                Engine.INSTANCE.log.write(Logger.LogLevel.INFO, time + " ms/frame");
+                Engine.INSTANCE.frameTime = 1000.0 / frames;
                 frames = 0;
                 lastTime += 1.0;
             }

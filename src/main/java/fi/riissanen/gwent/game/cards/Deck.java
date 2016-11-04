@@ -6,7 +6,7 @@ package fi.riissanen.gwent.game.cards;
  */
 public class Deck extends CardCollection {
 
-    private static final int MIN_CARDS = 22;
+    public static final int MIN_CARDS = 22;
 
     public boolean validate() {
         return getCardCount() >= MIN_CARDS;
