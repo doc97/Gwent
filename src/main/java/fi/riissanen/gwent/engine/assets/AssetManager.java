@@ -29,8 +29,9 @@ public class AssetManager {
             AssetLoader loader = it.next();
             AssetParams params = queue.get(loader);
             Asset asset = loader.load(params);
-            if (asset != null)
+            if (asset != null) {
                 assets.put(params.getFilename(), asset);
+            }
             
             it.remove();
         }
@@ -38,8 +39,9 @@ public class AssetManager {
     
     public Asset get(String filename) {
         Asset asset = assets.get(filename);
-        if (asset != null)
+        if (asset != null) {
             return asset;
+        }
         return null;
     }
 }

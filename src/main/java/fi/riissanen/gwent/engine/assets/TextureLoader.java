@@ -34,12 +34,14 @@ public class TextureLoader extends AssetLoader {
     
     @Override
     public Asset load(AssetParams params) {
-        if (!params.getFilename().endsWith(".png"))
+        if (!params.getFilename().endsWith(".png")) {
             throw new IllegalArgumentException("Texture must be a .png");
+        }
         
         Object format = params.getAdditionalParams()[0];
-        if (!(format instanceof Format))
+        if (!(format instanceof Format)) {
             throw new IllegalArgumentException("Texture format is invalid");
+        }
         
         this.params = params;
         ByteBuffer buf;

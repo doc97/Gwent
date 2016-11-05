@@ -24,7 +24,9 @@ public class Logger {
     public void write(LogLevel logLevel, String message) {
         int level = logLevels.get(logLevel);
         int filter = logLevels.get(logLevelFilter);
-        if (level < filter) return;
+        if (level < filter) {
+            return;
+        }
         System.out.printf("[%s] %s\n", logLevel.toString(), message);
     }
     

@@ -47,7 +47,7 @@ public class DisplayManager {
     private boolean shouldClose = false;
     
     public boolean createDisplay(int width, int height) {
-        if(window != 0) {
+        if (window != 0) {
             Engine.INSTANCE.log.write(LogLevel.INFO,
                     "DisplayManager: Window has already been created");
             return false;
@@ -56,16 +56,18 @@ public class DisplayManager {
         this.width = width;
         this.height = height;
 
-        if(!glfwInit())
+        if (!glfwInit()) {
             throw new IllegalStateException("Unable to initialize GLFW");
-
+        }
+        
         glfwDefaultWindowHints();
         glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
         glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
         window = glfwCreateWindow(width, height, TITLE, NULL, NULL);
-        if(window == NULL)
+        if (window == NULL) {
             throw new RuntimeException("Failed to create GLFW window");
-
+        }
+        
         GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
         glfwSetWindowPos(window,
                 (vidmode.width() - width) / 2,

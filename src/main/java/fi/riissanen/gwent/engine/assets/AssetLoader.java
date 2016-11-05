@@ -9,6 +9,12 @@ public abstract class AssetLoader {
     protected AssetParams params;
     
     public abstract Asset load(AssetParams params);
-    public AssetParams getParameters() { return params; }
-    public String getLog() { return log; }
+    
+    public AssetParams getParameters() {
+        return params;
+    }
+    
+    public String getLog() {
+        return log;
+    }
 }

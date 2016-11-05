@@ -25,7 +25,7 @@ public class EngineLauncher implements Runnable {
         
         double lastTime = Engine.INSTANCE.getTime();
         int frames = 0;
-        while(!Engine.INSTANCE.display.shouldClose()) {
+        while (!Engine.INSTANCE.display.shouldClose()) {
             double currentTime = Engine.INSTANCE.getTime();
             frames++;
             double delta = currentTime - lastTime;

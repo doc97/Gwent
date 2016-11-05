@@ -25,10 +25,13 @@ public class ShaderProgram {
     private String log = "";
     
     public ShaderProgram(String vertexShader, String fragmentShader) {
-        if (vertexShader == null) throw new IllegalStateException(
-                "Vertex shader must not be null");
-        if (fragmentShader == null) throw new IllegalStateException(
-                "Fragment shader must not be null");
+        if (vertexShader == null) {
+            throw new IllegalStateException("Vertex shader must not be null");
+        }
+        
+        if (fragmentShader == null) {
+            throw new IllegalStateException("Fragment shader must not be null");
+        }
         
         vertexShaderSrc = vertexShader;
         fragmentShaderSrc = fragmentShader;
@@ -55,7 +58,9 @@ public class ShaderProgram {
     
     private int loadShader(int type, String src) {
         int shader = GL20.glCreateShader(type);
-        if (shader == 0) return -1;
+        if (shader == 0) {
+            return -1;
+        }
         
         GL20.glShaderSource(shader, src);
         GL20.glCompileShader(shader);
@@ -73,7 +78,9 @@ public class ShaderProgram {
     }
     
     private int linkProgram(int program) {
-        if (program == -1) return -1;
+        if (program == -1) {
+            return -1;
+        }
         
         GL20.glAttachShader(program, vertexShaderHandle);
         GL20.glAttachShader(program, fragmentShaderHandle);
@@ -118,8 +125,9 @@ public class ShaderProgram {
     }
     
     public String getLog() {
-        if (isCompiled)
+        if (isCompiled) {
             log = GL20.glGetProgramInfoLog(programHandle);
+        }
         return log;
     }
 }

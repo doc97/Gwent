@@ -24,7 +24,7 @@ public enum Engine {
     public double frameTime;
 
     public void initialize() {
-        if(!display.createDisplay(1280, 720)) {
+        if (!display.createDisplay(1280, 720)) {
             Engine.INSTANCE.log.write(LogLevel.ERROR,
                     "GameLauncher: Failed to initialize engine");
             return;

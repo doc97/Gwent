@@ -66,13 +66,13 @@ public class SpriteBatch {
 
         color = new Color(1, 1, 1, 1);
 
-        for (int i = 0, j = 0; i < 6000; i += 6, j += 4){
-            indices[i] = j;
-            indices[i+1] = (j+1);
-            indices[i+2] = (j+2);
-            indices[i+3] = (j+2);
-            indices[i+4] = (j+3);
-            indices[i+5] = j;
+        for (int i = 0, j = 0; i < 6000; i += 6, j += 4) {
+            indices[i    ] = j;
+            indices[i + 1] = (j + 1);
+            indices[i + 2] = (j + 2);
+            indices[i + 3] = (j + 2);
+            indices[i + 4] = (j + 3);
+            indices[i + 5] = j;
         }
         vao = glGenVertexArrays();
         ibo = glGenBuffers();
@@ -98,7 +98,7 @@ public class SpriteBatch {
                 + "   v_color = " + ShaderProgram.COLOR_ATTRIBUTE + ";\n" //
                 + "   v_color.a = v_color.a * (255.0/254.0);\n" //
                 + "   v_texCoords = " + ShaderProgram.TEXCOORD_ATTRIBUTE + ";\n" //
-                + "   gl_Position = vec4("+ ShaderProgram.POSITION_ATTRIBUTE + ", 1.0);\n" //
+                + "   gl_Position = vec4(" + ShaderProgram.POSITION_ATTRIBUTE + ", 1.0);\n" //
                 + "}\n";
         String fragmentShader = "#version 400\n" //
                 + "in vec4 v_color;\n" //
@@ -111,38 +111,48 @@ public class SpriteBatch {
                 + "}";
 
         ShaderProgram shader = new ShaderProgram(vertexShader, fragmentShader);
-        if (!shader.isCompiled()) throw new IllegalArgumentException("Error compiling shader: " + shader.getLog());
+        if (!shader.isCompiled()) {
+            throw new IllegalArgumentException(
+                    "Error compiling shader: " + shader.getLog());
+        }
         return shader;
     }
 
-    
-
     public void begin() {
-        if (isDrawing) throw new IllegalStateException(
-                "SpriteBatch#end() must be called before begin.");
+        if (isDrawing) {
+            throw new IllegalStateException(
+                    "SpriteBatch#end() must be called before begin.");
+        }
         isDrawing = true;
-        if (customShader == null)
+        if (customShader == null) {
             defaultShader.start();
-        else
+        } else {
             customShader.start();
+        }
     }
 
     public void end() {
-        if (!isDrawing) throw new IllegalStateException(
+        if (!isDrawing) {
+            throw new IllegalStateException(
                 "SpriteBatch#begin() must be called before end.");
+        }
         flush();
         
-        if (customShader == null)
+        if (customShader == null) {
             defaultShader.start();
-        else
+        } else {
             customShader.start();
+        }
         
         lastTexture = null;
         isDrawing = false;
     }
 
     public void flush() {
-        if (idx == 0) return;
+        if (idx == 0) {
+            return;
+        }
+        
         int sprites = idx / 12;
         
         bindVAO();
@@ -168,7 +178,7 @@ public class SpriteBatch {
 
     private void changeTexture(Texture texture) {
         flush();
-        if(texture != null) {
+        if (texture != null) {
             lastTexture = texture;
             glBindTexture(GL_TEXTURE_2D, texture.getID());
         } else {
@@ -193,12 +203,18 @@ public class SpriteBatch {
             float[] uvs, Color[] colours, float rotation,
             float anchorPX, float anchorPY) {
 
-        if (!isDrawing) throw new IllegalStateException(
+        if (!isDrawing) {
+            throw new IllegalStateException(
                 "SpriteBatch#begin() must be called before draw.");
-        if (texture != lastTexture)
+        }
+        
+        if (texture != lastTexture) {
             changeTexture(texture);
-        if (idx == vertices.length)
+        }
+        
+        if (idx == vertices.length) {
             flush();
+        }
 
         //coords for the vertices
         float vx1 = 2 * scale * x1 - (1 - scale);
@@ -215,7 +231,7 @@ public class SpriteBatch {
         int cdx = vertexCount << 2;
         int tdx = vertexCount << 1;
 
-        if (rotation != 0){
+        if (rotation != 0) {
             float p1d = (float) Math.hypot(anchorPX - vx1, anchorPY - vy1);
             float p2d = (float) Math.hypot(anchorPX - vx2, anchorPY - vy2);
             float p3d = (float) Math.hypot(anchorPX - vx3, anchorPY - vy3);
@@ -251,7 +267,7 @@ public class SpriteBatch {
         vertices[tempidx++] = vy4;
         vertices[tempidx++] = 0;
 
-        if(texture != null) {
+        if (texture != null) {
             texCoords[tdx++] = uvs[0];
             texCoords[tdx++] = uvs[1];
 
@@ -308,7 +324,7 @@ public class SpriteBatch {
         int vbo = glGenBuffers();
         vbos.add(vbo);
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        storeDataInFloatBuffer(buffer,data);
+        storeDataInFloatBuffer(buffer, data);
         glBufferData(GL_ARRAY_BUFFER, buffer, GL_STATIC_DRAW);
         glVertexAttribPointer(attribute, size, GL_FLOAT, false, 0, 0);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -319,7 +335,7 @@ public class SpriteBatch {
         int vbo = glGenBuffers();
         vbos.add(vbo);
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        storeDataInIntBuffer(buffer,data);
+        storeDataInIntBuffer(buffer, data);
         glBufferData(GL_ARRAY_BUFFER, buffer, GL_STATIC_DRAW);
         glVertexAttribPointer(attribute, size, GL_FLOAT, false, 0, 0);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -344,7 +360,9 @@ public class SpriteBatch {
         BufferUtils.zeroBuffer(floatBuff2);
         BufferUtils.zeroBuffer(floatBuff3);
         
-        if (createdShader && customShader != null) defaultShader.dispose();
+        if (createdShader && customShader != null) {
+            defaultShader.dispose();
+        }
     }
     
     public Color getColor() {
@@ -366,20 +384,22 @@ public class SpriteBatch {
     public void setShader(ShaderProgram shader) {
         if (isDrawing) {
             flush();
-            if (customShader == null)
+            if (customShader == null) {
                 defaultShader.stop();
-            else
-                customShader.stop();   
+            } else {
+                customShader.stop();
+            }
         }
         
         customShader = shader;
         
         if (isDrawing) {
             flush();
-            if (customShader == null)
+            if (customShader == null) {
                 defaultShader.start();
-            else
+            } else {
                 customShader.start();
+            }
         }
     }
 
