@@ -1,4 +1,4 @@
-package fi.riissanen.gwent.game;
+package fi.riissanen.gwent.game.combat;
 
 import fi.riissanen.gwent.game.combat.GameBoard;
 import fi.riissanen.gwent.game.combat.UnitType;

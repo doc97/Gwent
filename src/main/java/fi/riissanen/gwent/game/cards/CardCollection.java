@@ -23,6 +23,10 @@ public abstract class CardCollection {
             addCard(card);
         }
     }
+    
+    public boolean removeCard(Card card) {
+        return cards.remove(card);
+    }
 
     public Card getCard(int index) {
         if (index < 0 || index >= cards.size()) {

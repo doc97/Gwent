@@ -1,7 +1,7 @@
-package fi.riissanen.gwent.game;
+package fi.riissanen.gwent.game.cards;
 
-import fi.riissanen.gwent.game.cards.Card;
-import fi.riissanen.gwent.game.cards.CardCollection;
+import java.util.ArrayList;
+import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -27,6 +27,25 @@ public class TestCardCollection {
         collection.addCard(null);
         int count = collection.getCardCount();
         assertEquals(count, 0);
+    }
+    
+    @Test
+    public void testAddCardsOne() {
+        List<Card> cards = new ArrayList<>();
+        cards.add(new Card(){});
+        collection.addCards(cards);
+        assertEquals(collection.getCardCount(), 1);
+    }
+    
+    public void testAddCardsNull() {
+        collection.addCards(null);
+        assertEquals(collection.getCardCount(), 0);
+    }
+    
+    public void testAddCardsEmpty() {
+        List<Card> cards = new ArrayList<>();
+        collection.addCards(cards);
+        assertEquals(collection.getCardCount(), 0);
     }
     
     @Test

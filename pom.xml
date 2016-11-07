@@ -20,7 +20,7 @@
     </repositories>
     
     <profiles>
-	<profile>
+        <profile>
             <id>lwjgl-natives-linux></id>
             <activation>
                     <os><family>unix</family></os>
@@ -28,8 +28,8 @@
             <properties>
                     <lwjgl.natives>natives-linux</lwjgl.natives>
             </properties>
-	</profile>
-	<profile>
+        </profile>
+        <profile>
             <id>lwjgl-natives-macos></id>
             <activation>
                     <os><family>mac</family></os>
@@ -37,8 +37,8 @@
             <properties>
                     <lwjgl.natives>natives-macos</lwjgl.natives>
             </properties>
-	</profile>
-	<profile>
+        </profile>
+        <profile>
             <id>lwjgl-natives-windows></id>
             <activation>
                     <os><family>windows</family></os>
@@ -46,7 +46,7 @@
             <properties>
                     <lwjgl.natives>natives-windows</lwjgl.natives>
             </properties>
-	</profile>
+        </profile>
     </profiles>
     
     <dependencies>
@@ -58,73 +58,73 @@
         </dependency>
         
         <!-- LWJGL dependencies START -->
-	<dependency>
+        <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl</artifactId>
             <version>${lwjgl.version}</version>
-	</dependency>
-	<dependency>
+        </dependency>
+        <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-glfw</artifactId>
             <version>${lwjgl.version}</version>
-	</dependency>
-	<dependency>
+        </dependency>
+        <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-jemalloc</artifactId>
             <version>${lwjgl.version}</version>
-	</dependency>
-	<dependency>
+        </dependency>
+        <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-openal</artifactId>
             <version>${lwjgl.version}</version>
-	</dependency>
-	<dependency>
+        </dependency>
+        <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-opengl</artifactId>
             <version>${lwjgl.version}</version>
-	</dependency>
-	<dependency>
+        </dependency>
+        <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-stb</artifactId>
             <version>${lwjgl.version}</version>
-	</dependency>
+        </dependency>
 
-	<dependency>
+        <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl</artifactId>
             <version>${lwjgl.version}</version>
             <classifier>${lwjgl.natives}</classifier>
             <scope>runtime</scope>
-	</dependency>
-	<dependency>
+        </dependency>
+        <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-glfw</artifactId>
             <version>${lwjgl.version}</version>
             <classifier>${lwjgl.natives}</classifier>
             <scope>runtime</scope>
-	</dependency>
-	<dependency>
+        </dependency>
+        <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-jemalloc</artifactId>
             <version>${lwjgl.version}</version>
             <classifier>${lwjgl.natives}</classifier>
             <scope>runtime</scope>
-	</dependency>
-	<dependency>
+        </dependency>
+        <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-openal</artifactId>
             <version>${lwjgl.version}</version>
             <classifier>${lwjgl.natives}</classifier>
             <scope>runtime</scope>
-	</dependency>
-	<dependency>
+        </dependency>
+        <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-stb</artifactId>
             <version>${lwjgl.version}</version>
             <classifier>${lwjgl.natives}</classifier>
             <scope>runtime</scope>
-	</dependency>
-	<!-- LWJGL dependencies END -->
+        </dependency>
+        <!-- LWJGL dependencies END -->
         <dependency>
             <groupId>org.l33tlabs.twl</groupId>
             <artifactId>pngdecoder</artifactId>
@@ -148,10 +148,11 @@
                 <version>1.1.8</version>
                 <configuration>
                     <targetClasses>
-                        <param>fi.riissanen.gwent.*</param>
+                        <param>fi.riissanen.gwent.game.cards.*</param>
+                        <param>fi.riissanen.gwent.game.combat.*</param>
                     </targetClasses>
                     <targetTests>
-                        <param>fi.riissanen.gwent.*</param>
+                        <param>fi.riissanen.gwent.game.*</param>
                     </targetTests>
                 </configuration>
             </plugin>

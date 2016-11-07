@@ -1,7 +1,6 @@
 package fi.riissanen.gwent.game;
 
 import fi.riissanen.gwent.engine.Engine;
-import fi.riissanen.gwent.engine.Logger.LogLevel;
 import fi.riissanen.gwent.game.cards.Card;
 import fi.riissanen.gwent.game.cards.Deck;
 import fi.riissanen.gwent.game.cards.Hand;
@@ -24,13 +23,11 @@ public class GameSystem {
     private Deck deck;
     private Hand hand;
 
-    public void initialize() {
+    public boolean initialize() {
         board = new GameBoard();
         deck = createDeck();
         hand = createHand(deck);
-        if (hand == null) {
-            Engine.INSTANCE.exit();
-        }
+        return hand != null;
     }
 
     /**
@@ -79,5 +76,23 @@ public class GameSystem {
         }
 
         return tempHand.validateStartingHand() ? tempHand : null;
+    }
+    
+    public void playCard(Hand hand, Card card, UnitType row, boolean friendly) {
+        if (!hand.removeCard(card)) {
+            return;
+        }
+        
+        if (card instanceof UnitCard) {
+            board.addUnit(((UnitCard) card).getUnit(), row, friendly);
+        }
+    }
+    
+    public GameBoard getBoard() {
+        return board;
+    }
+    
+    public Hand getHand() {
+        return hand;
     }
 }
