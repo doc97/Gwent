@@ -9,3 +9,6 @@ Day        | Hours | Description
 03.11.2016 | 1.5h  | Programming game logic
 03.11.2016 | 1.5h  | Programming unit tests
 04.11.2016 | 2.0h  | Programming game engine
+05.11.2016 | 1.0h  | Checkstyle
+07.11.2016 | 1.5h  | Unit tests and game logic
+11.11.2016 | 1.0h  | Class diagram and project planning

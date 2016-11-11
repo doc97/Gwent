@@ -32,12 +32,15 @@ Player in turn:
 ### Development ###
 
 #### Features ####
+Sources:
+http://www.ign.com/wikis/the-witcher-3-wild-hunt/Gwent_Card_Game
+http://witcher.wikia.com/wiki/Gwent
+
 - Card types
-    - Unit
+    - UnitType
         - Melee
         - Ranged
         - Siege
-    - Hero
     - Leader
     - Weather
 - Factions
@@ -45,7 +48,14 @@ Player in turn:
     - Nilfgaardian Empire
     - Monsters
 - Faction ability
-- Card abilities
+- Unit card abilities
+    - Agile
+    - Hero
+    - Medic
+    - Morale boost
+    - Muster
+    - Spy
+    - Tight bond
 - Game board (Combat rows)
 - Deck (minimum 22 cards, max 10 of them special)
 - Hand (starting with 10 cards)
