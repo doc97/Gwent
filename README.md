@@ -7,8 +7,9 @@ part of this project and will be kept up-to-date.
 ### Documentation ###
 - [Design document][2]
 - [Time usage][3]
+- Class Diagram:
 
-![Class Diagram](/documentation/Gwent Class Diagram.png)
+![Class Diagram](/documentation/Gwent Class Diagram.png "Class Diagram")
 
 ### Issues ###
 If you find any issues, please use the [Github issue tracker][4]
