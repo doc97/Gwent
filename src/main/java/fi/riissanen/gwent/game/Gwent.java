@@ -6,7 +6,7 @@ import fi.riissanen.gwent.engine.interfaces.Game;
  * 
  * @author Daniel
  */
-public class Gwent extends Game {
+public class Gwent implements Game {
 
     private GameSystem gameSys;
     
