@@ -31,6 +31,9 @@ Player in turn:
 ---
 ### Development ###
 
+#### Class Diagram ####
+![Class Diagram](/documentation/Gwent Class Diagram.png "Class Diagram")
+
 #### Features ####
 Sources:
 http://www.ign.com/wikis/the-witcher-3-wild-hunt/Gwent_Card_Game
