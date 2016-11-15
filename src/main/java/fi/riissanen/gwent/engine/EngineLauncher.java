@@ -1,7 +1,6 @@
 package fi.riissanen.gwent.engine;
 
 import fi.riissanen.gwent.engine.interfaces.Game;
-import static org.lwjgl.glfw.GLFW.glfwGetTime;
 
 /**
  * The launcher containing the main()-method

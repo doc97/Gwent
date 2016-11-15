@@ -1,6 +1,5 @@
 package fi.riissanen.gwent.game;
 
-import fi.riissanen.gwent.engine.Engine;
 import fi.riissanen.gwent.game.cards.Card;
 import fi.riissanen.gwent.game.cards.Deck;
 import fi.riissanen.gwent.game.cards.Hand;
