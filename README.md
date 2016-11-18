@@ -7,12 +7,16 @@ part of this project and will be kept up-to-date.
 ### Documentation ###
 - [Design document][2]
 - [Time usage][3]
+- [Pit report][4]
+- [Checkstyle report][5]
 
 ### Issues ###
-If you find any issues, please use the [Github issue tracker][4]
+If you find any issues, please use the [Github issue tracker][6]
 
 <!-- Links -->
 [1]: https://www.cs.helsinki.fi/home/
 [2]: documentation/aiheenKuvausJaRakenne.md
 [3]: documentation/tuntikirjanpito.md
-[4]: https://github.com/doc97/Gwent/issues?state=open
+[4]: https://htmlpreview.github.io/?https://github.com/doc97/Gwent/blob/master/documentation/pit-reports/201611111817/index.html
+[5]: https://htmlpreview.github.io/?https://github.com/doc97/Gwent/blob/master/documentation/checkstyle-reports/site/checkstyle.html 
+[6]: https://github.com/doc97/Gwent/issues?state=open
