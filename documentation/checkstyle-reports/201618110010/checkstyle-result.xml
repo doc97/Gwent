@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="6.11.2">
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\assets\Asset.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\assets\AssetLoader.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\assets\AssetManager.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\assets\AssetParams.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\assets\TextureLoader.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\DisplayManager.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\Engine.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\EngineLauncher.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\interfaces\Game.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\Logger.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\render\Color.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\render\ShaderProgram.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\render\SpriteBatch.java">
+<error line="1" severity="error" message="File length is 413 lines (max allowed is 200)." source="com.puppycrawl.tools.checkstyle.checks.sizes.FileLengthCheck"/>
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\render\Texture.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\cards\Card.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\cards\CardCollection.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\cards\Deck.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\cards\Hand.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\cards\UnitCard.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\combat\CombatRow.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\combat\GameBoard.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\combat\Unit.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\combat\UnitType.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\GameLauncher.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\GameSystem.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\Gwent.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\ui\Console.java">
+</file>
+</checkstyle>
