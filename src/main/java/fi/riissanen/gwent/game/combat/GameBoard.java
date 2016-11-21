@@ -85,7 +85,7 @@ public class GameBoard {
         return friendly ? friendlyRows : enemyRows;
     }
     
-    private CombatRow getRow(boolean friendly, UnitType row) {
+    public CombatRow getRow(boolean friendly, UnitType row) {
         return friendly ? friendlyRows[row.getIndex()] : enemyRows[row.getIndex()];
     }
 }

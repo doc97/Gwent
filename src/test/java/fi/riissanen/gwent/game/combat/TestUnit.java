@@ -23,7 +23,8 @@ public class TestUnit {
     
     @Test
     public void testSetStrength() {
-        unit.setStrength(2);
-        assertEquals(2, unit.getStrength());
+        unit.setBaseStrength(2);
+        unit.setEffectStrength(1);
+        assertEquals(3, unit.getStrength());
     }
 }

@@ -11,15 +11,20 @@ import java.util.List;
 public class Unit {
 
     private final EnumSet<UnitType> types;
-    private int strength;
+    private int baseStrength;
+    private int effectStrength;
 
     public Unit(List<UnitType> types, int strength) {
         this.types = EnumSet.copyOf(types);
-        this.strength = strength;
+        this.baseStrength = strength;
     }
 
-    public void setStrength(int strength) {
-        this.strength = strength;
+    public void setBaseStrength(int strength) {
+        this.baseStrength = strength;
+    }
+    
+    public void setEffectStrength(int effectStrength) {
+        this.effectStrength = effectStrength;
     }
 
     public EnumSet<UnitType> getTypes() {
@@ -35,7 +40,15 @@ public class Unit {
         return indices;
     }
     
+    public int getBaseStrength() {
+        return baseStrength;
+    }
+    
+    public int getEffectStrength() {
+        return effectStrength;
+    }
+    
     public int getStrength() {
-        return strength;
+        return baseStrength + effectStrength;
     }
 }
