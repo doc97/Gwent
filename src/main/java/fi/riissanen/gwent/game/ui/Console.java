@@ -3,7 +3,6 @@ package fi.riissanen.gwent.game.ui;
 import fi.riissanen.gwent.game.GameSystem;
 import fi.riissanen.gwent.game.cards.Card;
 import fi.riissanen.gwent.game.cards.UnitCard;
-import fi.riissanen.gwent.game.combat.UnitType;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,7 +19,7 @@ public class Console implements Runnable {
     private String input, cmd;
     private String[] args;
     private boolean running;
-    private String helpMsg = "COMMANDS\n"
+    private final String helpMsg = "COMMANDS\n"
                         + "-----------\n"
                         + "show_board - Shows info about the current board "
                         + "state\n"
@@ -120,7 +119,9 @@ public class Console implements Runnable {
                         if (indices.length == 1) {
                             rowIndex = indices[0];
                         } else if (indices.length > 1) {
-                            rowIndex = promptRowIndex(indices);
+                            do {
+                                rowIndex = promptRowIndex(indices);
+                            } while (!validateRowIndex(indices, rowIndex));
                         }
                         gameSys.playCard(rowIndex);
                     } else {
@@ -141,13 +142,25 @@ public class Console implements Runnable {
         }
     }
     
+    private boolean validateRowIndex(int[] indices, int index) {
+        for (int i = 0; i < indices.length; i++) {
+            if (indices[i] == index) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     private int promptRowIndex(int[] indices) {
         String availableRows = "";
         for (int i = 0; i < indices.length; i++) {
-            availableRows += " " + indices[i];
+            availableRows += "" + indices[i];
+            if (i < indices.length - 1) {
+                availableRows += ", ";
+            }
         }
 
-        System.out.println("Row (" + availableRows + " )?");
+        System.out.println("Row ( " + availableRows + " )?");
         reset();
         listen();
         return Integer.parseInt(input);

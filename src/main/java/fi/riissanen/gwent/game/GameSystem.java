@@ -42,11 +42,26 @@ public class GameSystem {
      */
     private Deck createDeck() {
         Deck tempDeck = new Deck();
-        List<UnitType> types = new ArrayList<>();
-        types.add(UnitType.MELEE);
-        Unit unit = new Unit(types, 2);
+        List<UnitType> mType = new ArrayList<>();
+        mType.add(UnitType.MELEE);
+        List<UnitType> rType = new ArrayList<>();
+        rType.add(UnitType.RANGED);
+        List<UnitType> aTypes = new ArrayList<>();
+        aTypes.add(UnitType.MELEE);
+        aTypes.add(UnitType.RANGED);
+        
+        Unit mUnit = new Unit(mType, 2);
+        Unit rUnit = new Unit(rType, 1);
+        Unit agile = new Unit(aTypes, 3);
+        
         for (int i = 0; i < Deck.MIN_CARDS; i++) {
-            tempDeck.addCard(new UnitCard(unit));
+            if (i < Deck.MIN_CARDS / 3) {
+                tempDeck.addCard(new UnitCard(mUnit));
+            } else if (i < Deck.MIN_CARDS / 2) {
+                tempDeck.addCard(new UnitCard(rUnit));
+            } else {
+                tempDeck.addCard(new UnitCard(agile));
+            }
         }
         return tempDeck.validate() ? tempDeck : null;
     }
