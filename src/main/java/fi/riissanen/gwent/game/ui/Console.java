@@ -2,7 +2,6 @@ package fi.riissanen.gwent.game.ui;
 
 import fi.riissanen.gwent.game.GameSystem;
 import fi.riissanen.gwent.game.cards.Card;
-import fi.riissanen.gwent.game.cards.Hand;
 import fi.riissanen.gwent.game.cards.UnitCard;
 import fi.riissanen.gwent.game.combat.UnitType;
 import java.io.BufferedReader;
@@ -21,6 +20,15 @@ public class Console implements Runnable {
     private String input, cmd;
     private String[] args;
     private boolean running;
+    private String helpMsg = "COMMANDS\n"
+                        + "-----------\n"
+                        + "show_board - Shows info about the current board "
+                        + "state\n"
+                        + "show_hand - Shows the cards in your hand\n"
+                        + "play_card [card index] - Plays a card"
+                        + "from your hand. \"card index\" is the index of the "
+                        + "card in your hand\n"
+                        + "help - Shows this message";
     
     public void start(GameSystem gameSys) {
         this.gameSys = gameSys;
@@ -76,7 +84,7 @@ public class Console implements Runnable {
      * [cmd] [args...]
      * show_hand = Prints out your current hand
      * show_board = Prints out the current board state
-     * play_unit [card] [row] = Plays a unit card on a specific row
+     * play_card [card] = Plays a card
      *
     */
     private void parse() {
@@ -93,30 +101,55 @@ public class Console implements Runnable {
         }
         switch (cmd) {
             case "show_hand" :
-                Hand currentHand = gameSys.getHand();
-                for (int i = 0; i < currentHand.getCardCount(); i++) {
-                    Card card = currentHand.getCard(i);
-                    if (card instanceof UnitCard) {
-                        int strength = ((UnitCard) card).getUnit().getStrength();
-                        System.out.println(i + " : " + strength);
-                    }
-                }
+                gameSys.getPlayer().handStatus();
                 break;
             case "show_board" :
-                int count = gameSys.getBoard().getUnitCount(true);
-                System.out.println("Friendly: " + count);
+                gameSys.getBoard().status();
                 break;
-            case "play_unit" :
+            case "play_card" :
                 int index = Integer.parseInt(args[0]);
-                int row = Integer.parseInt(args[1]);
-                Hand hand = gameSys.getHand();
-                Card card = hand.getCard(index);
-                gameSys.playCard(hand, card, UnitType.values()[row], true);
+                Card card = gameSys.getPlayer().getCard(index);
+                if (card != null) {
+                    gameSys.stageCard(card);
+                    if (card instanceof UnitCard) {
+                        int rowIndex = -1;
+                        int[] indices = ((UnitCard) card).getUnit().getTypeIndices();
+                        
+                        // If card is a UnitCard then it must have at least one
+                        // unit type
+                        if (indices.length == 1) {
+                            rowIndex = indices[0];
+                        } else if (indices.length > 1) {
+                            rowIndex = promptRowIndex(indices);
+                        }
+                        gameSys.playCard(rowIndex);
+                    } else {
+                        gameSys.unstageCard();
+                    }
+                } else {
+                    System.out.println(
+                            "Player does not have a card with index: " + index);
+                }
+                
+                break;
+            case "help" :
+                System.out.println(helpMsg);
                 break;
             default :
-                System.out.println("Invalid command");
+                System.out.println("Invalid command, try \"help\".");
                 break;
         }
-        
+    }
+    
+    private int promptRowIndex(int[] indices) {
+        String availableRows = "";
+        for (int i = 0; i < indices.length; i++) {
+            availableRows += " " + indices[i];
+        }
+
+        System.out.println("Row (" + availableRows + " )?");
+        reset();
+        listen();
+        return Integer.parseInt(input);
     }
 }

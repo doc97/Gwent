@@ -18,4 +18,9 @@ public class UnitCard implements Card {
     public Unit getUnit() {
         return unit;
     }
+    
+    @Override
+    public String toString() {
+        return "(" + unit.getStrength() + ")";
+    }
 }

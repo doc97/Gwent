@@ -1,5 +1,8 @@
 package fi.riissanen.gwent.game.combat;
 
+import fi.riissanen.gwent.engine.Engine;
+import fi.riissanen.gwent.engine.Logger.LogLevel;
+
 /**
  * A class representing the game board
  *
@@ -32,7 +35,30 @@ public class GameBoard {
         int index = type.getIndex();
         rows[index].addUnit(unit);
     }
+    
+    public void status() {
+        Engine.INSTANCE.log.write(LogLevel.INFO, "Board state");
+        
+        String rowName = "";
+        int strength = 0;
+        int rowCount = UnitType.values().length;
+        for (int i = 0; i < rowCount * 2; i++) {
+            boolean friendly = (i >= rowCount);
+            UnitType row = UnitType.values()[i % rowCount];
+            rowName = row.toString();
+            strength = getRowStrength(row, friendly);
+            Engine.INSTANCE.log.write(LogLevel.INFO, rowName + ": " + strength);
+            
+            if (i == rowCount - 1) {
+                Engine.INSTANCE.log.write(LogLevel.INFO, "---");
+            }
+        }
+    }
 
+    public int getRowStrength(UnitType row, boolean friendly) {
+        return getRow(friendly, row).getStrength();
+    }
+    
     public int getStrength(boolean friendly) {
         int sum = 0;
         for (CombatRow row : getRows(friendly)) {
@@ -57,5 +83,9 @@ public class GameBoard {
 
     private CombatRow[] getRows(boolean friendly) {
         return friendly ? friendlyRows : enemyRows;
+    }
+    
+    private CombatRow getRow(boolean friendly, UnitType row) {
+        return friendly ? friendlyRows[row.getIndex()] : enemyRows[row.getIndex()];
     }
 }

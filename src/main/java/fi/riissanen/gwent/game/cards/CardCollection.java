@@ -27,6 +27,10 @@ public abstract class CardCollection {
     public boolean removeCard(Card card) {
         return cards.remove(card);
     }
+    
+    public boolean containsCard(Card card) {
+        return cards.contains(card);
+    }
 
     public Card getCard(int index) {
         if (index < 0 || index >= cards.size()) {

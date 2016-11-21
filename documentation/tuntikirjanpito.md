@@ -12,3 +12,5 @@ Day        | Hours | Description
 05.11.2016 | 1.0h  | Checkstyle
 07.11.2016 | 1.5h  | Unit tests and game logic
 11.11.2016 | 1.0h  | Class diagram and project planning
+18.11.2016 | 2.5h  | Design game and programming console
+21.11.2016 | 1.0h  | Programming game logic
