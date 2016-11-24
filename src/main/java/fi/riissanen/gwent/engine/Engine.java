@@ -1,6 +1,7 @@
 package fi.riissanen.gwent.engine;
 
 import fi.riissanen.gwent.engine.Logger.LogLevel;
+import fi.riissanen.gwent.engine.files.FileUtils;
 import fi.riissanen.gwent.engine.render.SpriteBatch;
 import static org.lwjgl.glfw.GLFW.glfwGetTime;
 import static org.lwjgl.opengl.GL11.GL_BLEND;
@@ -21,6 +22,7 @@ public enum Engine {
     public final DisplayManager display = new DisplayManager();
     public SpriteBatch batch;
     public Logger log;
+    public FileUtils files;
     public double frameTime;
 
     public void initialize() {
@@ -33,6 +35,7 @@ public enum Engine {
 
         batch = new SpriteBatch();
         log = new Logger();
+        files = new FileUtils();
         
         // We are not using depth for 2D
         glDisable(GL_DEPTH_TEST);

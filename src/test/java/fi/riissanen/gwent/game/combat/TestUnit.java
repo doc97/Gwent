@@ -1,7 +1,5 @@
 package fi.riissanen.gwent.game.combat;
 
-import java.util.ArrayList;
-import java.util.List;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,9 +14,8 @@ public class TestUnit {
     
     @Before
     public void init() {
-        List<UnitType> types = new ArrayList<>();
-        types.add(UnitType.MELEE);
-        unit = new Unit(types, 1);
+        unit = new Unit("", "");
+        unit.setUnitType(UnitType.MELEE);
     }
     
     @Test

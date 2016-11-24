@@ -1,8 +1,5 @@
 package fi.riissanen.gwent.game.combat;
 
-import fi.riissanen.gwent.game.combat.UnitType;
-import fi.riissanen.gwent.game.combat.Unit;
-import fi.riissanen.gwent.game.combat.CombatRow;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
@@ -27,7 +24,7 @@ public class TestCombatRow {
     public void testAddUnitNotNull() {
         List<UnitType> types = new ArrayList<>();
         types.add(UnitType.MELEE);
-        row.addUnit(new Unit(types, 1));
+        row.addUnit(new Unit("", ""));
         int count = row.getUnitCount();
         assertEquals(count, 1);
     }

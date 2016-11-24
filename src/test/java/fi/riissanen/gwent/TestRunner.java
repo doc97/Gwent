@@ -4,7 +4,6 @@ import fi.riissanen.gwent.game.TestGameSystem;
 import fi.riissanen.gwent.game.cards.TestCardCollection;
 import fi.riissanen.gwent.game.cards.TestDeck;
 import fi.riissanen.gwent.game.cards.TestHand;
-import fi.riissanen.gwent.game.cards.TestUnitCard;
 import fi.riissanen.gwent.game.combat.TestCombatRow;
 import fi.riissanen.gwent.game.combat.TestGameBoard;
 import fi.riissanen.gwent.game.combat.TestUnit;
@@ -27,7 +26,6 @@ public class TestRunner {
             TestCardCollection.class,
             TestDeck.class,
             TestHand.class,
-            TestUnitCard.class,
             TestUnitType.class,
             TestUnit.class,
             TestGameSystem.class

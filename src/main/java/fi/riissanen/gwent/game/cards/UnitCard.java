@@ -8,7 +8,7 @@ import fi.riissanen.gwent.game.combat.Unit;
  * @author Daniel
  */
 public class UnitCard implements Card {
-
+    
     private final Unit unit;
 
     public UnitCard(Unit unit) {
@@ -21,6 +21,6 @@ public class UnitCard implements Card {
     
     @Override
     public String toString() {
-        return "(" + unit.getStrength() + ")";
+        return unit.getName() + " - <" + unit.getStrength() + ">";
     }
 }

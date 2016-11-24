@@ -1,8 +1,5 @@
 package fi.riissanen.gwent.game.combat;
 
-import fi.riissanen.gwent.game.combat.GameBoard;
-import fi.riissanen.gwent.game.combat.UnitType;
-import fi.riissanen.gwent.game.combat.Unit;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.*;
@@ -23,9 +20,8 @@ public class TestGameBoard {
     
     @Test
     public void testAddUnitInvalidUnitType() {
-        List<UnitType> types = new ArrayList<>();
-        types.add(UnitType.MELEE);
-        Unit unit = new Unit(types, 1);
+        Unit unit = new Unit("", "");
+        unit.setUnitType(UnitType.MELEE);
         exception.expect(IllegalArgumentException.class);
         board.addUnit(unit, UnitType.RANGED, true);
     }
@@ -39,9 +35,8 @@ public class TestGameBoard {
     
     @Test
     public void testAddUnitNullUnitType() {
-        List<UnitType> types = new ArrayList<>();
-        types.add(UnitType.MELEE);
-        Unit unit = new Unit(types, 1);
+        Unit unit = new Unit("", "");
+        unit.setUnitType(UnitType.MELEE);
         
         try {
             board.addUnit(unit, null, true);
@@ -59,7 +54,9 @@ public class TestGameBoard {
         types.add(UnitType.MELEE);
         types.add(UnitType.RANGED);
         int assertedStrength = 5;
-        Unit unit = new Unit(types, assertedStrength);
+        Unit unit = new Unit("", "");
+        unit.setBaseStrength(assertedStrength);
+        unit.setUnitTypes(types);
         board.addUnit(unit, UnitType.MELEE, true);
         int strength = board.getStrength(true);
         assertEquals(strength, assertedStrength);
@@ -67,15 +64,16 @@ public class TestGameBoard {
     
     @Test
     public void testAddTwoUnits() {
-        List<UnitType> types = new ArrayList<>();
-        types.add(UnitType.MELEE);
-        types.add(UnitType.RANGED);
         int assertedStrength1 = 5;
         int assertedStrength2 = 3;
-        Unit unit1 = new Unit(types, assertedStrength1);
-        Unit unit2 = new Unit(types, assertedStrength2);
-        board.addUnit(unit1, types.get(0), true);
-        board.addUnit(unit2, types.get(0), true);
+        Unit unit1 = new Unit("", "");
+        Unit unit2 = new Unit("", "");
+        unit1.setBaseStrength(assertedStrength1);
+        unit2.setBaseStrength(assertedStrength2);
+        unit1.setUnitType(UnitType.MELEE);
+        unit2.setUnitType(UnitType.RANGED);
+        board.addUnit(unit1, UnitType.MELEE, true);
+        board.addUnit(unit2, UnitType.RANGED, true);
         int strength = board.getStrength(true);
         assertEquals(strength, assertedStrength1 + assertedStrength2);
     }

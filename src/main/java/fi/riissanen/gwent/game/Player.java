@@ -7,6 +7,7 @@ import fi.riissanen.gwent.game.cards.Card;
 import fi.riissanen.gwent.game.cards.Deck;
 import fi.riissanen.gwent.game.cards.Hand;
 import fi.riissanen.gwent.game.cards.UnitCard;
+import fi.riissanen.gwent.game.combat.Unit;
 import java.util.Random;
 
 /**
@@ -68,9 +69,9 @@ public class Player {
         for (int i = 0; i < hand.getCardCount(); i++) {
             Card card = hand.getCard(i);
             if (card instanceof UnitCard) {
-                int strength = ((UnitCard) card).getUnit().getStrength();
+                Unit unit = ((UnitCard) card).getUnit();
                 Engine.INSTANCE.log.write(LogLevel.INFO,
-                        "[" + i + "]: " + strength);
+                        "[" + i + "]: " + unit.toString());
             }
         }
     }

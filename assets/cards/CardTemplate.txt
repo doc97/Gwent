@@ -1,0 +1,10 @@
+Name=(String)
+Description=(String)
+Type=[ Unit, Weather, Leader, Special ]
+Abilities=(Comma-separated string)
+#if unit
+Strength=[ 0 - 10 ]
+Attributes=(Comma-separated string)
+UnitType=[ Melee, Ranged, Siege ]
+#endif
+

@@ -40,7 +40,9 @@ public class Console implements Runnable {
     
     public void stop() {
         running = false;
-        thread.interrupt();
+        if (thread != null && thread.isAlive()) {
+            thread.interrupt();
+        }
     }
     
     @Override

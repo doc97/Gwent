@@ -1,0 +1,18 @@
+Name=TestCard
+Description=This card is for testing purposes
+
+# Unit/Weather/Leader/Special
+Type=Unit
+
+# Medic/Morale boost/Muster/Tight bond
+Abilities=Medic
+
+Strength=1
+
+# Agile/Hero/Spy
+Attributes=Hero,Spy
+
+# Melee/Ranged/Siege
+UnitType=Ranged
+
+
