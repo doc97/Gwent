@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="6.11.2">
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\assets\Asset.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\assets\AssetLoader.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\assets\AssetManager.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\assets\AssetParams.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\assets\TextureLoader.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\DisplayManager.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\Engine.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\EngineLauncher.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\files\FileUtils.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\interfaces\Game.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\Logger.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\render\Color.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\render\ShaderProgram.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\render\SpriteBatch.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\engine\render\Texture.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\cards\abilities\Ability.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\cards\abilities\Medic.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\cards\abilities\MoraleBoost.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\cards\abilities\Muster.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\cards\abilities\TightBond.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\cards\abilities\UnitAbility.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\cards\attributes\Agile.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\cards\attributes\Attribute.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\cards\attributes\Hero.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\cards\attributes\Spy.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\cards\Card.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\cards\CardCollection.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\cards\CardType.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\cards\Deck.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\cards\factories\CardData.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\cards\factories\CardFactory.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\cards\factories\CardLoader.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\cards\factories\UnitCardFactory.java">
+<error line="74" column="49" severity="error" message="&apos;{&apos; is not followed by whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="74" column="49" severity="error" message="&apos;}&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\cards\Hand.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\cards\neutral\WeatherCard.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\cards\UnitCard.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\combat\CombatRow.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\combat\GameBoard.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\combat\Unit.java">
+<error line="80" severity="error" message="&apos;if&apos; child have incorrect indentation level 11, expected level should be 12." source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\combat\UnitType.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\events\CardPlayedEvent.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\events\Event.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\events\EventListener.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\events\EventSystem.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\events\MatchStartEvent.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\events\RoundEndEvent.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\events\StateChangeEvent.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\factions\Faction.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\factions\Monsters.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\factions\NilfgaardianEmpire.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\factions\NorthernKingdoms.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\factions\Scoiatael.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\GameLauncher.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\GameSystem.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\Gwent.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\MatchManager.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\Player.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\states\ChooseStartingPlayerState.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\states\DiscardPileState.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\states\GameState.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\states\GameStateAdapter.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\states\GameStates.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\states\GameStateSystem.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\states\HandState.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\states\RedrawState.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\states\StageState.java">
+</file>
+<file name="C:\Users\Daniel\Documents\NetBeansProjects\Gwent\src\main\java\fi\riissanen\gwent\game\ui\Console.java">
+</file>
+</checkstyle>
