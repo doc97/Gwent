@@ -27,8 +27,11 @@ public class EventSystem {
     }
     
     private void handleEvent(Event event) {
-        for (EventListener listener : listeners.get(event.getClass())) {
-            listener.process(event);
+        List<EventListener> eventListeners = listeners.get(event.getClass());
+        if (eventListeners != null) {
+            for (EventListener listener : eventListeners) {
+                listener.process(event);
+            }
         }
     }
     

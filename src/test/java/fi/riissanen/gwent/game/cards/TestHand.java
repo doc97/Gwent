@@ -1,5 +1,6 @@
 package fi.riissanen.gwent.game.cards;
 
+import fi.riissanen.gwent.game.Player;
 import fi.riissanen.gwent.game.cards.abilities.Ability;
 import java.util.List;
 import static org.junit.Assert.assertFalse;
@@ -26,6 +27,8 @@ public class TestHand {
                 public String getName() { return ""; }
                 @Override
                 public List<Ability> getAbilities() { return null; }
+                @Override
+                public Player getOwner() { return null; }
             });
         }
         assertTrue(hand.validateStartingHand());

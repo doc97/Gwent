@@ -10,8 +10,8 @@ import fi.riissanen.gwent.game.combat.Unit;
 import fi.riissanen.gwent.game.combat.UnitType;
 import fi.riissanen.gwent.game.events.CardPlayedEvent;
 import fi.riissanen.gwent.game.states.GameStateSystem;
+import static fi.riissanen.gwent.game.states.GameStates.CHOOSE_STARTING_PLAYER_STATE;
 import static fi.riissanen.gwent.game.states.GameStates.HAND_STATE;
-import static fi.riissanen.gwent.game.states.GameStates.REDRAW_STATE;
 import static fi.riissanen.gwent.game.states.GameStates.STAGE_STATE;
 
 /**
@@ -22,36 +22,55 @@ import static fi.riissanen.gwent.game.states.GameStates.STAGE_STATE;
 public class GameSystem {
 
     private GameStateSystem stateSystem;
+    private MatchManager matchManager;
     private GameBoard board;
-    private Player player;
+    private Player friendly;
+    private Player enemy;
     private Card stagedCard;
     private final Gwent game;
     
     public GameSystem(Gwent game) {
         this.game = game;
     }
-
-    public void initialize(Player player) {
-        this.player = player;
-        this.player.drawCards(10);
-        this.player.setInTurn(true);
+    
+    public void initialize(Player friendly, Player enemy) {
+        this.friendly = friendly;
+        this.enemy = enemy;
+        this.friendly.drawCards(10);
+        this.enemy.drawCards(10);
         board = new GameBoard();
         stateSystem = new GameStateSystem(game);
-        stateSystem.next(HAND_STATE);
-        stateSystem.next(REDRAW_STATE);
+        matchManager = new MatchManager();
+        
+        stateSystem.initialize();
+        stateSystem.push(HAND_STATE);
+        stateSystem.push(CHOOSE_STARTING_PLAYER_STATE);
+    }
+    
+    public void setPlayerInTurn(boolean friendlyInTurn) {
+        if (stateSystem.isCurrentState(CHOOSE_STARTING_PLAYER_STATE)) {
+            friendly.setInTurn(friendlyInTurn);
+            enemy.setInTurn(!friendlyInTurn);
+            stateSystem.pop();
+        }
+    }
+    
+    public void switchTurn() {
+        friendly.setInTurn(!friendly.isInTurn());
+        enemy.setInTurn(!enemy.isInTurn());
     }
     
     public void stageCard(Card card) {
         if (card != null) {
             stagedCard = card;
-            stateSystem.next(STAGE_STATE);
+            stateSystem.push(STAGE_STATE);
         }
     }
     
     public void unstageCard() {
         stagedCard = null;
         if (stateSystem.isCurrentState(STAGE_STATE)) {
-            stateSystem.previous();
+            stateSystem.pop();
         }
     }
     
@@ -69,14 +88,16 @@ public class GameSystem {
             Unit unit = card.getUnit();
             UnitType row = UnitType.values()[rowIndex];
             board.addUnit(unit, row, unit.isFriendly());
-            player.removeCardFromHand(stagedCard);
+            friendly.removeCardFromHand(stagedCard);
         }
         
         for (Ability ability : stagedCard.getAbilities()) {
             ability.activate(this);
         }
         
-        game.getEventSystem().register(new CardPlayedEvent(stagedCard));
+        if (game != null && game.getEventSystem() != null) {
+            game.getEventSystem().register(new CardPlayedEvent(stagedCard));
+        }
         unstageCard();
         return true;
     }
@@ -94,11 +115,19 @@ public class GameSystem {
         return stateSystem;
     }
     
+    public MatchManager getMatchManager() {
+        return matchManager;
+    }
+    
     public GameBoard getBoard() {
         return board;
     }
     
-    public Player getPlayer() {
-        return player;
+    public Player getFriendlyPlayer() {
+        return friendly;
+    }
+    
+    public Player getEnemyPlayer() {
+        return enemy;
     }
 }

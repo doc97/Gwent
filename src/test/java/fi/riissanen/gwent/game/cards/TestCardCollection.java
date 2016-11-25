@@ -1,5 +1,6 @@
 package fi.riissanen.gwent.game.cards;
 
+import fi.riissanen.gwent.game.Player;
 import fi.riissanen.gwent.game.cards.abilities.Ability;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,8 @@ public class TestCardCollection {
             public String getName() { return ""; }
             @Override
             public List<Ability> getAbilities() { return null; }
+            @Override
+            public Player getOwner() { return null; }
         });
         int count = collection.getCardCount();
         assertEquals(count, 1);
@@ -43,6 +46,8 @@ public class TestCardCollection {
             public String getName() { return ""; }
             @Override
             public List<Ability> getAbilities() { return null; }
+            @Override
+            public Player getOwner() { return null; }
         });
         collection.addCards(cards);
         assertEquals(collection.getCardCount(), 1);
@@ -66,6 +71,8 @@ public class TestCardCollection {
             public String getName() { return ""; }
             @Override
             public List<Ability> getAbilities() { return null; }
+            @Override
+            public Player getOwner() { return null; }
         });
         Card card = collection.getCard(0);
         assertNotNull(card);

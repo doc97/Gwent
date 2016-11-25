@@ -1,5 +1,6 @@
 package fi.riissanen.gwent.game.cards.neutral;
 
+import fi.riissanen.gwent.game.Player;
 import fi.riissanen.gwent.game.cards.Card;
 import fi.riissanen.gwent.game.cards.abilities.Ability;
 import fi.riissanen.gwent.game.combat.CombatRow;
@@ -15,6 +16,7 @@ import java.util.List;
  */
 public class WeatherCard implements Card {
 
+    private Player owner;
     private final List<Ability> abilities = new ArrayList<>();
     private final UnitType row;
     private final String name;
@@ -22,6 +24,10 @@ public class WeatherCard implements Card {
     public WeatherCard(String name, UnitType row) {
         this.name = name;
         this.row = row;
+    }
+    
+    public void setOwner(Player owner) {
+        this.owner = owner;
     }
     
     public void activate(GameBoard board) {
@@ -38,6 +44,11 @@ public class WeatherCard implements Card {
     @Override
     public List<Ability> getAbilities() {
         return abilities;
+    }
+    
+    @Override
+    public Player getOwner() {
+        return owner;
     }
     
     @Override

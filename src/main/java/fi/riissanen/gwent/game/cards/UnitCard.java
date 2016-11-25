@@ -1,5 +1,6 @@
 package fi.riissanen.gwent.game.cards;
 
+import fi.riissanen.gwent.game.Player;
 import fi.riissanen.gwent.game.cards.abilities.Ability;
 import fi.riissanen.gwent.game.combat.Unit;
 import java.util.List;
@@ -11,11 +12,15 @@ import java.util.List;
  */
 public class UnitCard implements Card {
     
-    
+    private Player player;
     private final Unit unit;
 
     public UnitCard(Unit unit) {
         this.unit = unit;
+    }
+    
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
     public Unit getUnit() {
@@ -25,6 +30,11 @@ public class UnitCard implements Card {
     @Override
     public List<Ability> getAbilities() {
         return unit.getAbilities();
+    }
+    
+    @Override
+    public Player getOwner() {
+        return player;
     }
     
     @Override

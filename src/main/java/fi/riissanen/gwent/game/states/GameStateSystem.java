@@ -22,12 +22,16 @@ public class GameStateSystem {
     }
     
     public void initialize() {
+        if (game != null && game.getGameSystem() != null) {
+            states.put(CHOOSE_STARTING_PLAYER_STATE, new ChooseStartingPlayerState(game.getGameSystem()));
+        }
+        states.put(REDRAW_STATE, new RedrawState());
         states.put(HAND_STATE, new HandState());
         states.put(STAGE_STATE, new StageState());
         states.put(DISCARD_PILE_STATE, new DiscardPileState());
     }
     
-    public void next(GameStates stateKey) {
+    public void push(GameStates stateKey) {
         GameState oldState = null;
         GameState nextState = states.get(stateKey);
         if (stack.contains(nextState)) {
@@ -42,16 +46,21 @@ public class GameStateSystem {
         if (nextState != null) {
             stack.push(nextState).enter();
         }
-        
-        game.getEventSystem().register(new StateChangeEvent(oldState, nextState));
+        if (game != null && game.getEventSystem() != null) {
+            game.getEventSystem().register(new StateChangeEvent(oldState, nextState));
+        }
     }
     
-    public void previous() {
-        GameState oldState = stack.pop();
-        GameState newState = stack.peek();
-        oldState.exit();
-        newState.enter();
-        game.getEventSystem().register(new StateChangeEvent(oldState, newState));
+    public void pop() {
+        if (stack.size() > 1) {
+            GameState oldState = stack.pop();
+            GameState newState = stack.peek();
+            oldState.exit();
+            newState.enter();
+            if (game != null && game.getEventSystem() != null) {
+                game.getEventSystem().register(new StateChangeEvent(oldState, newState));
+            }
+        }
     }
     
     public GameState getCurrentState() {

@@ -23,7 +23,7 @@ public class Muster implements Ability, UnitAbility {
     
     @Override
     public void activate(GameSystem system) {
-        Player player = system.getPlayer();
+        Player player = card.getOwner();
         GameBoard board = system.getBoard();
         int rowIndex = board.getRowIndex(board.getRow(getUnit()));
         List<Card> cards = player.getDeckCardsByName(getUnit().getName());

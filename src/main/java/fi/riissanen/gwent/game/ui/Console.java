@@ -102,14 +102,19 @@ public class Console implements Runnable {
         }
         switch (cmd) {
             case "show_hand" :
-                gameSys.getPlayer().handStatus();
+                gameSys.getFriendlyPlayer().handStatus();
                 break;
             case "show_board" :
                 gameSys.getBoard().status();
                 break;
             case "play_card" :
+                if (!gameSys.getFriendlyPlayer().isInTurn()) {
+                    System.out.println("Not players turn!");
+                    break;
+                }
+                
                 int index = Integer.parseInt(args[0]);
-                Card card = gameSys.getPlayer().getCard(index);
+                Card card = gameSys.getFriendlyPlayer().getCard(index);
                 if (card != null) {
                     gameSys.stageCard(card);
                     if (card instanceof UnitCard) {

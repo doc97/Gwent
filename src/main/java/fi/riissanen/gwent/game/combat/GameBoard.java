@@ -2,9 +2,9 @@ package fi.riissanen.gwent.game.combat;
 
 import fi.riissanen.gwent.engine.Engine;
 import fi.riissanen.gwent.engine.Logger.LogLevel;
-import fi.riissanen.gwent.game.cards.Card;
 import fi.riissanen.gwent.game.cards.neutral.WeatherCard;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -16,8 +16,8 @@ public class GameBoard {
 
     private final CombatRow[] friendlyRows;
     private final CombatRow[] enemyRows;
-    private final List<Card> discardPile;
     private final List<WeatherCard> weatherPile;
+    private final List<Unit> savedUnits;
 
     public GameBoard() {
         friendlyRows = new CombatRow[]{
@@ -26,8 +26,8 @@ public class GameBoard {
         enemyRows = new CombatRow[]{
             new CombatRow(), new CombatRow(), new CombatRow()
         };
-        discardPile = new ArrayList<>();
         weatherPile = new ArrayList<>();
+        savedUnits = new ArrayList<>();
     }
 
     public void addUnit(Unit unit, UnitType type, boolean isFriendly) {
@@ -44,21 +44,33 @@ public class GameBoard {
         rows[index].addUnit(unit);
     }
     
-    public void discardCard(Card card) {
-        discardPile.add(card);
-    }
     
-    public boolean popDiscardCard(Card card) {
-        return discardPile.remove(card);
-    }
     
     public void addWeatherCard(WeatherCard weather) {
         weatherPile.add(weather);
     }
     
     public void clearWeather() {
-        discardPile.addAll(weatherPile);
+        for (WeatherCard card : weatherPile) {
+            card.getOwner().discardCard(card);
+        }
         weatherPile.clear();
+    }
+    
+    public void clearRows() {
+        for (CombatRow row : getRows(true)) {
+            for (Iterator<Unit> it = row.getUnits().iterator(); it.hasNext();) {
+                Unit unit = it.next();
+                if (!savedUnits.contains(unit)) {
+                    it.remove();
+                }
+            }
+        }
+        savedUnits.clear();
+    }
+    
+    public void saveUnit(Unit u) {
+        savedUnits.add(u);
     }
     
     public void status() {
@@ -106,7 +118,7 @@ public class GameBoard {
         return friendlyCount + enemyCount;
     }
 
-    private CombatRow[] getRows(boolean friendly) {
+    public CombatRow[] getRows(boolean friendly) {
         return friendly ? friendlyRows : enemyRows;
     }
     
@@ -133,6 +145,4 @@ public class GameBoard {
         }
         return -1;
     }
-    
-    
 }
