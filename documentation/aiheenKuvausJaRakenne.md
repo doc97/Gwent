@@ -36,29 +36,34 @@ Player in turn:
 
 #### Features ####
 Sources:
+
 http://www.ign.com/wikis/the-witcher-3-wild-hunt/Gwent_Card_Game
+
 http://witcher.wikia.com/wiki/Gwent
 
 - Card types
-    - UnitType
+    - Unit card
         - Melee
         - Ranged
         - Siege
-    - Leader
-    - Weather
+    - Special card
+        - Weather
+        - Other
+    - Leader card
 - Factions
     - Northern Realms
     - Nilfgaardian Empire
     - Monsters
 - Faction ability
+- Unit card attributes
+    - Agile: Is both melee and ranged
+    - Hero: Immune against abilities and special cards
 - Unit card abilities
-    - Agile
-    - Hero
-    - Medic
-    - Morale boost
-    - Muster
-    - Spy
-    - Tight bond
+    - Medic: Choose a unit card from the discard pile and play it instantly
+    - Morale boost: Increase strength of all units in a row by one (exclude themselves)
+    - Muster: Play all cards with the same name from the deck
+    - Spy: Is played on the enemy battlefield, adds to enemy strength, but you draw 2 cards
+    - Tight bond: Doubles the strength of units in the same row with the same name
 - Game board (Combat rows)
 - Deck (minimum 22 cards, max 10 of them special)
 - Hand (starting with 10 cards)
@@ -74,14 +79,15 @@ http://witcher.wikia.com/wiki/Gwent
 - [x] Card
 
 #### 2nd Iteration (Deadline 18.11.2016) ####
-- [ ] Card types
-- [ ] Card abilities
-- [ ] Neutral cards (Weather cards)
-- [ ] Game system (Playable for 1)
+- [x] Card types
+- [x] Card abilities
+- [x] Card attributes
+- [x] Neutral cards (Weather cards)
+- [x] Game system (Playable for 1)
 
 #### 3rd Iteration (Deadline 25.11.2016) ####
-- [ ] Factions
-- [ ] Faction ability
+- [x] Factions
+- [x] Faction ability
 - [ ] Faction specific cards
 
 #### 4th Iteration (Deadline 2.12.2016) ####

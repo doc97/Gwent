@@ -13,4 +13,8 @@ Day        | Hours | Description
 07.11.2016 | 1.5h  | Unit tests and game logic
 11.11.2016 | 1.0h  | Class diagram and project planning
 18.11.2016 | 2.5h  | Design game and programming console
-21.11.2016 | 1.0h  | Programming game logic
+21.11.2016 | 2.0h  | Programming game logic
+22.11.2016 | 3.5h  | Programming card loading
+22.11.2016 | 1.5h  | Programming card abilities
+24.11.2016 | 1.0h  | Programming game logic
+25.11.2016 | 12.0h | Programming features and game architecture
