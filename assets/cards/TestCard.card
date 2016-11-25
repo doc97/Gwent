@@ -5,12 +5,12 @@ Description=This card is for testing purposes
 Type=Unit
 
 # Medic/Morale boost/Muster/Tight bond
-Abilities=Medic
+Abilities=Morale boost
 
 Strength=1
 
 # Agile/Hero/Spy
-Attributes=Hero,Spy
+Attributes=
 
 # Melee/Ranged/Siege
 UnitType=Ranged

@@ -2,6 +2,10 @@ package fi.riissanen.gwent.game.combat;
 
 import fi.riissanen.gwent.engine.Engine;
 import fi.riissanen.gwent.engine.Logger.LogLevel;
+import fi.riissanen.gwent.game.cards.Card;
+import fi.riissanen.gwent.game.cards.neutral.WeatherCard;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A class representing the game board
@@ -12,6 +16,8 @@ public class GameBoard {
 
     private final CombatRow[] friendlyRows;
     private final CombatRow[] enemyRows;
+    private final List<Card> discardPile;
+    private final List<WeatherCard> weatherPile;
 
     public GameBoard() {
         friendlyRows = new CombatRow[]{
@@ -20,6 +26,8 @@ public class GameBoard {
         enemyRows = new CombatRow[]{
             new CombatRow(), new CombatRow(), new CombatRow()
         };
+        discardPile = new ArrayList<>();
+        weatherPile = new ArrayList<>();
     }
 
     public void addUnit(Unit unit, UnitType type, boolean isFriendly) {
@@ -34,6 +42,23 @@ public class GameBoard {
         CombatRow[] rows = getRows(isFriendly);
         int index = type.getIndex();
         rows[index].addUnit(unit);
+    }
+    
+    public void discardCard(Card card) {
+        discardPile.add(card);
+    }
+    
+    public boolean popDiscardCard(Card card) {
+        return discardPile.remove(card);
+    }
+    
+    public void addWeatherCard(WeatherCard weather) {
+        weatherPile.add(weather);
+    }
+    
+    public void clearWeather() {
+        discardPile.addAll(weatherPile);
+        weatherPile.clear();
     }
     
     public void status() {
@@ -88,4 +113,26 @@ public class GameBoard {
     public CombatRow getRow(boolean friendly, UnitType row) {
         return friendly ? friendlyRows[row.getIndex()] : enemyRows[row.getIndex()];
     }
+    
+    public CombatRow getRow(Unit unit) {
+        for (CombatRow row : getRows(unit.isFriendly())) {
+            if (row.hasUnit(unit)) {
+                return row;
+            }
+        }
+        return null;
+    }
+    
+    public int getRowIndex(CombatRow row) {
+        CombatRow[] fRows = getRows(true);
+        CombatRow[] eRows = getRows(false);
+        for (int i = 0; i < fRows.length; i++) {
+            if (fRows[i].equals(row) || eRows[i].equals(row)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    
 }

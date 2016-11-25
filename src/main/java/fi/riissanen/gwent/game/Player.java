@@ -8,6 +8,8 @@ import fi.riissanen.gwent.game.cards.Deck;
 import fi.riissanen.gwent.game.cards.Hand;
 import fi.riissanen.gwent.game.cards.UnitCard;
 import fi.riissanen.gwent.game.combat.Unit;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -31,6 +33,10 @@ public class Player {
         hand.removeCard(card);
     }
     
+    public void removeCardFromDeck(Card card) {
+        deck.removeCard(card);
+    }
+    
     public void setInTurn(boolean turn) {
         inTurn = turn;
     }
@@ -49,6 +55,17 @@ public class Player {
             deck.removeCard(card);
             hand.addCard(card);
         }
+    }
+    
+    public List<Card> getDeckCardsByName(String name) {
+        List<Card> nameCards = new ArrayList<>();
+        for (int i = 0; i < deck.getCardCount(); i++) {
+            Card card = deck.getCard(i);
+            if (card.getName().equals(name)) {
+                nameCards.add(card);
+            }
+        }
+        return nameCards;
     }
     
     public void redrawCard(Card card) {

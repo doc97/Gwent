@@ -138,9 +138,13 @@ public class CardLoader extends AssetLoader {
     }
     
     private boolean validateAbilities(String abilityStr) {
-        String[] attribs = abilityStr.split(",");
-        for (String attrib : attribs) {
-            if (!ABILITIES.contains(attrib)) {
+        if (abilityStr.equals("")) {
+            return true;
+        }
+        
+        String[] abilities = abilityStr.split(",");
+        for (String ability : abilities) {
+            if (!ABILITIES.contains(ability)) {
                 return false;
             }
         }
@@ -163,6 +167,10 @@ public class CardLoader extends AssetLoader {
     }
     
     private boolean validateAttributes(String attribStr) {
+        if (attribStr.equals("")) {
+            return true;
+        }
+        
         String[] attribs = attribStr.split(",");
         for (String attrib : attribs) {
             if (!ATTRIBUTES.contains(attrib)) {

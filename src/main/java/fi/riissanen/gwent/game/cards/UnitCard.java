@@ -1,6 +1,8 @@
 package fi.riissanen.gwent.game.cards;
 
+import fi.riissanen.gwent.game.cards.abilities.Ability;
 import fi.riissanen.gwent.game.combat.Unit;
+import java.util.List;
 
 /**
  * A {@link Card} that contains a unit
@@ -8,6 +10,7 @@ import fi.riissanen.gwent.game.combat.Unit;
  * @author Daniel
  */
 public class UnitCard implements Card {
+    
     
     private final Unit unit;
 
@@ -20,7 +23,17 @@ public class UnitCard implements Card {
     }
     
     @Override
+    public List<Ability> getAbilities() {
+        return unit.getAbilities();
+    }
+    
+    @Override
+    public String getName() {
+        return unit.getName();
+    }
+    
+    @Override
     public String toString() {
-        return unit.getName() + " - <" + unit.getStrength() + ">";
+        return getName() + " - <" + unit.getStrength() + ">";
     }
 }

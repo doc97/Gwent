@@ -1,5 +1,7 @@
 package fi.riissanen.gwent.game.cards;
 
+import fi.riissanen.gwent.game.cards.abilities.Ability;
+import java.util.List;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -19,7 +21,12 @@ public class TestDeck {
     @Test
     public void testValidateOK() {
         for (int i = 0; i < Deck.MIN_CARDS; i++) {
-            deck.addCard(new Card() {});
+            deck.addCard(new Card() {
+                @Override
+                public String getName() { return ""; }
+                @Override
+                public List<Ability> getAbilities() { return null; }
+            });
         }
         assertTrue(deck.validate());
     }

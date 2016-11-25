@@ -1,5 +1,6 @@
 package fi.riissanen.gwent.game.combat;
 
+import fi.riissanen.gwent.game.cards.Card;
 import fi.riissanen.gwent.game.cards.abilities.Ability;
 import fi.riissanen.gwent.game.cards.attributes.Attribute;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.List;
  */
 public class Unit {
 
+    private Card card;
     private final List<Ability> abilities = new ArrayList<>();
     private final List<Attribute> attributes = new ArrayList<>();
     private EnumSet<UnitType> types;
@@ -28,10 +30,14 @@ public class Unit {
         this.description = description;
     }
     
-    public void reload() {
+    public void reloadAttributes() {
         for (Attribute a : attributes) {
             a.activate(this);
         }
+    }
+    
+    public void setCard(Card card) {
+        this.card = card;
     }
     
     public void setImmuneStatus(boolean immune) {
@@ -57,6 +63,10 @@ public class Unit {
         this.attributes.addAll(attributes);
     }
     
+    public void addAbility(Ability ability) {
+        abilities.add(ability);
+    }
+    
     public void addAbilities(List<Ability> abilities) {
         this.abilities.addAll(abilities);
     }
@@ -75,13 +85,26 @@ public class Unit {
         return types;
     }
     
-    public boolean hasAttribute(String name) {
+    public boolean hasAttribute(Class<? extends Attribute> clazz) {
         for (Attribute attribute : attributes) {
-            if (attribute.getName().equals(name)) {
+            if (attribute.getClass().equals(clazz)) {
                 return true;
             }
         }
         return false;
+    }
+    
+    public boolean hasAbility(Class<? extends Ability> clazz) {
+        for (Ability ability  : abilities) {
+            if (ability.getClass().equals(clazz)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public List<Ability> getAbilities() {
+        return abilities;
     }
     
     public int[] getTypeIndices() {
@@ -111,6 +134,10 @@ public class Unit {
     
     public boolean isFriendly() {
         return friendly;
+    }
+    
+    public Card getCard() {
+        return card;
     }
     
     public String getName() {

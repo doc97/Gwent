@@ -1,5 +1,6 @@
 package fi.riissanen.gwent.game.cards;
 
+import fi.riissanen.gwent.game.cards.abilities.Ability;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
@@ -17,7 +18,12 @@ public class TestCardCollection {
     
     @Test
     public void testAddCardNotNull() {
-        collection.addCard(new Card() {});
+        collection.addCard(new Card() {
+            @Override
+            public String getName() { return ""; }
+            @Override
+            public List<Ability> getAbilities() { return null; }
+        });
         int count = collection.getCardCount();
         assertEquals(count, 1);
     }
@@ -32,7 +38,12 @@ public class TestCardCollection {
     @Test
     public void testAddCardsOne() {
         List<Card> cards = new ArrayList<>();
-        cards.add(new Card(){});
+        cards.add(new Card() {
+            @Override
+            public String getName() { return ""; }
+            @Override
+            public List<Ability> getAbilities() { return null; }
+        });
         collection.addCards(cards);
         assertEquals(collection.getCardCount(), 1);
     }
@@ -50,7 +61,12 @@ public class TestCardCollection {
     
     @Test
     public void testGetCardInBounds() {
-        collection.addCard(new Card() {});
+        collection.addCard(new Card() {
+            @Override
+            public String getName() { return ""; }
+            @Override
+            public List<Ability> getAbilities() { return null; }
+        });
         Card card = collection.getCard(0);
         assertNotNull(card);
     }

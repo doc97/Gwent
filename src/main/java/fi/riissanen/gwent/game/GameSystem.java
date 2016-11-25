@@ -4,6 +4,7 @@ import fi.riissanen.gwent.engine.Engine;
 import fi.riissanen.gwent.engine.Logger;
 import fi.riissanen.gwent.game.cards.Card;
 import fi.riissanen.gwent.game.cards.UnitCard;
+import fi.riissanen.gwent.game.cards.abilities.Ability;
 import fi.riissanen.gwent.game.combat.GameBoard;
 import fi.riissanen.gwent.game.combat.Unit;
 import fi.riissanen.gwent.game.combat.UnitType;
@@ -51,6 +52,11 @@ public class GameSystem {
             board.addUnit(unit, row, unit.isFriendly());
             player.removeCardFromHand(stagedCard);
         }
+        
+        for (Ability ability : stagedCard.getAbilities()) {
+            ability.activate(this);
+        }
+        
         unstageCard();
         return true;
     }

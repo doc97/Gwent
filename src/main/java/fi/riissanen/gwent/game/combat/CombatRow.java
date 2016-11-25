@@ -1,5 +1,6 @@
 package fi.riissanen.gwent.game.combat;
 
+import fi.riissanen.gwent.game.cards.abilities.Ability;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,16 @@ public class CombatRow {
         }
         return sum;
     }
+    
+    public List<Unit> getUnitsWithAbility(Class<? extends Ability> clazz) {
+        List<Unit> abilityUnits = new ArrayList<>();
+        for (Unit u : units) {
+            if (u.hasAbility(clazz)) {
+                abilityUnits.add(u);
+            }
+        }
+        return abilityUnits;
+    }
 
     public List<Unit> getUnits() {
         return units;
@@ -33,5 +44,9 @@ public class CombatRow {
     
     public int getUnitCount() {
         return units.size();
+    }
+    
+    public boolean hasUnit(Unit unit) {
+        return units.contains(unit);
     }
 }
