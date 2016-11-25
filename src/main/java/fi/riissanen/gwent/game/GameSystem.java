@@ -8,6 +8,7 @@ import fi.riissanen.gwent.game.cards.abilities.Ability;
 import fi.riissanen.gwent.game.combat.GameBoard;
 import fi.riissanen.gwent.game.combat.Unit;
 import fi.riissanen.gwent.game.combat.UnitType;
+import fi.riissanen.gwent.game.events.CardPlayedEvent;
 import fi.riissanen.gwent.game.states.GameStateSystem;
 import static fi.riissanen.gwent.game.states.GameStates.HAND_STATE;
 import static fi.riissanen.gwent.game.states.GameStates.REDRAW_STATE;
@@ -24,13 +25,18 @@ public class GameSystem {
     private GameBoard board;
     private Player player;
     private Card stagedCard;
+    private final Gwent game;
+    
+    public GameSystem(Gwent game) {
+        this.game = game;
+    }
 
     public void initialize(Player player) {
         this.player = player;
         this.player.drawCards(10);
         this.player.setInTurn(true);
         board = new GameBoard();
-        stateSystem = new GameStateSystem();
+        stateSystem = new GameStateSystem(game);
         stateSystem.next(HAND_STATE);
         stateSystem.next(REDRAW_STATE);
     }
@@ -59,7 +65,7 @@ public class GameSystem {
                 throw new IllegalStateException("You must first pick a row");
             }
             
-            UnitCard card  = (UnitCard) stagedCard;
+            UnitCard card = (UnitCard) stagedCard;
             Unit unit = card.getUnit();
             UnitType row = UnitType.values()[rowIndex];
             board.addUnit(unit, row, unit.isFriendly());
@@ -70,6 +76,7 @@ public class GameSystem {
             ability.activate(this);
         }
         
+        game.getEventSystem().register(new CardPlayedEvent(stagedCard));
         unstageCard();
         return true;
     }

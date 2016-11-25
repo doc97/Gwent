@@ -10,6 +10,7 @@ import fi.riissanen.gwent.game.cards.factories.CardData;
 import fi.riissanen.gwent.game.cards.factories.CardFactory;
 import fi.riissanen.gwent.game.cards.factories.CardLoader;
 import fi.riissanen.gwent.game.cards.factories.UnitCardFactory;
+import fi.riissanen.gwent.game.events.EventSystem;
 import fi.riissanen.gwent.game.ui.Console;
 
 /**
@@ -20,6 +21,7 @@ public class Gwent implements Game {
 
     private CardFactory cardFactory;
     private CardLoader cardLoader;
+    private EventSystem eventSys;
     private GameSystem gameSys;
     private Console console;
     
@@ -27,7 +29,8 @@ public class Gwent implements Game {
     public void create() {
         cardFactory = new UnitCardFactory();
         cardLoader = new CardLoader();
-        gameSys = new GameSystem();
+        eventSys = new EventSystem();
+        gameSys = new GameSystem(this);
         console = new Console();
 
         // Create deck (temporary)
@@ -49,11 +52,15 @@ public class Gwent implements Game {
 
     @Override
     public void render(double delta) {
-
+        eventSys.update();
     }
 
     @Override
     public void dispose() {
         console.stop();
+    }
+    
+    public EventSystem getEventSystem() {
+        return eventSys;
     }
 }
