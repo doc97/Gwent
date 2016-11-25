@@ -8,7 +8,7 @@ import fi.riissanen.gwent.game.events.Event;
 import fi.riissanen.gwent.game.events.RoundEndEvent;
 
 /**
- *
+ * A faction in the game
  * @author Daniel
  */
 public class NilfgaardianEmpire extends Faction {

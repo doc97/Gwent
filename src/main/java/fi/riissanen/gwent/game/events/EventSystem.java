@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Queue;
 
 /**
- *
+ * Handles event distribution and listeners
  * @author Daniel
  */
 public class EventSystem {

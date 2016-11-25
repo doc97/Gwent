@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- *
+ * An abstract data structure for {@link Card}s
  * @author Daniel
  */
 public abstract class CardCollection {

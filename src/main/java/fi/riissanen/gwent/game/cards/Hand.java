@@ -1,7 +1,7 @@
 package fi.riissanen.gwent.game.cards;
 
 /**
- *
+ * A hand containing cards
  * @author Daniel
  */
 public class Hand extends CardCollection {

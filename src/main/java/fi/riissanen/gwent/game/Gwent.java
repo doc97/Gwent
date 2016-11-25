@@ -17,13 +17,13 @@ import fi.riissanen.gwent.game.factions.Faction;
 import fi.riissanen.gwent.game.factions.Monsters;
 import fi.riissanen.gwent.game.factions.NilfgaardianEmpire;
 import fi.riissanen.gwent.game.factions.NorthernKingdoms;
-import fi.riissanen.gwent.game.states.MatchStartEvent;
+import fi.riissanen.gwent.game.events.MatchStartEvent;
 import fi.riissanen.gwent.game.ui.Console;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ * The implementation of the engine's {@link Game}
  * @author Daniel
  */
 public class Gwent implements Game {

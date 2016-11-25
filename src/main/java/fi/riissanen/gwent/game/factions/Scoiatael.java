@@ -4,10 +4,10 @@ import fi.riissanen.gwent.game.GameSystem;
 import fi.riissanen.gwent.game.cards.abilities.Ability;
 import fi.riissanen.gwent.game.events.Event;
 import fi.riissanen.gwent.game.states.GameStates;
-import fi.riissanen.gwent.game.states.MatchStartEvent;
+import fi.riissanen.gwent.game.events.MatchStartEvent;
 
 /**
- *
+ * A faction in the game
  * @author Daniel
  */
 public class Scoiatael extends Faction {

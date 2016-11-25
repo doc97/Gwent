@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- *
+ * A class representing a unit
  * @author Daniel
  */
 public class Unit {

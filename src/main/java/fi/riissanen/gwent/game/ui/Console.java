@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- *
+ * A console to control the game with
  * @author Daniel
  */
 public class Console implements Runnable {

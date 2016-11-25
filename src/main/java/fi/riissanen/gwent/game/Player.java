@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- *
+ * Represents the player playing the game
  * @author Daniel
  */
 public class Player {

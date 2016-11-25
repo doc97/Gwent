@@ -6,7 +6,7 @@ import fi.riissanen.gwent.game.cards.UnitCard;
 import fi.riissanen.gwent.game.combat.Unit;
 
 /**
- *
+ * Medic ability
  * @author Daniel
  */
 public class Medic implements Ability, UnitAbility {

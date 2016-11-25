@@ -4,7 +4,7 @@ import fi.riissanen.gwent.game.cards.abilities.Ability;
 import fi.riissanen.gwent.game.events.EventListener;
 
 /**
- *
+ * Represents an abstract faction
  * @author Daniel
  */
 public abstract class Faction implements EventListener {

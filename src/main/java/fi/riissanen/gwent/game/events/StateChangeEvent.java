@@ -3,7 +3,7 @@ package fi.riissanen.gwent.game.events;
 import fi.riissanen.gwent.game.states.GameState;
 
 /**
- *
+ * Fired when a {@link GameState} changes
  * @author Daniel
  */
 public class StateChangeEvent implements Event {

@@ -1,7 +1,7 @@
 package fi.riissanen.gwent.game.cards;
 
 /**
- *
+ * A deck of cards which can be validated
  * @author Daniel
  */
 public class Deck extends CardCollection {

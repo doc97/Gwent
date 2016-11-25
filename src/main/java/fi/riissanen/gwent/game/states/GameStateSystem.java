@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Stack;
 
 /**
- *
+ * Handles game state transitions
  * @author Daniel
  */
 public class GameStateSystem {

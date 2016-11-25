@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * A special card that also is neutral, meaning it is accessible to all factions
  * @author Daniel
  */
 public class WeatherCard implements Card {

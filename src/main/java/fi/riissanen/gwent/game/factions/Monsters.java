@@ -10,7 +10,7 @@ import fi.riissanen.gwent.game.events.RoundEndEvent;
 import java.util.Random;
 
 /**
- *
+ * A faction in the game
  * @author Daniel
  */
 public class Monsters extends Faction {

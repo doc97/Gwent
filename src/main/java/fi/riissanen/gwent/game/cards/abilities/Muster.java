@@ -10,7 +10,7 @@ import fi.riissanen.gwent.game.combat.UnitType;
 import java.util.List;
 
 /**
- *
+ * Muster ability
  * @author Daniel
  */
 public class Muster implements Ability, UnitAbility {

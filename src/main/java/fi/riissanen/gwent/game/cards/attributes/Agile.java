@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Agile attribute
  * @author Daniel
  */
 public class Agile implements Attribute {

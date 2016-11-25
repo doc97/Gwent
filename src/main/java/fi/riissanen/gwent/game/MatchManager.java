@@ -5,7 +5,7 @@ import static fi.riissanen.gwent.game.MatchManager.Result.LOSS;
 import static fi.riissanen.gwent.game.MatchManager.Result.WIN;
 
 /**
- *
+ * Manages round results and match result.
  * @author Daniel
  */
 public class MatchManager {

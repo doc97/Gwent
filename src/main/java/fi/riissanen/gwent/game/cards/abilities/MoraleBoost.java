@@ -8,7 +8,7 @@ import fi.riissanen.gwent.game.combat.Unit;
 import java.util.List;
 
 /**
- *
+ * Morale boost ability
  * @author Daniel
  */
 public class MoraleBoost implements Ability, UnitAbility {

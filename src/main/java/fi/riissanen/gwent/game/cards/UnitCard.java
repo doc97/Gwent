@@ -6,7 +6,7 @@ import fi.riissanen.gwent.game.combat.Unit;
 import java.util.List;
 
 /**
- * A {@link Card} that contains a unit
+ * A {@link Card} that contains a {@link Unit}
  *
  * @author Daniel
  */

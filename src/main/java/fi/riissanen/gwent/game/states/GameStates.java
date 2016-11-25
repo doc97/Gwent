@@ -1,7 +1,7 @@
 package fi.riissanen.gwent.game.states;
 
 /**
- *
+ * Enumerates possible game states
  * @author Daniel
  */
 public enum GameStates {

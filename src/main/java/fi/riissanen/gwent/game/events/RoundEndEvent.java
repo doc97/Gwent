@@ -3,7 +3,7 @@ package fi.riissanen.gwent.game.events;
 import fi.riissanen.gwent.game.Player;
 
 /**
- *
+ * Fired when a round is over
  * @author Daniel
  */
 public class RoundEndEvent implements Event {
