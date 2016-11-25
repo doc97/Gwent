@@ -8,6 +8,10 @@ import fi.riissanen.gwent.game.cards.abilities.Ability;
 import fi.riissanen.gwent.game.combat.GameBoard;
 import fi.riissanen.gwent.game.combat.Unit;
 import fi.riissanen.gwent.game.combat.UnitType;
+import fi.riissanen.gwent.game.states.GameStateSystem;
+import static fi.riissanen.gwent.game.states.GameStates.HAND_STATE;
+import static fi.riissanen.gwent.game.states.GameStates.REDRAW_STATE;
+import static fi.riissanen.gwent.game.states.GameStates.STAGE_STATE;
 
 /**
  * In charge of handling the flow of the game
@@ -16,28 +20,37 @@ import fi.riissanen.gwent.game.combat.UnitType;
  */
 public class GameSystem {
 
+    private GameStateSystem stateSystem;
     private GameBoard board;
     private Player player;
     private Card stagedCard;
 
     public void initialize(Player player) {
-        board = new GameBoard();
         this.player = player;
         this.player.drawCards(10);
         this.player.setInTurn(true);
+        board = new GameBoard();
+        stateSystem = new GameStateSystem();
+        stateSystem.next(HAND_STATE);
+        stateSystem.next(REDRAW_STATE);
     }
-
+    
     public void stageCard(Card card) {
-        stagedCard = card;
+        if (card != null) {
+            stagedCard = card;
+            stateSystem.next(STAGE_STATE);
+        }
     }
     
     public void unstageCard() {
         stagedCard = null;
+        if (stateSystem.isCurrentState(STAGE_STATE)) {
+            stateSystem.previous();
+        }
     }
     
     public boolean playCard(int rowIndex) {
-        if (!cardIsStaged() || noPlayerInTurn()) {
-            unstageCard();
+        if (!stateSystem.isCurrentState(STAGE_STATE)) {
             return false;
         }
         
@@ -62,17 +75,16 @@ public class GameSystem {
     }
     
     public void status() {
-        String staged = cardIsStaged() ? stagedCard.toString() : "None";
+        String staged = "None";
+        if (stateSystem.isCurrentState(STAGE_STATE)) {
+            staged = stagedCard.toString();
+        }
         Engine.INSTANCE.log.write(Logger.LogLevel.INFO, "Staged card: " + staged);
         board.status();
     }
     
-    private boolean noPlayerInTurn() {
-        return !player.isInTurn();
-    }
-    
-    public boolean cardIsStaged() {
-        return stagedCard != null;
+    public GameStateSystem getStateSystem() {
+        return stateSystem;
     }
     
     public GameBoard getBoard() {
