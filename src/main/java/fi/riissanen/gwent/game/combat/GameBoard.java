@@ -47,7 +47,9 @@ public class GameBoard {
     
     
     public void addWeatherCard(WeatherCard weather) {
-        weatherPile.add(weather);
+        if (weather != null) {
+            weatherPile.add(weather);
+        }
     }
     
     public void clearWeather() {
@@ -118,6 +120,14 @@ public class GameBoard {
         return friendlyCount + enemyCount;
     }
 
+    public int getWeatherCardCount() {
+        return weatherPile.size();
+    }
+    
+    public int getSavedUnitCount() {
+        return savedUnits.size();
+    }
+    
     public CombatRow[] getRows(boolean friendly) {
         return friendly ? friendlyRows : enemyRows;
     }

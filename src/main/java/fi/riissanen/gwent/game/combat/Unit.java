@@ -60,6 +60,10 @@ public class Unit {
         this.types = EnumSet.copyOf(types);
     }
 
+    public void addAttribute(Attribute attribute) {
+        attributes.add(attribute);
+    }
+    
     public void addAttributes(List<Attribute> attributes) {
         this.attributes.addAll(attributes);
     }
@@ -109,6 +113,9 @@ public class Unit {
     }
 
     public int[] getTypeIndices() {
+        if (types == null) {
+            return new int[0];
+        }
         int[] indices = new int[types.size()];
         int i = 0;
         for (Iterator<UnitType> it = types.iterator(); it.hasNext(); i++) {
