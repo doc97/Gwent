@@ -19,7 +19,8 @@ public class UnitCard implements Card {
         this.unit = unit;
     }
     
-    public void setPlayer(Player player) {
+    @Override
+    public void setOwner(Player player) {
         this.player = player;
     }
 

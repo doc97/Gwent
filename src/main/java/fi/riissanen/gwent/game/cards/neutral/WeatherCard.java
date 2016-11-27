@@ -3,10 +3,6 @@ package fi.riissanen.gwent.game.cards.neutral;
 import fi.riissanen.gwent.game.Player;
 import fi.riissanen.gwent.game.cards.Card;
 import fi.riissanen.gwent.game.cards.abilities.Ability;
-import fi.riissanen.gwent.game.combat.CombatRow;
-import fi.riissanen.gwent.game.combat.GameBoard;
-import fi.riissanen.gwent.game.combat.Unit;
-import fi.riissanen.gwent.game.combat.UnitType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,27 +14,17 @@ public class WeatherCard implements Card {
 
     private Player owner;
     private final List<Ability> abilities = new ArrayList<>();
-    private final UnitType row;
-    private final String name;
     
-    public WeatherCard(String name, UnitType row) {
-        this.name = name;
-        this.row = row;
+    public WeatherCard(Ability ability) {
+        if (ability == null) {
+            throw new IllegalArgumentException("Weather card ability must not be null");
+        }
+        abilities.add(ability);
     }
     
+    @Override
     public void setOwner(Player owner) {
         this.owner = owner;
-    }
-    
-    public void activate(GameBoard board) {
-        CombatRow friendly = board.getRow(true, row);
-        CombatRow enemy = board.getRow(false, row);
-        for (Unit unit : friendly.getUnits()) {
-            unit.setBaseStrength(1);
-        }
-        for (Unit unit : enemy.getUnits()) {
-            unit.setBaseStrength(1);
-        }
     }
     
     @Override
@@ -53,6 +39,6 @@ public class WeatherCard implements Card {
     
     @Override
     public String getName() {
-        return name;
+        return abilities.get(0).getName();
     }
 }

@@ -27,12 +27,20 @@ public class Player {
     private boolean inTurn;
     private Faction faction;
     
-    public Player(Deck deck, boolean friendly) {
-        this.deck = deck;
+    public Player(boolean friendly) {
         this.friendly = friendly;
         rng = new Random();
+        deck = new Deck();
         hand = new Hand();
         discardPile = new ArrayList<>();
+    }
+    
+    public void setDeck(Deck deck) {
+        for (int i = 0; i < deck.getCardCount(); i++) {
+            Card card = deck.getCard(i);
+            card.setOwner(this);
+            this.deck.addCard(card);
+        }
     }
     
     public void removeCardFromHand(Card card) {
@@ -86,6 +94,7 @@ public class Player {
         List<Card> nameCards = new ArrayList<>();
         for (int i = 0; i < deck.getCardCount(); i++) {
             Card card = deck.getCard(i);
+            System.out.println(card.getName() + ", " + name);
             if (card.getName().equals(name)) {
                 nameCards.add(card);
             }

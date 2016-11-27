@@ -1,7 +1,6 @@
 package fi.riissanen.gwent.game.cards.abilities;
 
 import fi.riissanen.gwent.game.GameSystem;
-import fi.riissanen.gwent.game.cards.Card;
 import fi.riissanen.gwent.game.cards.UnitCard;
 import fi.riissanen.gwent.game.combat.Unit;
 import java.util.ArrayList;
@@ -14,9 +13,9 @@ import java.util.List;
 
 public class TightBond implements Ability, UnitAbility {
 
-    private final Card card;
+    private final UnitCard card;
     
-    public TightBond(Card card) {
+    public TightBond(UnitCard card) {
         this.card = card;
     }
     
@@ -38,10 +37,7 @@ public class TightBond implements Ability, UnitAbility {
     
     @Override
     public Unit getUnit() {
-        if (card instanceof UnitCard) {
-            return ((UnitCard) card).getUnit();
-        }
-        return null;
+        return card.getUnit();
     }
 
     @Override

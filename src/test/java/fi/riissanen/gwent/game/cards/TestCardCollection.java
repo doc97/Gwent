@@ -2,6 +2,8 @@ package fi.riissanen.gwent.game.cards;
 
 import fi.riissanen.gwent.game.Player;
 import fi.riissanen.gwent.game.cards.abilities.Ability;
+import fi.riissanen.gwent.game.cards.factories.CardData;
+import fi.riissanen.gwent.game.cards.factories.CardFactory;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
@@ -18,17 +20,36 @@ import org.junit.Test;
 public class TestCardCollection {
     
     private final CardCollection collection = new CardCollection(){};
+    private final CardFactory factory = new CardFactory() {
+        @Override
+        public Card createCard(CardData data) {
+            return new Card() {
+                private Player owner;
+                @Override
+                public List<Ability> getAbilities() { return new ArrayList<>(); }
+
+                @Override
+                public void setOwner(Player owner) {
+                    this.owner = owner;
+                }
+
+                @Override
+                public Player getOwner() {
+                    return owner;
+                }
+
+                @Override
+                public String getName() {
+                    return "Alice";
+                }
+            };
+        }
+    };
     
     @Test
     public void testAddCardNotNull() {
-        collection.addCard(new Card() {
-            @Override
-            public String getName() { return ""; }
-            @Override
-            public List<Ability> getAbilities() { return null; }
-            @Override
-            public Player getOwner() { return null; }
-        });
+        Card card = factory.createCard(new CardData());
+        collection.addCard(card);
         int count = collection.getCardCount();
         assertEquals(count, 1);
     }
@@ -43,14 +64,7 @@ public class TestCardCollection {
     @Test
     public void testAddCardsOne() {
         List<Card> cards = new ArrayList<>();
-        cards.add(new Card() {
-            @Override
-            public String getName() { return ""; }
-            @Override
-            public List<Ability> getAbilities() { return null; }
-            @Override
-            public Player getOwner() { return null; }
-        });
+        cards.add(factory.createCard(new CardData()));
         collection.addCards(cards);
         assertEquals(collection.getCardCount(), 1);
     }
@@ -68,14 +82,7 @@ public class TestCardCollection {
     
     @Test
     public void testGetCardInBounds() {
-        collection.addCard(new Card() {
-            @Override
-            public String getName() { return ""; }
-            @Override
-            public List<Ability> getAbilities() { return null; }
-            @Override
-            public Player getOwner() { return null; }
-        });
+        collection.addCard(factory.createCard(new CardData()));
         Card card = collection.getCard(0);
         assertNotNull(card);
     }
@@ -88,14 +95,7 @@ public class TestCardCollection {
     
     @Test
     public void testRemoveCardExists() {
-        Card card = new Card() {
-            @Override
-            public String getName() { return ""; }
-            @Override
-            public List<Ability> getAbilities() { return null; }
-            @Override
-            public Player getOwner() { return null; }
-        };
+        Card card = factory.createCard(new CardData());
         collection.addCard(card);
         assertTrue(collection.removeCard(card));
         assertEquals(collection.getCardCount(), 0);
@@ -103,44 +103,16 @@ public class TestCardCollection {
     
     @Test
     public void testRemoveCardNotExists() {
-        Card card = new Card() {
-            @Override
-            public String getName() { return ""; }
-            @Override
-            public List<Ability> getAbilities() { return null; }
-            @Override
-            public Player getOwner() { return null; }
-        };
-        collection.addCard(new Card() {
-            @Override
-            public String getName() { return ""; }
-            @Override
-            public List<Ability> getAbilities() { return null; }
-            @Override
-            public Player getOwner() { return null; }
-        });
+        Card card = factory.createCard(new CardData());
+        collection.addCard(factory.createCard(new CardData()));
         assertFalse(collection.removeCard(card));
         assertEquals(collection.getCardCount(), 1);
     }
     
     @Test
     public void testContainsCard() {
-        Card card = new Card() {
-            @Override
-            public String getName() { return ""; }
-            @Override
-            public List<Ability> getAbilities() { return null; }
-            @Override
-            public Player getOwner() { return null; }
-        };
-        Card exist = new Card() {
-            @Override
-            public String getName() { return ""; }
-            @Override
-            public List<Ability> getAbilities() { return null; }
-            @Override
-            public Player getOwner() { return null; }
-        };
+        Card card = factory.createCard(new CardData());
+        Card exist = factory.createCard(new CardData());
         collection.addCard(exist);
         assertTrue(collection.containsCard(exist));
         assertFalse(collection.containsCard(card));

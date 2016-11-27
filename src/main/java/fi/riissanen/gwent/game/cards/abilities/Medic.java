@@ -1,9 +1,9 @@
 package fi.riissanen.gwent.game.cards.abilities;
 
 import fi.riissanen.gwent.game.GameSystem;
-import fi.riissanen.gwent.game.cards.Card;
 import fi.riissanen.gwent.game.cards.UnitCard;
 import fi.riissanen.gwent.game.combat.Unit;
+import fi.riissanen.gwent.game.states.GameStates;
 
 /**
  * Medic ability
@@ -11,24 +11,21 @@ import fi.riissanen.gwent.game.combat.Unit;
  */
 public class Medic implements Ability, UnitAbility {
 
-    private final Card card;
+    private final UnitCard card;
     
-    public Medic(Card card) {
+    public Medic(UnitCard card) {
         this.card = card;
     }
     
     @Override
     public void activate(GameSystem system) {
-        // TODO Implement play of discarded unit card
+        system.getStateSystem().push(GameStates.DISCARD_PILE_STATE);
     }
     
     
     @Override
     public Unit getUnit() {
-        if (card instanceof UnitCard) {
-            return ((UnitCard) card).getUnit();
-        }
-        return null;
+        return card.getUnit();
     }
 
     @Override

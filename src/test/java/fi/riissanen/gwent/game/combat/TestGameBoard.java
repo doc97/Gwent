@@ -2,6 +2,7 @@ package fi.riissanen.gwent.game.combat;
 
 import fi.riissanen.gwent.game.Player;
 import fi.riissanen.gwent.game.cards.Deck;
+import fi.riissanen.gwent.game.cards.abilities.WeatherAbility;
 import fi.riissanen.gwent.game.cards.neutral.WeatherCard;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +84,8 @@ public class TestGameBoard {
 
     @Test
     public void testAddWeatherCard() {
-        board.addWeatherCard(new WeatherCard("Ice", UnitType.MELEE));
+        WeatherAbility ability = new WeatherAbility("", "", UnitType.MELEE);
+        board.addWeatherCard(new WeatherCard(ability));
         assertEquals(1, board.getWeatherCardCount());
     }
     
@@ -95,8 +97,8 @@ public class TestGameBoard {
     
     @Test
     public void testClearWeather() {
-        Player player = new Player(new Deck(), true);
-        WeatherCard card = new WeatherCard("Ice", UnitType.MELEE);
+        Player player = new Player(true);
+        WeatherCard card = new WeatherCard(new WeatherAbility("", "", UnitType.MELEE));
         card.setOwner(player);
         board.addWeatherCard(card);
         board.clearWeather();

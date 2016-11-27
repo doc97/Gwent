@@ -1,7 +1,6 @@
 package fi.riissanen.gwent.game.cards;
 
 import fi.riissanen.gwent.game.Player;
-import fi.riissanen.gwent.game.cards.abilities.Medic;
 import fi.riissanen.gwent.game.combat.Unit;
 import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
@@ -23,8 +22,8 @@ public class TestUnitCard {
     
     @Test
     public void testGetOwner() {
-        Player player = new Player(null, true);
-        card.setPlayer(player);
+        Player player = new Player(true);
+        card.setOwner(player);
         assertEquals(player, card.getOwner());
     }
 

@@ -25,7 +25,7 @@ public class TestGameSystem {
     @BeforeClass
     public static void init() {
         gameSys = new GameSystem(null);
-        gameSys.initialize(new Player(new Deck(), true), new Player(new Deck(), false));
+        gameSys.initialize(new Player(true), new Player(false));
     }
     
     @Test

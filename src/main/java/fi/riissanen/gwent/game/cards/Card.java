@@ -10,6 +10,7 @@ import java.util.List;
  */
 public interface Card {
     public List<Ability> getAbilities();
+    public void setOwner(Player player);
     public Player getOwner();
     public String getName();
 }

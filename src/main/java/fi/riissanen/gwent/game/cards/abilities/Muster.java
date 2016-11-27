@@ -15,9 +15,9 @@ import java.util.List;
  */
 public class Muster implements Ability, UnitAbility {
 
-    private final Card card;
+    private final UnitCard card;
     
-    public Muster(Card card) {
+    public Muster(UnitCard card) {
         this.card = card;
     }
     
@@ -27,15 +27,15 @@ public class Muster implements Ability, UnitAbility {
         GameBoard board = system.getBoard();
         int rowIndex = board.getRowIndex(board.getRow(getUnit()));
         List<Card> cards = player.getDeckCardsByName(getUnit().getName());
-        for (Card card : cards) {
-            if (card instanceof UnitCard) {
-                player.removeCardFromDeck(card);
+        for (Card c : cards) {
+            if (c instanceof UnitCard) {
+                player.removeCardFromDeck(c);
                 system.getBoard().addUnit(
-                        ((UnitCard) card).getUnit(),
+                        ((UnitCard) c).getUnit(),
                         UnitType.values()[rowIndex], true);
             }
             
-            for (Ability ability : card.getAbilities()) {
+            for (Ability ability : c.getAbilities()) {
                 // Prevent recursion
                 if (!(ability instanceof Muster)) {
                     ability.activate(system);
@@ -47,10 +47,7 @@ public class Muster implements Ability, UnitAbility {
     
     @Override
     public Unit getUnit() {
-        if (card instanceof UnitCard) {
-            return ((UnitCard) card).getUnit();
-        }
-        return null;
+        return card.getUnit();
     }
 
     @Override

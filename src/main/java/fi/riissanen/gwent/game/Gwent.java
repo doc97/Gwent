@@ -73,8 +73,15 @@ public class Gwent implements Game {
     }
     
     private void setupGameSystem() {
+        Player player = new Player(true);
+        player.setFaction(new NorthernKingdoms(player));
+        
+        Player player2 = new Player(false);
+        player2.setFaction(new NorthernKingdoms(player2));
+        
         // Create deck (temporary)
-        Deck deck = new Deck();
+        Deck deck1 = new Deck();
+        Deck deck2 = new Deck();
         CardData data = cardLoader.load(new AssetParams("assets/cards/TestCard.card"));
         if (data == null) {
             Engine.INSTANCE.log.write(LogLevel.ERROR, cardLoader.getLog());
@@ -83,14 +90,12 @@ public class Gwent implements Game {
         }
         for (int i = 0; i < Deck.MIN_CARDS; i++) {
             Card card = cardFactory.createCard(data);
-            deck.addCard(card);
+            deck1.addCard(card);
+            deck2.addCard(card);
         }
 
-        Player player = new Player(deck, true);
-        player.setFaction(new NorthernKingdoms(player));
-        
-        Player player2 = new Player(deck, false);
-        player2.setFaction(new NorthernKingdoms(player2));
+        player.setDeck(deck1);
+        player2.setDeck(deck2);
         gameSys.initialize(player, player2);
     }
     

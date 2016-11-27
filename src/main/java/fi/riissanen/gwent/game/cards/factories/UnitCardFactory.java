@@ -44,7 +44,7 @@ public class UnitCardFactory implements CardFactory {
         return card;
     }
 
-    private List<Ability> extractAbilities(String inputStr, Card card) {
+    private List<Ability> extractAbilities(String inputStr, UnitCard card) {
         List<Ability> abilities = new ArrayList<>();
         String[] abilitiesStr = inputStr.split(",");
         for (String abilityStr : abilitiesStr) {
