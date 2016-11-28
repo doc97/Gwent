@@ -42,4 +42,12 @@ public class EventSystem {
     public void setListeners(Class<? extends Event> clazz, List<EventListener> listeners) {
         this.listeners.put(clazz, listeners);
     }
+    
+    public int getEventsPendingCount() {
+        return events.size();
+    }
+    
+    public int getEventListenerCount(Class<? extends Event> clazz) {
+        return listeners.get(clazz).size();
+    }
 }

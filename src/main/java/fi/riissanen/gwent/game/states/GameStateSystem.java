@@ -5,6 +5,7 @@ import fi.riissanen.gwent.game.events.StateChangeEvent;
 import static fi.riissanen.gwent.game.states.GameStates.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 
 /**
@@ -14,11 +15,18 @@ import java.util.Stack;
 public class GameStateSystem {
 
     private final Map<GameStates, GameState> states = new HashMap<>();
+    private final GameState emptyState;
     private final Stack<GameState> stack = new Stack();
     private final Gwent game;
     
     public GameStateSystem(Gwent game) {
         this.game = game;
+        emptyState = new GameState() {
+            @Override
+            public void enter() {}
+            @Override
+            public void exit() {}
+        };
     }
     
     public void initialize() {
@@ -32,29 +40,27 @@ public class GameStateSystem {
     }
     
     public void push(GameStates stateKey) {
-        GameState oldState = null;
         GameState nextState = states.get(stateKey);
         if (stack.contains(nextState)) {
             return;
         }
         
-        if (!stack.isEmpty()) {
-            oldState = stack.peek();
-            stack.peek().exit();
-        }
+        GameState oldState = getCurrentState();
+        oldState.exit();
         
         if (nextState != null) {
             stack.push(nextState).enter();
         }
+        
         if (game != null && game.getEventSystem() != null) {
             game.getEventSystem().register(new StateChangeEvent(oldState, nextState));
         }
     }
     
     public void pop() {
-        if (stack.size() > 1) {
+        if (stack.size() >= 1) {
             GameState oldState = stack.pop();
-            GameState newState = stack.peek();
+            GameState newState = getCurrentState();
             oldState.exit();
             newState.enter();
             if (game != null && game.getEventSystem() != null) {
@@ -63,12 +69,15 @@ public class GameStateSystem {
         }
     }
     
+    public Set<GameStates> getLoadedStates() {
+        return states.keySet();
+    }
+    
     public GameState getCurrentState() {
-        return stack.peek();
+        return stack.isEmpty() ? emptyState : stack.peek();
     }
     
     public boolean isCurrentState(GameStates stateKey) {
         return states.get(stateKey).equals(getCurrentState());
-        
     }
 }

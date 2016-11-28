@@ -8,7 +8,7 @@ import fi.riissanen.gwent.game.Player;
  */
 public class RoundEndEvent implements Event {
     
-    private Player winner;
+    private final Player winner;
     
     public RoundEndEvent(Player winner) {
         this.winner = winner;
