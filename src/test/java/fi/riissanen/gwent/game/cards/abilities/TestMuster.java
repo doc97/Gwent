@@ -50,5 +50,6 @@ public class TestMuster {
         ability.activate(system);
         int count = system.getBoard().getRow(true, UnitType.MELEE).getUnitCount();
         assertEquals(3, count);
+        assertEquals(0, friendly.getDeckSize());
     }
 }

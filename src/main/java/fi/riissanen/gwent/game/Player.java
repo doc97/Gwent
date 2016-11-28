@@ -62,10 +62,6 @@ public class Player {
         return null;
     }
     
-    public int getDiscardPileSize() {
-        return discardPile.size();
-    }
-    
     public void setFaction(Faction faction) {
         this.faction = faction;
     }
@@ -120,6 +116,22 @@ public class Player {
         return faction;
     }
     
+    public int getDiscardPileSize() {
+        return discardPile.size();
+    }
+    
+    public int getDeckSize() {
+        return deck.getCardCount();
+    }
+    
+    public boolean isInTurn() {
+        return inTurn;
+    }
+    
+    public boolean isFriendly() {
+        return friendly;
+    }
+    
     public void handStatus() {
         for (int i = 0; i < hand.getCardCount(); i++) {
             Card card = hand.getCard(i);
@@ -144,13 +156,5 @@ public class Player {
             }
         }
         Engine.INSTANCE.log.write(Logger.LogLevel.INFO, str.toString());
-    }
-    
-    public boolean isInTurn() {
-        return inTurn;
-    }
-    
-    public boolean isFriendly() {
-        return friendly;
     }
 }
