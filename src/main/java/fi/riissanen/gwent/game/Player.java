@@ -36,6 +36,7 @@ public class Player {
     }
     
     public void setDeck(Deck deck) {
+        this.deck.clearCards();
         for (int i = 0; i < deck.getCardCount(); i++) {
             Card card = deck.getCard(i);
             card.setOwner(this);
@@ -77,8 +78,7 @@ public class Player {
     }
     
     public void drawCard() {
-        int cardsLeft = deck.getCardCount();
-        if (cardsLeft > 0) {
+        if (deck.getCardCount() > 0) {
             int index = rng.nextInt(deck.getCardCount());
             Card card = deck.getCard(index);
             deck.removeCard(card);
@@ -99,7 +99,7 @@ public class Player {
     }
     
     public void redrawCard(Card card) {
-        if (!hand.containsCard(card)) {
+        if (!hand.removeCard(card)) {
             throw new IllegalArgumentException(
                     "Cannot discard a card that is not in hand");
         }
@@ -108,8 +108,12 @@ public class Player {
         deck.addCard(card);
     }
     
-    public Card getCard(int index) {
+    public Card getHandCard(int index) {
         return hand.getCard(index);
+    }
+    
+    public Card getDeckCard(int index) {
+        return deck.getCard(index);
     }
     
     public Faction getFaction() {
@@ -122,6 +126,10 @@ public class Player {
     
     public int getDeckSize() {
         return deck.getCardCount();
+    }
+    
+    public int getHandSize() {
+        return hand.getCardCount();
     }
     
     public boolean isInTurn() {

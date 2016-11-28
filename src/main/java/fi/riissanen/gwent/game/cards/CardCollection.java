@@ -24,6 +24,10 @@ public abstract class CardCollection {
         }
     }
     
+    public void clearCards() {
+        cards.clear();
+    }
+    
     public boolean removeCard(Card card) {
         return cards.remove(card);
     }

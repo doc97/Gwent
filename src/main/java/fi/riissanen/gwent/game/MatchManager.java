@@ -2,6 +2,7 @@ package fi.riissanen.gwent.game;
 
 import static fi.riissanen.gwent.game.MatchManager.Result.DRAW;
 import static fi.riissanen.gwent.game.MatchManager.Result.LOSS;
+import static fi.riissanen.gwent.game.MatchManager.Result.NONE;
 import static fi.riissanen.gwent.game.MatchManager.Result.WIN;
 
 /**
@@ -11,21 +12,28 @@ import static fi.riissanen.gwent.game.MatchManager.Result.WIN;
 public class MatchManager {
 
     public enum Result {
-        WIN, LOSS, DRAW;
+        WIN, LOSS, DRAW, NONE;
     }
     
-    private int friendlyLives;
-    private int enemyLives;
-    private Result result;
+    public static final int MAX_LIVES = 2;
     
-    public void setFriendlyRoundStatus(Result result) {
-        if (result != null) {
-            this.result = result;
+    private int friendlyLives = MAX_LIVES;
+    private int enemyLives = MAX_LIVES;
+    private Result roundResult = NONE;
+    
+    public void reset() {
+        friendlyLives = MAX_LIVES;
+        enemyLives = MAX_LIVES;
+    }
+    
+    public void setFriendlyRoundStatus(Result roundResult) {
+        if (roundResult != null) {
+            this.roundResult = roundResult;
         }
     }
     
     public void finishRound() {
-        switch (result) {
+        switch (roundResult) {
             case WIN:
                 enemyLives--;
                 break;
@@ -39,6 +47,7 @@ public class MatchManager {
             default:
                 break;
         }
+        roundResult = NONE;
     }
     
     public int getFriendlyLives() {
@@ -49,11 +58,15 @@ public class MatchManager {
         return enemyLives;
     }
     
-    public boolean matchIsDraw() {
-        return friendlyLives == 0 && enemyLives == 0;
-    }
-    
-    public boolean matchIsWon() {
-        return friendlyLives > 0 && enemyLives == 0;
+    public Result getMatchResult() {
+        if (friendlyLives > 0 && enemyLives > 0) {
+            return NONE;
+        } else if (friendlyLives == 0 && enemyLives == 0) {
+            return DRAW;
+        } else if (friendlyLives <= 0) {
+            return LOSS;
+        } else {
+            return WIN;
+        }
     }
 }

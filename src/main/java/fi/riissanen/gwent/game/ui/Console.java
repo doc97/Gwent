@@ -114,7 +114,7 @@ public class Console implements Runnable {
                 }
                 
                 int index = Integer.parseInt(args[0]);
-                Card card = gameSys.getFriendlyPlayer().getCard(index);
+                Card card = gameSys.getFriendlyPlayer().getHandCard(index);
                 if (card != null) {
                     gameSys.stageCard(card);
                     if (card instanceof UnitCard) {
