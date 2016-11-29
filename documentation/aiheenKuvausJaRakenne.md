@@ -49,23 +49,22 @@ http://witcher.wikia.com/wiki/Gwent
     - Special card
         - Weather
         - Other
-    - Leader card
-- Factions
+- Factions and faction ability
     - Northern Realms
     - Nilfgaardian Empire
     - Monsters
-- Faction ability
+    - Scoia'tael
 - Unit card attributes
     - Agile: Is both melee and ranged
     - Hero: Immune against abilities and special cards
+    - Spy: Is played on the enemy battlefield, adds to enemy strength, but you draw 2 cards
 - Unit card abilities
     - Medic: Choose a unit card from the discard pile and play it instantly
     - Morale boost: Increase strength of all units in a row by one (exclude themselves)
     - Muster: Play all cards with the same name from the deck
-    - Spy: Is played on the enemy battlefield, adds to enemy strength, but you draw 2 cards
     - Tight bond: Doubles the strength of units in the same row with the same name
 - Game board (Combat rows)
-- Deck (minimum 22 cards, max 10 of them special)
+- Deck (minimum 22 unit cards, max 10 special cards)
 - Hand (starting with 10 cards)
 - Turns
 - Networking module
@@ -88,7 +87,7 @@ http://witcher.wikia.com/wiki/Gwent
 #### 3rd Iteration (Deadline 25.11.2016) ####
 - [x] Factions
 - [x] Faction ability
-- [ ] Faction specific cards
+- [ ] Faction leader cards
 
 #### 4th Iteration (Deadline 2.12.2016) ####
 - [ ] Networking

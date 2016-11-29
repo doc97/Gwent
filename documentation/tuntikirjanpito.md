@@ -18,3 +18,5 @@ Day        | Hours | Description
 22.11.2016 | 1.5h  | Programming card abilities
 24.11.2016 | 1.0h  | Programming game logic
 25.11.2016 | 12.0h | Programming features and game architecture
+27.11.2016 | 6.0h  | Unit tests
+28.11.2016 | 2.5h  | Unit tests
