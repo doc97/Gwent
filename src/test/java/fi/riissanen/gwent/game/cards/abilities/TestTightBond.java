@@ -6,7 +6,7 @@ import fi.riissanen.gwent.game.cards.UnitCard;
 import fi.riissanen.gwent.game.combat.Unit;
 import fi.riissanen.gwent.game.combat.UnitType;
 import static org.junit.Assert.assertEquals;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -15,11 +15,11 @@ import org.junit.Test;
  */
 public class TestTightBond {
 
-    private static Unit unit;
-    private static TightBond ability;
+    private Unit unit;
+    private TightBond ability;
     
-    @BeforeClass
-    public static void init() {
+    @Before
+    public void before() {
         unit = new Unit("", "");
         unit.setUnitType(UnitType.MELEE);
         unit.setFriendlyStatus(true);

@@ -1,12 +1,11 @@
 package fi.riissanen.gwent.game;
 
-import fi.riissanen.gwent.game.cards.Deck;
 import fi.riissanen.gwent.game.cards.UnitCard;
 import fi.riissanen.gwent.game.combat.Unit;
 import fi.riissanen.gwent.game.combat.UnitType;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -17,13 +16,13 @@ import org.junit.rules.ExpectedException;
  */
 public class TestGameSystem {
 
-    private static GameSystem gameSys;
+    private GameSystem gameSys;
     
     @Rule
     public final ExpectedException exception = ExpectedException.none();
     
-    @BeforeClass
-    public static void init() {
+    @Before
+    public void before() {
         gameSys = new GameSystem(null);
         gameSys.initialize(new Player(true), new Player(false));
     }

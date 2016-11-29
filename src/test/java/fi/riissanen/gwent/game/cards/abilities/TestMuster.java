@@ -7,7 +7,7 @@ import fi.riissanen.gwent.game.cards.UnitCard;
 import fi.riissanen.gwent.game.combat.Unit;
 import fi.riissanen.gwent.game.combat.UnitType;
 import static org.junit.Assert.assertEquals;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -16,11 +16,11 @@ import org.junit.Test;
  */
 public class TestMuster {
 
-    private static Unit unit;
-    private static Muster ability;
+    private Unit unit;
+    private Muster ability;
     
-    @BeforeClass
-    public static void init() {
+    @Before
+    public void before() {
         unit = new Unit("", "");
         unit.setUnitType(UnitType.MELEE);
         unit.setFriendlyStatus(true);

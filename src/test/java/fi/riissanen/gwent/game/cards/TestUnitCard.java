@@ -3,7 +3,7 @@ package fi.riissanen.gwent.game.cards;
 import fi.riissanen.gwent.game.Player;
 import fi.riissanen.gwent.game.combat.Unit;
 import static org.junit.Assert.assertEquals;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -12,10 +12,10 @@ import org.junit.Test;
  */
 public class TestUnitCard {
 
-    private static UnitCard card;
+    private UnitCard card;
     
-    @BeforeClass
-    public static void init() {
+    @Before
+    public void before() {
         Unit unit = new Unit("Alice", "Cool");
         card = new UnitCard(unit);
     }

@@ -14,7 +14,7 @@ public class TestGameStateSystem {
     private final GameStateSystem system = new GameStateSystem(null);
     
     @Before
-    public void init() {
+    public void before() {
         system.initialize();
     }
     

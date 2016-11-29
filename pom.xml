@@ -150,6 +150,12 @@
                     <targetClasses>
                         <param>fi.riissanen.gwent.game.cards.*</param>
                         <param>fi.riissanen.gwent.game.combat.*</param>
+                        <param>fi.riissanen.gwent.game.events.*</param>
+                        <param>fi.riissanen.gwent.game.factions.*</param>
+                        <param>fi.riissanen.gwent.game.states.*</param>
+                        <param>fi.riissanen.gwent.game.GameSystem.java</param>
+                        <param>fi.riissanen.gwent.game.MatchManager.java</param>
+                        <param>fi.riissanen.gwent.game.Player.java</param>
                     </targetClasses>
                     <targetTests>
                         <param>fi.riissanen.gwent.game.*</param>
