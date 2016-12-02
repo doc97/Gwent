@@ -3,7 +3,7 @@ package fi.riissanen.gwent.engine;
 import fi.riissanen.gwent.engine.interfaces.Game;
 
 /**
- * The launcher containing the main()-method
+ * The launcher containing the main()-method.
  * @author Daniel
  */
 public class EngineLauncher implements Runnable {
@@ -11,6 +11,10 @@ public class EngineLauncher implements Runnable {
     private Thread thread;
     private Game game;
     
+    /**
+     * Start an {@code Engine} instance with a game.
+     * @param game The game to start with the engine
+     */
     public void start(Game game) {
         this.game = game;
         thread = new Thread(this, "Gwent");

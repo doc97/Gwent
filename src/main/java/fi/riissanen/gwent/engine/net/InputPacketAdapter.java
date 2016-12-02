@@ -5,7 +5,7 @@ import java.io.ObjectInputStream;
 import java.net.Socket;
 
 /**
- * An adapter to the socket input stream that listens for incoming packets
+ * An adapter to the socket input stream that listens for incoming packets.
  * @See PacketListener
  * @author Daniel
  */
@@ -14,7 +14,12 @@ public class InputPacketAdapter implements Runnable {
     private final PacketListener listener;
     private final Socket socket;
 
-    public InputPacketAdapter(Socket socket, PacketListener listener) throws IOException {
+    /**
+     * Initializes with a {@code Socket} and {@code PacketListener}.
+     * @param socket The socket
+     * @param listener The listener
+     */
+    public InputPacketAdapter(Socket socket, PacketListener listener) {
         this.socket = socket;
         this.listener = listener;
     }

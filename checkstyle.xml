@@ -72,6 +72,21 @@
             <property name='allowEmptyMethods' value='true' />
         </module>
 
+        <!-- JavaDoc -->
+
+        <module name="JavadocMethod">
+            <property name="scope" value="public"/>
+            <property name="allowMissingParamTags" value="false"/>
+            <property name="allowMissingPropertyJavadoc" value="true"/>
+            <property name="allowMissingThrowsTags" value="false"/>
+            <property name="allowMissingReturnTag" value="false"/>
+            <property name="allowThrowsTagsForSubclasses" value="true"/>
+        </module>
+
+        <module name="JavadocStyle">
+            <property name="scope" value="public"/>
+            <property name="checkEmptyJavadoc" value="true"/>
+        </module>
     </module>
 
     <!-- Exclusions -->
@@ -85,4 +100,6 @@
     <module name='FileLength'>
         <property name='max' value='500' />
     </module>
+
+    
 </module>

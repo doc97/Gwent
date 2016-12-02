@@ -20,7 +20,6 @@ import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
 import static org.lwjgl.glfw.GLFW.glfwTerminate;
 import static org.lwjgl.glfw.GLFW.glfwWindowHint;
 import org.lwjgl.glfw.GLFWVidMode;
-import org.lwjgl.glfw.GLFWWindowSizeCallback;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import static org.lwjgl.opengl.GL11.GL_ALPHA_TEST;
@@ -38,7 +37,6 @@ import static org.lwjgl.opengl.GL11.glEnable;
  */
 public class DisplayManager {
     
-    private static GLFWWindowSizeCallback resizeCallback;
     private static final String TITLE = "Gwent";
     
     private long window;
@@ -46,6 +44,12 @@ public class DisplayManager {
     private boolean shouldResize = true;
     private boolean shouldClose = false;
     
+    /**
+     * Creates a GLFW window.
+     * @param width The width of the window
+     * @param height The height of the window
+     * @return The success of the window creation
+     */
     public boolean createDisplay(int width, int height) {
         if (window != 0) {
             Engine.INSTANCE.log.write(LogLevel.INFO,
@@ -91,28 +95,61 @@ public class DisplayManager {
         }
     }
     
+    /**
+     * Updates the GLFW window.
+     * 
+     * <p>
+     * It resizes the window if necessary and swaps the frame buffers
+     * and polls events
+     */
     public void updateDisplay() {
         resize();
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
     
+    /**
+     * Signals the engine that the window should close.
+     */
     public void close() {
         shouldClose = true;
     }
     
+    /**
+     * Checks the close status.
+     * @return Returns true if the window should close due to the user closing
+     * it or the it was signaled to close from somewhere else
+     * @see close()
+     */
     public boolean shouldClose() {
         return GLFW.glfwWindowShouldClose(window) || shouldClose;
     }
     
+    /**
+     * Sets the clear color of the OpenGL context.
+     * @param r Red color ranging from [0-1]
+     * @param g Green color ranging from [0-1]
+     * @param b Blue color ranging from [0-1]
+     * @param a Alpha value ranging from [0-1], 0 being transparent and 1 opaque
+     */
     public void setBackgroundColor(float r, float g, float b, float a) {
         glClearColor(r, g, b, a);
     }
     
+    /**
+     * Clears the color buffer of the currently bound frame buffer.
+     * 
+     * <p>
+     * The clear color can be set with
+     * {@code setBackgroundColor(float, float, float, float)}
+     */
     public void clearDisplay() {
         glClear(GL_COLOR_BUFFER_BIT);
     }
     
+    /**
+     * Destroys the GLFW window and OpenGL context.
+     */
     public void dispose() {
         glfwDestroyWindow(window);
         glfwTerminate();

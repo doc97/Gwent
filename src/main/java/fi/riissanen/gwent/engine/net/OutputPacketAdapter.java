@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.util.Queue;
 
 /**
- * An adapter to the socket and sends queued packets
+ * An adapter to the socket and sends queued packets.
  * @see PacketSender
  * @author Daniel
  */
@@ -15,7 +15,12 @@ public class OutputPacketAdapter implements Runnable {
     private final PacketSender sender;
     private final Socket socket;
     
-    public OutputPacketAdapter(Socket socket, PacketSender sender) throws IOException {
+    /**
+     * Initializes with a {@code Socket} and {@code PacketSender}.
+     * @param socket The socket over which packets are sent
+     * @param sender The sender who provides the packets
+     */
+    public OutputPacketAdapter(Socket socket, PacketSender sender) {
         this.socket = socket;
         this.sender = sender;
     }

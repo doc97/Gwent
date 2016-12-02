@@ -13,7 +13,7 @@ import static org.lwjgl.opengl.GL11.glDisable;
 import static org.lwjgl.opengl.GL11.glEnable;
 
 /**
- * Core engine using LWJGL 3
+ * Core engine using LWJGL 3.
  * @author Daniel
  */
 public enum Engine {
@@ -25,6 +25,9 @@ public enum Engine {
     public FileUtils files;
     public double frameTime;
 
+    /**
+     * Initializes the game engine.
+     */
     public void initialize() {
         if (!display.createDisplay(1280, 720)) {
             Engine.INSTANCE.log.write(LogLevel.ERROR,
@@ -45,18 +48,24 @@ public enum Engine {
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
+    /**
+     * Tells the engine to shut down.
+     */
     public void exit() {
         display.close();
     }
     
     /**
-     * Calls glfwGetTime()
+     * Calls glfwGetTime().
      * @return Time since GLFW was initialized, in seconds
      */
     public double getTime() {
         return glfwGetTime();
     }
     
+    /**
+     * Disposes of engine components.
+     */
     public void dispose() {
         display.dispose();
         batch.dispose();

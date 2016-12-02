@@ -6,7 +6,7 @@ import static org.lwjgl.opengl.GL20.GL_COMPILE_STATUS;
 import static org.lwjgl.opengl.GL20.glUseProgram;
 
 /**
- * Represents an OpenGL shader program
+ * Represents an OpenGL shader program.
  * @author Daniel
  */
 public class ShaderProgram {
@@ -16,7 +16,7 @@ public class ShaderProgram {
     public static final String TEXCOORD_ATTRIBUTE = "a_texCoord";
     
     private boolean isCompiled;
-    private boolean isValid;
+    private boolean validated;
     private int programHandle;
     private int vertexShaderHandle;
     private int fragmentShaderHandle;
@@ -24,6 +24,11 @@ public class ShaderProgram {
     private String fragmentShaderSrc;
     private String log = "";
     
+    /**
+     * Creates an OpenGL shader program with a vertex and fragment shader.
+     * @param vertexShader The vertex shader as a {@code String}
+     * @param fragmentShader The fragment shader as a {@code String}
+     */
     public ShaderProgram(String vertexShader, String fragmentShader) {
         if (vertexShader == null) {
             throw new IllegalStateException("Vertex shader must not be null");
@@ -92,27 +97,43 @@ public class ShaderProgram {
         return program;
     }
     
-    public void checkValidity() {
-        if (!isValid) {
+    /**
+     * Recompiles {@code Shader}'s if not validated.
+     */
+    public void validate() {
+        if (!validated) {
             compileShaders(vertexShaderSrc, fragmentShaderSrc);
-            isValid = true;
+            validated = true;
         }
     }
     
+    /**
+     * Revalidates {@code Shader}'s.
+     * Revalidates 
+     */
     public void reload() {
-        isValid = false;
-        checkValidity();
+        validated = false;
+        validate();
     }
     
+    /**
+     * Called to use the {@code Shader}'s.
+     */
     public void start() {
-        checkValidity();
+        validate();
         glUseProgram(programHandle);
     }
     
+    /**
+     * Called to stop using the {@code Shader}'s.
+     */
     public void stop() {
         glUseProgram(0);
     }
     
+    /**
+     * Disposes of allocated resources.
+     */
     public void dispose() {
         glUseProgram(0);
         GL20.glDeleteShader(vertexShaderHandle);
@@ -120,10 +141,18 @@ public class ShaderProgram {
         GL20.glDeleteProgram(programHandle);
     }
     
+    /**
+     * Flag to indicate if the shader is compiled.
+     * @return If the shader is compiled.
+     */
     public boolean isCompiled() {
         return isCompiled;
     }
     
+    /**
+     * The log can provide useful information if something goes wrong.
+     * @return The shader log
+     */
     public String getLog() {
         if (isCompiled) {
             log = GL20.glGetProgramInfoLog(programHandle);

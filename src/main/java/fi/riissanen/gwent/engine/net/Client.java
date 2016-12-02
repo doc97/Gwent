@@ -8,7 +8,7 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
- * Represents a client in a TCP/IP() network
+ * Represents a client in a TCP/IP() network.
  * @author Daniel
  */
 public class Client implements PacketListener, PacketSender {
@@ -21,6 +21,9 @@ public class Client implements PacketListener, PacketSender {
     private int id;
     private boolean waitForID = true;
     
+    /**
+     * Sets id to -1.
+     */
     public Client() {
         id = -1;
         empty = new ConcurrentLinkedQueue<>();
@@ -28,6 +31,17 @@ public class Client implements PacketListener, PacketSender {
         falseIDPackets = new ArrayList<>();
     }
     
+    /**
+     * Attempts to connect to a server.
+     * 
+     * <p>
+     * The hostname can be a DNS name ("localhost") or an IP address
+     * ("127.0.0.1"). Creates two threads, for handling the input and
+     * output streams of the client {@code Socket}.
+     * @param hostname The hostname of the server
+     * @param port The port to connect to
+     * @throws IOException If the connection attempts fails
+     */
     public void connect(String hostname, int port) throws IOException {
         socket = new Socket(hostname, port);
         InputPacketAdapter input = new InputPacketAdapter(socket, this);
@@ -38,10 +52,20 @@ public class Client implements PacketListener, PacketSender {
         outputThread.start();
     }
     
-    public synchronized void disconnect() throws IOException {
+    /**
+     * Closes the socket connection to the server.
+     * @throws IOException If an I/O error occurs during closing of the socket
+     */
+    public void disconnect() throws IOException {
         socket.close();
+        id = -1;
     }
     
+    /**
+     * Tries to queue a packet to be sent.
+     * @param packet The packet to send
+     * @return The success of adding the packet to the queue
+     */
     public synchronized boolean sendPacket(Packet packet) {
         boolean added = packets.offer(packet);
         if (!hasID() && added) {
@@ -50,6 +74,13 @@ public class Client implements PacketListener, PacketSender {
         return added;
     }
     
+    /**
+     * Sets a packet listener to which the client will redirect packets.
+     * 
+     * <p>
+     * Note: The listener cannot be the client itself
+     * @param listener The packet listener
+     */
     public void setPacketListener(PacketListener listener) {
         if (!listener.equals(this)) {
             this.listener = listener;
@@ -68,6 +99,10 @@ public class Client implements PacketListener, PacketSender {
         return id;
     }
     
+    /**
+     * Returns id status.
+     * @return True if client has gotten an id from the server
+     */
     public synchronized boolean hasID() {
         return id != -1;
     }
@@ -93,7 +128,7 @@ public class Client implements PacketListener, PacketSender {
     public void receivedPacket(Packet packet) {
         if (waitForID) {
             if (packet instanceof ConnectionPacket) {
-                id = ((ConnectionPacket) packet).getClientID();
+                id = ((ConnectionPacket) packet).getReceiverID();
                 waitForID = false;
             }
         }

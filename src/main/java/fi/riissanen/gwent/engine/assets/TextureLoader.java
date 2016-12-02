@@ -26,7 +26,7 @@ import static org.lwjgl.opengl.GL12.GL_CLAMP_TO_EDGE;
 import static org.lwjgl.opengl.GL30.glGenerateMipmap;
 
 /**
- * An asset loader for textures
+ * An asset loader for textures.
  * @see AssetLoader
  * @author Daniel
  */

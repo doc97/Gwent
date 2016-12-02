@@ -1,7 +1,7 @@
 package fi.riissanen.gwent.engine.render;
 
 /**
- * Represents a RGBA color
+ * Represents a RGBA color.
  * @author Daniel
  */
 public class Color {
@@ -17,6 +17,13 @@ public class Color {
     
     private float r, g, b, a;
     
+    /**
+     * Creates a color with RGBA values ranging from 0 to 1.
+     * @param r The red component
+     * @param g The green component
+     * @param b The blue component
+     * @param a The alpha component
+     */
     public Color(float r, float g, float b, float a) {
         this.r = r;
         this.g = g;
@@ -24,14 +31,29 @@ public class Color {
         this.a = a;
     }
     
+    /**
+     * Returns a new {@code Color} instance with the same component values.
+     * @return A copy of the color
+     */
     public Color cpy() {
         return new Color(r, g, b, a);
     }
     
+    /**
+     * Sets this color's components to another color's.
+     * @param c The color
+     */
     public void set(Color c) {
         set(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha());
     }
     
+    /**
+     * Sets this color's components by component values.
+     * @param r The red component
+     * @param g The green component
+     * @param b The blue component
+     * @param a The alpha component
+     */
     public void set(float r, float g, float b, float a) {
         this.r = Math.min(Math.max(r, 0), 1);
         this.g = Math.min(Math.max(g, 0), 1);
@@ -39,6 +61,13 @@ public class Color {
         this.a = Math.min(Math.max(a, 0), 1);
     }
     
+    /**
+     * Adds to this color's components by component values.
+     * @param r The red component
+     * @param g The green component
+     * @param b The blue component
+     * @param a The alpha component
+     */
     public void add(float r, float g, float b, float a) {
         this.r = Math.min(Math.max(this.r + r, 0), 1);
         this.g = Math.min(Math.max(this.g + g, 0), 1);
@@ -46,6 +75,13 @@ public class Color {
         this.a = Math.min(Math.max(this.a + a, 0), 1);
     }
     
+    /**
+     * Multiplies this color's components by scalars.
+     * @param r The red component scalar
+     * @param g The green component scalar
+     * @param b The blue component scalar
+     * @param a The alpha component scalar
+     */
     public void multiply(float r, float g, float b, float a) {
         this.r = Math.min(Math.max(this.r * r, 0), 1);
         this.g = Math.min(Math.max(this.g * g, 0), 1);

@@ -6,7 +6,7 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
- * A handler that handles one client connection on the server
+ * A handler that handles one client connection on the server.
  * @author Daniel
  */
 public class ClientHandler implements PacketSender {
@@ -18,6 +18,12 @@ public class ClientHandler implements PacketSender {
     private OutputPacketAdapter output;
     private final int id;
     
+    /**
+     * Prepares the handler.
+     * @param server The server instance that owns this handler
+     * @param socket The client socket connection that it handles
+     * @param id The ID of the client
+     */
     public ClientHandler(Server server, Socket socket, int id) {
         this.server = server;
         this.socket = socket;
@@ -25,9 +31,12 @@ public class ClientHandler implements PacketSender {
         packets = new ConcurrentLinkedQueue<>();
     }
     
-    public void start() throws IOException {
+    /**
+     * Starts servicing the client through two threads.
+     */
+    public void start() {
         if (!socket.isConnected() || socket.isClosed()) {
-            System.out.println("Stop");
+            System.out.println("Cannot handle a closed connection");
             return;
         }
         
@@ -39,6 +48,13 @@ public class ClientHandler implements PacketSender {
         outputThread.start();
     }
 
+    /**
+     * Stops handling a client by closing the socket.
+     * 
+     * <p> It also removes itself from the server's list of handlers to
+     * allow other handlers to be bound to that ID
+     * @see Server#freeClient(int) 
+     */
     public synchronized void stop() {
         try {
             socket.close();
@@ -48,6 +64,11 @@ public class ClientHandler implements PacketSender {
         }
     }
     
+    /**
+     * Tries to queue a packet for sending.
+     * @param packet The packet to send
+     * @return The success of adding the packet to the queue
+     */
     public synchronized boolean sendPacket(Packet packet) {
         return packets.offer(packet);
     }

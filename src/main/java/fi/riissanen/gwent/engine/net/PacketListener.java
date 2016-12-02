@@ -1,7 +1,7 @@
 package fi.riissanen.gwent.engine.net;
 
 /**
- * Interface used to listen for packets
+ * Interface used to listen for packets.
  * 
  * <p>
  * The interface must be added to either a {@code Client} or a {@code Server}.
@@ -11,5 +11,9 @@ package fi.riissanen.gwent.engine.net;
  * @see Server#setPacketListener(PacketListener)
  */
 public interface PacketListener {
+    /**
+     * Called when a packet has been received.
+     * @param packet Packet that was received
+     */
     public void receivedPacket(Packet packet);
 }

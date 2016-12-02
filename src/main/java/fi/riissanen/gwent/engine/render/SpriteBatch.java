@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import org.lwjgl.BufferUtils;
 
 /**
- * For batching render calls
+ * For batching render calls.
  * @author Daniel
  */
 public class SpriteBatch {
@@ -49,10 +49,21 @@ public class SpriteBatch {
     private boolean isDrawing;
     private boolean createdShader;
     
+    /**
+     * Initializes without a default shader.
+     * 
+     * <p>
+     * The default shader is created with
+     * {@code SpriteBatch#createDefaultShader()}.
+     */
     public SpriteBatch() {
         this(null);
     }
     
+    /**
+     * Initializes with a default shader.
+     * @param defaultShader The default shader
+     */
     public SpriteBatch(ShaderProgram defaultShader) {
         indices = new int[6000];
         vertices = new float[12000];
@@ -118,6 +129,13 @@ public class SpriteBatch {
         return shader;
     }
 
+    /**
+     * Starts a new batch of draw calls.
+     * 
+     * <p>
+     * Must not be called after another begin() call without an end() call in
+     * between. Must be called before a draw() call.
+     */
     public void begin() {
         if (isDrawing) {
             throw new IllegalStateException(
@@ -131,6 +149,9 @@ public class SpriteBatch {
         }
     }
 
+    /**
+     * Ends the batching and flushes the batch.
+     */
     public void end() {
         if (!isDrawing) {
             throw new IllegalStateException(
@@ -148,6 +169,9 @@ public class SpriteBatch {
         isDrawing = false;
     }
 
+    /**
+     * Flushes the batch of draw calls to the graphics card.
+     */
     public void flush() {
         if (idx == 0) {
             return;
@@ -187,10 +211,40 @@ public class SpriteBatch {
         }
     }
 
+    /**
+     * Draws a texture with it's default size.
+     * @param texture The texture
+     * @param x The x position (upper-left)
+     * @param y The y position (upper-left)
+     */ 
+    public void draw(Texture texture, float x, float y) {
+        draw(texture, x, y, texture.getWidth(), texture.getHeight());
+    }
+    
+    /**
+     * Draws a texture with a size.
+     * @param texture The texture
+     * @param x The x position (upper-left)
+     * @param y The y position (upper-left)
+     * @param width The width to draw the texture as
+     * @param height The height to draw the texture as
+     */
     public void draw(Texture texture, float x, float y, float width, float height) {
         draw(texture, x, y, width, height, texture.getUVs(), 0, 0, 0);
     }
 
+    /**
+     * Draws a texture with a size, rotation and specified UV coordinates.
+     * @param texture The texture
+     * @param x The x position (upper-left)
+     * @param y The y position (upper-left)
+     * @param width The width to draw the texture as
+     * @param height The height to draw the texture as
+     * @param uvs UV coordinates, can be used to draw a part of the texture
+     * @param rotation Rotation in radians
+     * @param anchorPX The point of origin around which to rotate
+     * @param anchorPY The point of origin around which to rotate
+     */
     public void draw(Texture texture, float x, float y, float width, float height,
                     float[] uvs, float rotation, float anchorPX, float anchorPY) {
         Color[] currColorArr = { color, color, color, color };
@@ -198,6 +252,23 @@ public class SpriteBatch {
                 currColorArr, rotation, anchorPX, anchorPY);
     }
 
+    /**
+     * Draws a texture with a 4 vertex polygon, rotation, UV coordinates and colors.
+     * @param texture The texture
+     * @param x1 Vertex 1
+     * @param y1 Vertex 1
+     * @param x2 Vertex 2
+     * @param y2 Vertex 2
+     * @param x3 Vertex 3
+     * @param y3 Vertex 3
+     * @param x4 Vertex 4
+     * @param y4 Vertex 4
+     * @param uvs UV coordinates, can be used to draw a part of the texture
+     * @param colours The colors for each vertex (should contain four elements)
+     * @param rotation Rotation in radians
+     * @param anchorPX The point of origin around which to rotate
+     * @param anchorPY The point of origin around which to rotate
+     */
     public void draw(Texture texture, float x1, float y1,
             float x2, float y2, float x3, float y3, float x4, float y4,
             float[] uvs, Color[] colours, float rotation,
@@ -348,6 +419,9 @@ public class SpriteBatch {
         return buffer;
     }
 
+    /**
+     * Releases all allocated resources.
+     */
     public void dispose() {
         glDeleteBuffers(ibo);
         for (int vbo : vbos) {
@@ -377,10 +451,21 @@ public class SpriteBatch {
         color.set(color);
     }
 
+    /**
+     * Sets the color by component values.
+     * @param r The red component
+     * @param g The green component
+     * @param b The blue component
+     * @param a The alpha component
+     */
     public void setColor(float r, float g, float b, float a) {
         color.set(r, g, b, a);
     }
 
+    /**
+     * Sets a new custom shader.
+     * @param shader The new shader
+     */
     public void setShader(ShaderProgram shader) {
         if (isDrawing) {
             flush();
@@ -407,6 +492,10 @@ public class SpriteBatch {
         return scale;
     }
 
+    /**
+     * Gets the custom shader, or if null then the default one.
+     * @return The shader
+     */
     public ShaderProgram getShader() {
         return (customShader == null) ? defaultShader : customShader;
     }

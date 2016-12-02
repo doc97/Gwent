@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Functions as the server in a TCP/IP() network
+ * Functions as the server in a TCP/IP() network.
  * @author Daniel
  */
 public class Server implements PacketListener {
@@ -17,6 +17,11 @@ public class Server implements PacketListener {
     private PacketListener listener;
     private ServerSocket socket;
     
+    /**
+     * Starts to listen for incoming connection on a port.
+     * @param port The port on which to listen
+     * @throws IOException If an error occurs while waiting for a connection
+     */
     public void listen(int port) throws IOException {
         socket = new ServerSocket(port);
         while (true) {
@@ -34,15 +39,27 @@ public class Server implements PacketListener {
         }
     }
     
+    /**
+     * Closes the server socket.
+     * @throws IOException If an error occurs while closing the socket
+     */
     public void close() throws IOException {
         socket.close();
     }
     
+    /**
+     * Frees the client handler for a certain id.
+     * @param id The id of the client (handler)
+     */
     public void freeClient(int id) {
         System.out.println("Client with id " + id + " disconnected!");
         clients.remove(id);
     }
     
+    /**
+     * Sets the listener to which packets are forwarded.
+     * @param listener Listener to forward to
+     */
     public void setPacketListener(PacketListener listener) {
         if (!listener.equals(this)) {
             this.listener = listener;
@@ -61,10 +78,20 @@ public class Server implements PacketListener {
         return -1;
     }
     
+    /**
+     * Gets the server's id, clients start from 1.
+     * @return 0
+     */
     public int getID() {
         return 0;
     }
     
+    /**
+     * Sends a packet to the client with a certain id.
+     * @param targetClient The ID of the client
+     * @param packet The packet to send
+     * @return The success of adding the packet to the queue
+     */
     public boolean sendPacket(int targetClient, Packet packet) {
         if (!clients.containsKey(targetClient)) {
             throw new IllegalArgumentException("Can't send packet to client with ID: " + targetClient);
@@ -75,6 +102,11 @@ public class Server implements PacketListener {
         return clients.get(targetClient).sendPacket(packet);
     }
     
+    /**
+     * Gets a {@code ClientHandler} by id.
+     * @param id The client id
+     * @return The client handler
+     */
     public ClientHandler getClient(int id) {
         return clients.get(id);
     }
