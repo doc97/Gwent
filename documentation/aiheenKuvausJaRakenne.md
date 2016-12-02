@@ -34,6 +34,10 @@ Player in turn:
 #### Class Diagram ####
 ![Class Diagram](/documentation/Gwent Class Diagram.png "Class Diagram")
 
+#### Sequence Diagrams ####
+![Sequence Diagram 1](/documentation/Sequence Diagram 1.png "Sequence Diagram")
+![Sequence Diagram 2](/documentation/Sequence Diagram 2.png "Sequence Diagram")
+
 #### Features ####
 Sources:
 
