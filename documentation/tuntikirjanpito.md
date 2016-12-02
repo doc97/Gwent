@@ -20,3 +20,8 @@ Day        | Hours | Description
 25.11.2016 | 12.0h | Programming features and game architecture
 27.11.2016 | 6.0h  | Unit tests
 28.11.2016 | 2.5h  | Unit tests
+29.11.2016 | 2.0h  | Networking code, refactoring and documentation
+01.12.2016 | 3.0h  | Networking code
+02.12.2016 | 2.0h  | Networking code
+02.12.2016 | 3.5h  | Class and sequence diagrams
+02.12.2016 | 1.0h  | Javadoc for public methods

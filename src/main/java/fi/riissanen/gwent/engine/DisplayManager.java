@@ -114,7 +114,7 @@ public class DisplayManager {
     public void close() {
         shouldClose = true;
     }
-    
+
     /**
      * Checks the close status.
      * @return Returns true if the window should close due to the user closing

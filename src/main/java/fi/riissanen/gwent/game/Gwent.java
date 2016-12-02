@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The implementation of the engine's {@link Game}
+ * The implementation of the engine's {@link Game}.
  * @author Daniel
  */
 public class Gwent implements Game {

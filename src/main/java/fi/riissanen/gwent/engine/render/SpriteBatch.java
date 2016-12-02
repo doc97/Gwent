@@ -74,7 +74,6 @@ public class SpriteBatch {
         floatBuff1 = BufferUtils.createFloatBuffer(12000);
         floatBuff2 = BufferUtils.createFloatBuffer(8000);
         floatBuff3 = BufferUtils.createFloatBuffer(16000);
-
         color = new Color(1, 1, 1, 1);
 
         for (int i = 0, j = 0; i < 6000; i += 6, j += 4) {
@@ -401,17 +400,6 @@ public class SpriteBatch {
         glBindBuffer(GL_ARRAY_BUFFER, 0);
     }
 
-    @SuppressWarnings("unused")
-    private void storeDataInAttributeList(int attribute, IntBuffer buffer, int size, int[] data) {
-        int vbo = glGenBuffers();
-        vbos.add(vbo);
-        glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        storeDataInIntBuffer(buffer, data);
-        glBufferData(GL_ARRAY_BUFFER, buffer, GL_STATIC_DRAW);
-        glVertexAttribPointer(attribute, size, GL_FLOAT, false, 0, 0);
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-    }
-
     private FloatBuffer storeDataInFloatBuffer(FloatBuffer buffer, float[] data) {
         buffer.clear();
         buffer.put(data);
@@ -447,6 +435,10 @@ public class SpriteBatch {
         this.scale = scale;
     }
 
+    /**
+     * Sets the color components to another color's.
+     * @param color The new color
+     */
     public void setColor(Color color) {
         color.set(color);
     }

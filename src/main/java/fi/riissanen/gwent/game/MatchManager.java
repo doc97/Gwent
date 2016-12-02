@@ -21,17 +21,30 @@ public class MatchManager {
     private int enemyLives = MAX_LIVES;
     private Result roundResult = NONE;
     
+    /**
+     * Resets lives.
+     */
     public void reset() {
         friendlyLives = MAX_LIVES;
         enemyLives = MAX_LIVES;
     }
     
+    /**
+     * Sets the current round result.
+     * @param roundResult The result for the friendly player
+     */
     public void setFriendlyRoundStatus(Result roundResult) {
         if (roundResult != null) {
             this.roundResult = roundResult;
         }
     }
     
+    /**
+     * Depending on the round result lives may be reduced.
+     * 
+     * <p>
+     * The round result is reset back to NONE.
+     */
     public void finishRound() {
         switch (roundResult) {
             case WIN:
@@ -58,6 +71,11 @@ public class MatchManager {
         return enemyLives;
     }
     
+    /**
+     * Returns the match result for the friendly player.
+     * @return The result
+     * @see Result
+     */
     public Result getMatchResult() {
         if (friendlyLives > 0 && enemyLives > 0) {
             return NONE;

@@ -15,7 +15,7 @@ import static fi.riissanen.gwent.game.states.GameStates.HAND_STATE;
 import static fi.riissanen.gwent.game.states.GameStates.STAGE_STATE;
 
 /**
- * In charge of handling the flow of the game
+ * In charge of handling the flow of the game.
  *
  * @author Daniel
  */
@@ -29,10 +29,19 @@ public class GameSystem {
     private Card stagedCard;
     private final Gwent game;
     
+    /**
+     * Creates a game system with a reference to the game
+     * @param game 
+     */
     public GameSystem(Gwent game) {
         this.game = game;
     }
     
+    /**
+     * Initializes the system and all sub-systems.
+     * @param friendly The friendly player
+     * @param enemy The enemy player
+     */
     public void initialize(Player friendly, Player enemy) {
         this.friendly = friendly;
         this.enemy = enemy;
@@ -47,6 +56,13 @@ public class GameSystem {
         stateSystem.push(CHOOSE_STARTING_PLAYER_STATE);
     }
     
+    /**
+     * Sets the player in turn.
+     * 
+     * <p>
+     * Can only be used when in CHOOSE_STARTING_PLAYER_STATE GameState
+     * @param friendlyInTurn If the friendly player should be in turn
+     */
     public void setPlayerInTurn(boolean friendlyInTurn) {
         if (stateSystem.isCurrentState(CHOOSE_STARTING_PLAYER_STATE)) {
             friendly.setInTurn(friendlyInTurn);
@@ -55,11 +71,21 @@ public class GameSystem {
         }
     }
     
+    /**
+     * Swaps the player in turn.
+     */
     public void switchTurn() {
         friendly.setInTurn(!friendly.isInTurn());
         enemy.setInTurn(!enemy.isInTurn());
     }
     
+    /**
+     * Stages a card.
+     * 
+     * <p>
+     * A card must be staged before it can be played.
+     * @param card The card to stage
+     */
     public void stageCard(Card card) {
         if (card != null) {
             stagedCard = card;
@@ -67,6 +93,9 @@ public class GameSystem {
         }
     }
     
+    /**
+     * Unstages the currently staged card if any.
+     */
     public void unstageCard() {
         stagedCard = null;
         if (stateSystem.isCurrentState(STAGE_STATE)) {
@@ -74,6 +103,11 @@ public class GameSystem {
         }
     }
     
+    /**
+     * Plays the staged card.
+     * @param rowIndex On which row the card will be played
+     * @return The success of the play
+     */
     public boolean playCard(int rowIndex) {
         if (!stateSystem.isCurrentState(STAGE_STATE)) {
             return false;
@@ -102,6 +136,9 @@ public class GameSystem {
         return true;
     }
     
+    /**
+     * Prints the status in a text format.
+     */
     public void status() {
         String staged = "None";
         if (stateSystem.isCurrentState(STAGE_STATE)) {
