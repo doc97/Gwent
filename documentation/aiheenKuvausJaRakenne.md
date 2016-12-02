@@ -32,7 +32,7 @@ Player in turn:
 ### Development ###
 
 #### Class Diagram ####
-![Class Diagram](/documentation/Gwent Class Diagram.png "Class Diagram")
+![Class Diagram](/documentation/Class Diagram.png "Class Diagram")
 
 #### Sequence Diagrams ####
 ![Sequence Diagram 1](/documentation/Sequence Diagram 1.png "Sequence Diagram")
