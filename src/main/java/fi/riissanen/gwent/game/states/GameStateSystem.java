@@ -1,6 +1,7 @@
 package fi.riissanen.gwent.game.states;
 
-import fi.riissanen.gwent.game.Gwent;
+import fi.riissanen.gwent.game.GameSystem;
+import fi.riissanen.gwent.game.events.EventSystem;
 import fi.riissanen.gwent.game.events.StateChangeEvent;
 import static fi.riissanen.gwent.game.states.GameStates.*;
 import java.util.HashMap;
@@ -17,10 +18,9 @@ public class GameStateSystem {
     private final Map<GameStates, GameState> states = new HashMap<>();
     private final GameState emptyState;
     private final Stack<GameState> stack = new Stack();
-    private final Gwent game;
+    private EventSystem eventSystem;
     
-    public GameStateSystem(Gwent game) {
-        this.game = game;
+    public GameStateSystem() {
         emptyState = new GameState() {
             @Override
             public void enter() {}
@@ -29,9 +29,9 @@ public class GameStateSystem {
         };
     }
     
-    public void initialize() {
-        if (game != null && game.getGameSystem() != null) {
-            states.put(CHOOSE_STARTING_PLAYER_STATE, new ChooseStartingPlayerState(game.getGameSystem()));
+    public void initialize(GameSystem system) {
+        if (system != null) {
+            states.put(CHOOSE_STARTING_PLAYER_STATE, new ChooseStartingPlayerState(system));
         }
         states.put(REDRAW_STATE, new RedrawState());
         states.put(HAND_STATE, new HandState());
@@ -39,22 +39,21 @@ public class GameStateSystem {
         states.put(DISCARD_PILE_STATE, new DiscardPileState());
     }
     
+    public void setEventSystem(EventSystem eventSystem) {
+        this.eventSystem = eventSystem;
+    }
+    
     public void push(GameStates stateKey) {
         GameState nextState = states.get(stateKey);
-        if (stack.contains(nextState)) {
+        if (stack.contains(nextState) || nextState == null) {
             return;
         }
         
         GameState oldState = getCurrentState();
         oldState.exit();
+        stack.push(nextState).enter();
         
-        if (nextState != null) {
-            stack.push(nextState).enter();
-        }
-        
-        if (game != null && game.getEventSystem() != null) {
-            game.getEventSystem().register(new StateChangeEvent(oldState, nextState));
-        }
+        reportStateChangeEvent(oldState, nextState);
     }
     
     public void pop() {
@@ -63,9 +62,7 @@ public class GameStateSystem {
             GameState newState = getCurrentState();
             oldState.exit();
             newState.enter();
-            if (game != null && game.getEventSystem() != null) {
-                game.getEventSystem().register(new StateChangeEvent(oldState, newState));
-            }
+            reportStateChangeEvent(oldState, newState);
         }
     }
     
@@ -78,6 +75,15 @@ public class GameStateSystem {
     }
     
     public boolean isCurrentState(GameStates stateKey) {
+        if (!states.containsKey(stateKey)) {
+            return false;
+        }
         return states.get(stateKey).equals(getCurrentState());
+    }
+    
+    private void reportStateChangeEvent(GameState oldState, GameState newState) {
+        if (eventSystem != null) {
+            eventSystem.register(new StateChangeEvent(oldState, newState));
+        }
     }
 }

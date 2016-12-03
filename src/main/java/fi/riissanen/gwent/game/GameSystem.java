@@ -48,10 +48,13 @@ public class GameSystem {
         this.friendly.drawCards(10);
         this.enemy.drawCards(10);
         board = new GameBoard();
-        stateSystem = new GameStateSystem(game);
+        stateSystem = new GameStateSystem();
         matchManager = new MatchManager();
         
-        stateSystem.initialize();
+        if (game != null && game.getEventSystem() != null) {
+            stateSystem.setEventSystem(game.getEventSystem());
+        }
+        stateSystem.initialize(this);
         stateSystem.push(HAND_STATE);
         stateSystem.push(CHOOSE_STARTING_PLAYER_STATE);
     }

@@ -11,11 +11,11 @@ import org.junit.Test;
  */
 public class TestGameStateSystem {
 
-    private final GameStateSystem system = new GameStateSystem(null);
+    private final GameStateSystem system = new GameStateSystem();
     
     @Before
     public void before() {
-        system.initialize();
+        system.initialize(null);
     }
     
     @Test
