@@ -1,6 +1,7 @@
 package fi.riissanen.gwent.game.events;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +38,16 @@ public class EventSystem {
     
     public void clear() {
         events.clear();
+    }
+    
+    public void addListener(Class<? extends Event> clazz, EventListener listener) {
+        if (listeners.containsKey(clazz)) {
+            listeners.get(clazz).add(listener);
+        } else {
+            List<EventListener> list = new ArrayList<>();
+            list.add(listener);
+            setListeners(clazz, list);
+        }
     }
     
     public void setListeners(Class<? extends Event> clazz, List<EventListener> listeners) {
