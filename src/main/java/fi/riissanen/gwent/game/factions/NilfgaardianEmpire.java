@@ -49,7 +49,7 @@ public class NilfgaardianEmpire extends Faction {
     @Override
     public void process(Event event) {
         if (event instanceof RoundEndEvent) {
-            if (((RoundEndEvent) event).getRoundWinner() == null) {
+            if (((RoundEndEvent) event).getRoundResult() == Result.DRAW) {
                 triggered = true;
             }
         }

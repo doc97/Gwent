@@ -1,6 +1,6 @@
 package fi.riissanen.gwent.game.events;
 
-import fi.riissanen.gwent.game.Player;
+import fi.riissanen.gwent.game.MatchManager.Result;
 
 /**
  * Fired when a round is over
@@ -8,13 +8,13 @@ import fi.riissanen.gwent.game.Player;
  */
 public class RoundEndEvent implements Event {
     
-    private final Player winner;
+    private final Result result;
     
-    public RoundEndEvent(Player winner) {
-        this.winner = winner;
+    public RoundEndEvent(Result result) {
+        this.result = result;
     }
     
-    public Player getRoundWinner() {
-        return winner;
+    public Result getRoundResult() {
+        return result;
     }
 }
