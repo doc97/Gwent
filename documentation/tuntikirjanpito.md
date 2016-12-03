@@ -25,3 +25,4 @@ Day        | Hours | Description
 02.12.2016 | 2.0h  | Networking code
 02.12.2016 | 3.5h  | Class and sequence diagrams
 02.12.2016 | 1.0h  | Javadoc for public methods
+03.12.2016 | 3.0h  | Unit tests

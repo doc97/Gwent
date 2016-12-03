@@ -148,14 +148,20 @@
                 <version>1.1.8</version>
                 <configuration>
                     <targetClasses>
-                        <param>fi.riissanen.gwent.game.cards.*</param>
+                        <param>fi.riissanen.gwent.game.cards.Hand</param>
+                        <param>fi.riissanen.gwent.game.cards.Deck</param>
+                        <param>fi.riissanen.gwent.game.cards.CardCollection</param>
+                        <param>fi.riissanen.gwent.game.cards.UnitCard</param>
+                        <param>fi.riissanen.gwent.game.cards.abilities.*</param>
+                        <param>fi.riissanen.gwent.game.cards.attributes.*</param>
+                        <param>fi.riissanen.gwent.game.cards.neutral.*</param>
                         <param>fi.riissanen.gwent.game.combat.*</param>
                         <param>fi.riissanen.gwent.game.events.*</param>
                         <param>fi.riissanen.gwent.game.factions.*</param>
                         <param>fi.riissanen.gwent.game.states.*</param>
-                        <param>fi.riissanen.gwent.game.GameSystem.java</param>
-                        <param>fi.riissanen.gwent.game.MatchManager.java</param>
-                        <param>fi.riissanen.gwent.game.Player.java</param>
+                        <param>fi.riissanen.gwent.game.GameSystem</param>
+                        <param>fi.riissanen.gwent.game.MatchManager</param>
+                        <param>fi.riissanen.gwent.game.Player</param>
                     </targetClasses>
                     <targetTests>
                         <param>fi.riissanen.gwent.game.*</param>
