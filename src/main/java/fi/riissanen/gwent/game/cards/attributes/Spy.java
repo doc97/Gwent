@@ -1,16 +1,26 @@
 package fi.riissanen.gwent.game.cards.attributes;
 
+import fi.riissanen.gwent.game.GameSystem;
+import fi.riissanen.gwent.game.cards.abilities.Ability;
 import fi.riissanen.gwent.game.combat.Unit;
 
 /**
  * Spy attribute
  * @author Daniel
  */
-public class Spy implements Attribute {
+public class Spy implements Attribute, Ability {
 
+    private Unit unit;
+    
     @Override
     public void activate(Unit unit) {
-        unit.setFriendlyStatus(false);
+        this.unit = unit;
+        unit.setFriendlyStatus(!unit.isFriendly());
+    }
+    
+    @Override
+    public void activate(GameSystem system) {
+        unit.setFriendlyStatus(!unit.isFriendly());
     }
 
     @Override
