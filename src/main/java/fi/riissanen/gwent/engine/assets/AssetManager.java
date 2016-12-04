@@ -11,6 +11,7 @@ import java.util.Map;
 public class AssetManager {
     
     public static final TextureLoader TEXTURE_LOADER = new TextureLoader();
+    public static final FontLoader FONT_LOADER = new FontLoader();
     
     private final Map<AssetLoader, AssetParams> queue = new HashMap<>();
     private final Map<String, Asset> assets = new HashMap<>();

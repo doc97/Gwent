@@ -6,25 +6,32 @@ import fi.riissanen.gwent.engine.interfaces.Game;
  * The launcher containing the main()-method.
  * @author Daniel
  */
-public class EngineLauncher implements Runnable {
+public class EngineLauncher {
     
-    private Thread thread;
     private Game game;
+    private final Game emptyGame = new Game() {
+        @Override
+        public void create() {
+        }
+
+        @Override
+        public void render(double delta) {
+        }
+
+        @Override
+        public void dispose() {
+        }
+    };
     
     /**
      * Start an {@code Engine} instance with a game.
      * @param game The game to start with the engine
      */
     public void start(Game game) {
-        this.game = game;
-        thread = new Thread(this, "Gwent");
-        thread.start();
-    }
-    
-    @Override
-    public void run() {
+        this.game = (game == null ? emptyGame : game);
+        
         Engine.INSTANCE.initialize();
-        game.create();
+        this.game.create();
         
         double lastTime = Engine.INSTANCE.getTime();
         int frames = 0;
@@ -38,11 +45,11 @@ public class EngineLauncher implements Runnable {
                 lastTime += 1.0;
             }
             
-            game.render(delta);
+            this.game.render(delta);
             Engine.INSTANCE.display.updateDisplay();
         }
         
-        game.dispose();
+        this.game.dispose();
         Engine.INSTANCE.dispose();
     }
 }

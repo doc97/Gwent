@@ -1,9 +1,14 @@
 package fi.riissanen.gwent.game;
 
+import de.matthiasmann.twl.utils.PNGDecoder;
 import fi.riissanen.gwent.engine.Engine;
+import fi.riissanen.gwent.engine.EngineLauncher;
 import fi.riissanen.gwent.engine.Logger.LogLevel;
+import fi.riissanen.gwent.engine.assets.AssetManager;
 import fi.riissanen.gwent.engine.assets.AssetParams;
 import fi.riissanen.gwent.engine.interfaces.Game;
+import fi.riissanen.gwent.engine.render.Texture;
+import fi.riissanen.gwent.engine.render.fonts.Font;
 import fi.riissanen.gwent.game.cards.Card;
 import fi.riissanen.gwent.game.cards.Deck;
 import fi.riissanen.gwent.game.cards.factories.CardData;
@@ -28,6 +33,7 @@ import java.util.List;
  */
 public class Gwent implements Game {
 
+    private AssetManager assets;
     private CardFactory cardFactory;
     private CardLoader cardLoader;
     private EventSystem eventSys;
@@ -36,6 +42,7 @@ public class Gwent implements Game {
     
     @Override
     public void create() {
+        assets = new AssetManager();
         cardFactory = new UnitCardFactory();
         cardLoader = new CardLoader();
         eventSys = new EventSystem();
@@ -43,8 +50,20 @@ public class Gwent implements Game {
         console = new Console();
         console.start(gameSys);
         
+        loadAssets();
         setupGameSystem();
         setupEventListeners();
+        
+        Font font = (Font) assets.get("assets/fonts/arial.fnt");
+        Texture tex = font.getFontTexture();
+        System.out.println("Texture: " + (int) tex.getWidth() + "x" + (int)tex.getHeight());
+        System.out.println("Glyphs: " + font.getGlyphCount());
+    }
+    
+    private void loadAssets() {
+        // Trying to load a font
+        assets.load("assets/fonts/arial.fnt", AssetManager.FONT_LOADER);
+        assets.processQueue();
     }
     
     private void setupEventListeners() {

@@ -33,7 +33,7 @@ import static org.lwjgl.opengl.GL30.glGenerateMipmap;
 public class TextureLoader extends AssetLoader {
     
     @Override
-    public Asset load(AssetParams params) {
+    public Texture load(AssetParams params) {
         if (!params.getFilename().endsWith(".png")) {
             throw new IllegalArgumentException("Texture must be a .png");
         }

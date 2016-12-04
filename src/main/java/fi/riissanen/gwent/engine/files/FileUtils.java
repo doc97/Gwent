@@ -5,7 +5,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Utility class for file handling.
@@ -29,5 +31,18 @@ public class FileUtils {
             lines.add(line);
         }
         return lines;
+    }
+    
+    public Map<String, String> getKeyValues(String src, String delimeter,
+            String splitter) {
+        Map<String, String> values = new HashMap<>();
+        
+        for (String part : src.split(splitter)) {
+            String valuePairs[] = part.split(delimeter);
+            if (valuePairs.length == 2) {
+                values.put(valuePairs[0], valuePairs[1]);
+            }
+        }
+        return values;
     }
 }
