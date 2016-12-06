@@ -1,5 +1,6 @@
-package fi.riissanen.gwent.engine.render;
+package fi.riissanen.gwent.engine.render.shaders;
 
+import fi.riissanen.gwent.engine.render.UniformHandler;
 import static org.lwjgl.opengl.GL11.GL_FALSE;
 import org.lwjgl.opengl.GL20;
 import static org.lwjgl.opengl.GL20.GL_COMPILE_STATUS;
@@ -9,11 +10,13 @@ import static org.lwjgl.opengl.GL20.glUseProgram;
  * Represents an OpenGL shader program.
  * @author Daniel
  */
-public class ShaderProgram {
+public abstract class ShaderProgram {
     
     public static final String POSITION_ATTRIBUTE = "a_position";
     public static final String COLOR_ATTRIBUTE = "a_color";
     public static final String TEXCOORD_ATTRIBUTE = "a_texCoord";
+    
+    protected UniformHandler uniforms;
     
     private boolean isCompiled;
     private boolean validated;
@@ -38,10 +41,13 @@ public class ShaderProgram {
             throw new IllegalStateException("Fragment shader must not be null");
         }
         
+        uniforms = new UniformHandler();
         vertexShaderSrc = vertexShader;
         fragmentShaderSrc = fragmentShader;
         compileShaders(vertexShader, fragmentShader);
     }
+    
+    protected abstract void getAllUniformLocations();
     
     private void compileShaders(String vertexSrc, String fragmentSrc) {
         vertexShaderHandle = loadShader(GL20.GL_VERTEX_SHADER, vertexSrc);
@@ -59,6 +65,9 @@ public class ShaderProgram {
         }
         
         isCompiled = true;
+        uniforms.setProgramID(programHandle);
+        
+        getAllUniformLocations();
     }
     
     private int loadShader(int type, String src) {

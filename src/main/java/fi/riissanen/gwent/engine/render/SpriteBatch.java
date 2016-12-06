@@ -1,5 +1,7 @@
 package fi.riissanen.gwent.engine.render;
 
+import fi.riissanen.gwent.engine.render.shaders.DefaultShader;
+import fi.riissanen.gwent.engine.render.shaders.ShaderProgram;
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
@@ -38,6 +40,7 @@ public class SpriteBatch {
     private Texture lastTexture;
     private ShaderProgram customShader;
     private final ShaderProgram defaultShader;
+    private final Viewport viewport;
     private int vao;
     private int ibo;
     private int idx = 0;
@@ -75,6 +78,7 @@ public class SpriteBatch {
         floatBuff2 = BufferUtils.createFloatBuffer(8000);
         floatBuff3 = BufferUtils.createFloatBuffer(16000);
         color = new Color(1, 1, 1, 1);
+        viewport = new Viewport();
 
         for (int i = 0, j = 0; i < 6000; i += 6, j += 4) {
             indices[i    ] = j;
@@ -96,31 +100,7 @@ public class SpriteBatch {
     }
     
     private ShaderProgram createDefaultShader() {
-        String vertexShader = "#version 400\n" //
-                + "layout(location = 0) in vec3 " + ShaderProgram.POSITION_ATTRIBUTE + ";\n" //
-                + "layout(location = 1) in vec2 " + ShaderProgram.TEXCOORD_ATTRIBUTE + ";\n" //
-                + "layout(location = 2) in vec4 " + ShaderProgram.COLOR_ATTRIBUTE + ";\n" //
-                + "out vec4 v_color;\n" //
-                + "out vec2 v_texCoords;\n" //
-                + "\n" //
-                + "void main()\n" //
-                + "{\n" //
-                + "   v_color = " + ShaderProgram.COLOR_ATTRIBUTE + ";\n" //
-                + "   v_color.a = v_color.a * (255.0/254.0);\n" //
-                + "   v_texCoords = " + ShaderProgram.TEXCOORD_ATTRIBUTE + ";\n" //
-                + "   gl_Position = vec4(" + ShaderProgram.POSITION_ATTRIBUTE + ", 1.0);\n" //
-                + "}\n";
-        String fragmentShader = "#version 400\n" //
-                + "in vec4 v_color;\n" //
-                + "in vec2 v_texCoords;\n" //
-                + "out vec4 frag_color;\n" //
-                + "uniform sampler2D u_texture;\n" //
-                + "void main()\n"//
-                + "{\n" //
-                + "  frag_color = v_color * texture(u_texture, v_texCoords);\n" //
-                + "}";
-
-        ShaderProgram shader = new ShaderProgram(vertexShader, fragmentShader);
+        ShaderProgram shader = new DefaultShader();
         if (!shader.isCompiled()) {
             throw new IllegalArgumentException(
                     "Error compiling shader: " + shader.getLog());
@@ -286,6 +266,16 @@ public class SpriteBatch {
             flush();
         }
 
+        // To viewport coordinates
+        x1 = viewport.toGlCoordinateX(x1);
+        y1 = viewport.toGlCoordinateY(y1);
+        x2 = viewport.toGlCoordinateX(x2);
+        y2 = viewport.toGlCoordinateY(y2);
+        x3 = viewport.toGlCoordinateX(x3);
+        y3 = viewport.toGlCoordinateY(y3);
+        x4 = viewport.toGlCoordinateX(x4);
+        y4 = viewport.toGlCoordinateY(y4);
+        
         //coords for the vertices
         float vx1 = 2 * scale * x1 - (1 - scale);
         float vy1 = 2 * scale * y1 - (1 - scale);
@@ -429,6 +419,10 @@ public class SpriteBatch {
     
     public Color getColor() {
         return color.cpy();
+    }
+    
+    public void setViewport(float left, float bottom, float right, float top) {
+        viewport.set(left, right, bottom, top);
     }
 
     public void setScale(float scale) {
