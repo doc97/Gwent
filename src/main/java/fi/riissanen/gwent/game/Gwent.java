@@ -1,14 +1,16 @@
 package fi.riissanen.gwent.game;
 
-import de.matthiasmann.twl.utils.PNGDecoder;
+import de.matthiasmann.twl.utils.PNGDecoder.Format;
 import fi.riissanen.gwent.engine.Engine;
-import fi.riissanen.gwent.engine.EngineLauncher;
 import fi.riissanen.gwent.engine.Logger.LogLevel;
 import fi.riissanen.gwent.engine.assets.AssetManager;
 import fi.riissanen.gwent.engine.assets.AssetParams;
 import fi.riissanen.gwent.engine.interfaces.Game;
 import fi.riissanen.gwent.engine.render.Texture;
+import fi.riissanen.gwent.engine.render.Viewport;
 import fi.riissanen.gwent.engine.render.fonts.Font;
+import fi.riissanen.gwent.engine.render.fonts.Text;
+import fi.riissanen.gwent.engine.render.shaders.FontShader;
 import fi.riissanen.gwent.game.cards.Card;
 import fi.riissanen.gwent.game.cards.Deck;
 import fi.riissanen.gwent.game.cards.factories.CardData;
@@ -24,6 +26,8 @@ import fi.riissanen.gwent.game.factions.NilfgaardianEmpire;
 import fi.riissanen.gwent.game.factions.NorthernKingdoms;
 import fi.riissanen.gwent.game.events.MatchStartEvent;
 import fi.riissanen.gwent.game.ui.Console;
+import fi.riissanen.gwent.game.ui.TextCache;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +42,8 @@ public class Gwent implements Game {
     private CardLoader cardLoader;
     private EventSystem eventSys;
     private GameSystem gameSys;
+    private TextCache texts;
+    private Font font;
     private Console console;
     
     @Override
@@ -47,22 +53,41 @@ public class Gwent implements Game {
         cardLoader = new CardLoader();
         eventSys = new EventSystem();
         gameSys = new GameSystem(this);
+        texts = new TextCache();
         console = new Console();
         console.start(gameSys);
         
         loadAssets();
         setupGameSystem();
         setupEventListeners();
+
+        int width = Engine.INSTANCE.display.getWidth();
+        int height = Engine.INSTANCE.display.getHeight();
+        Engine.INSTANCE.display.setBackgroundColor(1, 0.5f, 0.5f, 1);
+        Engine.INSTANCE.batch.setViewport(0, 0, width, height);
         
-        Font font = (Font) assets.get("assets/fonts/arial.fnt");
-        Texture tex = font.getFontTexture();
-        System.out.println("Texture: " + (int) tex.getWidth() + "x" + (int)tex.getHeight());
-        System.out.println("Glyphs: " + font.getGlyphCount());
+        font = (Font) assets.get("assets/fonts/mono.fnt");
+        
+        Text text = new Text("...hey you!<3", font, 1/2f, -1);
+        text.setColor(1, 0.1f, 0.1f);
+        text.setPosition(width / 3, height / 2);
+        texts.addText(text);
+        
+        try {
+            Engine.INSTANCE.fontRenderer.setShader(new FontShader(
+                    "assets/shaders/font.vert",
+                    "assets/shaders/font.frag"));
+        } catch (IOException ex) {
+            System.err.println("Cannot set font shader");
+        }
     }
     
     private void loadAssets() {
         // Trying to load a font
+        assets.load(new AssetParams("assets/lwjgl.png", Format.RGBA),
+                AssetManager.TEXTURE_LOADER);
         assets.load("assets/fonts/arial.fnt", AssetManager.FONT_LOADER);
+        assets.load("assets/fonts/mono.fnt", AssetManager.FONT_LOADER);
         assets.processQueue();
     }
     
@@ -120,7 +145,9 @@ public class Gwent implements Game {
     
     @Override
     public void render(double delta) {
+        Engine.INSTANCE.display.clearDisplay();
         eventSys.update();
+        Engine.INSTANCE.fontRenderer.render(Engine.INSTANCE.batch, texts.getCache());
     }
 
     @Override

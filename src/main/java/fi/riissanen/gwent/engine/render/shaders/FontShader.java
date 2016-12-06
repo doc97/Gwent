@@ -1,7 +1,6 @@
 package fi.riissanen.gwent.engine.render.shaders;
 
 import fi.riissanen.gwent.engine.Engine;
-import fi.riissanen.gwent.engine.math.Vector2f;
 import fi.riissanen.gwent.engine.math.Vector3f;
 import fi.riissanen.gwent.engine.render.Color;
 import java.io.IOException;
@@ -13,7 +12,6 @@ import java.io.IOException;
 public class FontShader extends ShaderProgram {
 
     private int colorUniformLoc;
-    private int translationUniformLoc;
     
     /**
      * Creates a font shader from shader files.
@@ -29,7 +27,6 @@ public class FontShader extends ShaderProgram {
     @Override
     protected void getAllUniformLocations() {
         colorUniformLoc = uniforms.getUniformLocation("color");
-        translationUniformLoc = uniforms.getUniformLocation("translation");
     }
     
     /**
@@ -39,13 +36,5 @@ public class FontShader extends ShaderProgram {
     public void loadColor(Color color) {
         Vector3f vec = new Vector3f(color.getRed(), color.getGreen(), color.getBlue());
         uniforms.loadVector3f(colorUniformLoc, vec);
-    }
-    
-    /**
-     * Loads the translation uniform.
-     * @param vec The translation vector
-     */
-    public void loadTranslation(Vector2f vec) {
-        uniforms.loadVector2f(translationUniformLoc, vec);
     }
 }

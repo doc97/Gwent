@@ -2,6 +2,7 @@ package fi.riissanen.gwent.engine;
 
 import fi.riissanen.gwent.engine.Logger.LogLevel;
 import fi.riissanen.gwent.engine.files.FileUtils;
+import fi.riissanen.gwent.engine.render.FontRenderer;
 import fi.riissanen.gwent.engine.render.SpriteBatch;
 import static org.lwjgl.glfw.GLFW.glfwGetTime;
 import static org.lwjgl.opengl.GL11.GL_BLEND;
@@ -21,6 +22,7 @@ public enum Engine {
 
     public final DisplayManager display = new DisplayManager();
     public SpriteBatch batch;
+    public FontRenderer fontRenderer;
     public Logger log;
     public FileUtils files;
     public double frameTime;
@@ -37,6 +39,7 @@ public enum Engine {
         display.setBackgroundColor(0.5f, 0, 0.25f, 1);
 
         batch = new SpriteBatch();
+        fontRenderer = new FontRenderer();
         log = new Logger();
         files = new FileUtils();
         

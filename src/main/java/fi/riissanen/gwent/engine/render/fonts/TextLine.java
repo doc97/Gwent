@@ -30,14 +30,16 @@ public class TextLine {
      * 
      * <p>
      * The word width must be smaller than what is left on the line from
-     * the current line length to the max line length.
+     * the current line length to the max line length, or if max line length
+     * is -1, then there is no limit.
      * @param word The word to add
      * @return True if the word fit on the line, false otherwise
      */
     public boolean addWord(TextWord word) {
+        boolean noLimit = maxLength == -1;
         double additionalLength = word.getWidth();
         additionalLength += word.isEmpty() ? 0 : spaceSize;
-        if (currLength + additionalLength <= maxLength) {
+        if (currLength + additionalLength <= maxLength || noLimit) {
             words.add(word);
             currLength += additionalLength;
             return true;

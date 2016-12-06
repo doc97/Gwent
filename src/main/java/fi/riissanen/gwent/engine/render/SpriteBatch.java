@@ -485,4 +485,12 @@ public class SpriteBatch {
     public ShaderProgram getShader() {
         return (customShader == null) ? defaultShader : customShader;
     }
+    
+    /**
+     * Gets the current viewport.
+     * @return The viewport
+     */
+    public Viewport getViewport() {
+        return viewport;
+    }
 }

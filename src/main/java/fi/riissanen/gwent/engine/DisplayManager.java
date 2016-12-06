@@ -103,7 +103,6 @@ public class DisplayManager {
      * and polls events
      */
     public void updateDisplay() {
-        resize();
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
@@ -145,6 +144,22 @@ public class DisplayManager {
      */
     public void clearDisplay() {
         glClear(GL_COLOR_BUFFER_BIT);
+    }
+    
+    /**
+     * Gets the width of the window.
+     * @return The width;
+     */
+    public int getWidth() {
+        return width;
+    }
+    
+    /**
+     * Get the height of the window.
+     * @return The height
+     */
+    public int getHeight() {
+        return height;
     }
     
     /**

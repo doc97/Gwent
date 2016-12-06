@@ -76,7 +76,8 @@ public class TextMeshData {
         for (TextLine line : lines) {
             for (TextWord word : line.getWords()) {
                 for (Glyph glyph : word.getCharacters()) {
-                    addGlyphVertices(cursorX, cursorY, glyph, text.getFontSize());
+                    addGlyphVertices(cursorX, cursorY, glyph,
+                            text.getFontSize(), text.getFont().getLineHeight());
                     addGlyphUVs(glyph.getU1(), glyph.getV1(), glyph.getU2(), glyph.getV2());
                     cursorX += glyph.getXAdvance() * text.getFontSize();
                 }
@@ -87,12 +88,13 @@ public class TextMeshData {
         }
     }
     
-    private void addGlyphVertices(double cursorX, double cursorY, Glyph glyph, double fontSize) {
+    private void addGlyphVertices(double cursorX, double cursorY, Glyph glyph,
+            double fontSize, double lineHeight) {
         double width = glyph.getWidth() * fontSize;
         double height = glyph.getHeight() * fontSize;
         double x = cursorX + glyph.getXOffset() * fontSize;
-        
-        addQuadData(x, cursorY, width, height);
+        double y = lineHeight * fontSize - cursorY - glyph.getYOffset() * fontSize - height;
+        addQuadData(x, y, width, height);
     }
     
     private void addQuadData(double x, double y, double width, double height) {

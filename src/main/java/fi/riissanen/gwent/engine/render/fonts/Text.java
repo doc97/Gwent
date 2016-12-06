@@ -27,7 +27,7 @@ public class Text {
      * @param text The string of text
      * @param font The font to use
      * @param fontSize The relative scale of the font
-     * @param lineLength The length of one line of text
+     * @param lineLength The length of one line of text, -1 indicates no limit
      */
     public Text(String text, Font font, float fontSize, float lineLength) {
         this.text = text;

@@ -26,3 +26,6 @@ Day        | Hours | Description
 02.12.2016 | 3.5h  | Class and sequence diagrams
 02.12.2016 | 1.0h  | Javadoc for public methods
 03.12.2016 | 3.0h  | Unit tests
+04.12.2016 | 3.0h  | Font loading
+05.12.2016 | 1.0h  | Font rendering
+06.12.2016 | 8.0h  | Font rendering
