@@ -13,10 +13,13 @@ public class Glyph {
     private final double v2;
     private final double xOffset;
     private final double yOffset;
+    private final double width;
+    private final double height;
     private final double xAdvance;
     
     public Glyph(int asciiCode, double u1, double v1, double u2, double v2,
-            double xOffset, double yOffset, double xAdvance) {
+            double xOffset, double yOffset, double width, double height,
+            double xAdvance) {
         this.asciiCode = asciiCode;
         this.u1 = u1;
         this.v1 = v1;
@@ -24,6 +27,8 @@ public class Glyph {
         this.v2 = v2;
         this.xOffset = xOffset;
         this.yOffset = yOffset;
+        this.width = width;
+        this.height = height;
         this.xAdvance = xAdvance;
     }
 
@@ -47,17 +52,23 @@ public class Glyph {
         return v2;
     }
 
-    public double getxOffset() {
+    public double getXOffset() {
         return xOffset;
     }
 
-    public double getyOffset() {
+    public double getYOffset() {
         return yOffset;
     }
 
-    public double getxAdvance() {
-        return xAdvance;
+    public double getWidth() {
+        return width;
     }
     
+    public double getHeight() {
+        return height;
+    }
     
+    public double getXAdvance() {
+        return xAdvance;
+    }
 }
