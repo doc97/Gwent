@@ -1,9 +1,11 @@
 package fi.riissanen.gwent.engine.files;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.CharBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +16,27 @@ import java.util.Map;
  * @author Daniel
  */
 public class FileUtils {
+    
+    /**
+     * Reads a file as a string.
+     * @param filename The name of the file
+     * @return The content of the file as a String
+     * @throws FileNotFoundException If the file cannot be found
+     * @throws IOException If an I/O error occurs while reading the file
+     */
+    public String readFileAsString(String filename)
+            throws FileNotFoundException, IOException {
+        StringBuilder builder = new StringBuilder();
+        BufferedReader reader = new BufferedReader(new FileReader(filename));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            if (builder.length() > 0) {
+                builder.append("\n");
+            }
+            builder.append(line);
+        }
+        return builder.toString();
+    }
     
     /**
      * Reads lines of a file into a list.
