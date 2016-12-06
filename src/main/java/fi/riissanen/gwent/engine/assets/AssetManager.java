@@ -23,16 +23,16 @@ public class AssetManager {
      */
     public void load(String filename, AssetLoader loader) {
         AssetParams params = new AssetParams(filename);
-        load(loader, params);
+        load(params, loader);
     }
     
     /**
      * Queues an {@code Asset} to be loaded.
-     * @param loader The asset loader
      * @param params Parameters such as filename
+     * @param loader The asset loader
      * @see AssetManager#load(String, AssetLoader) 
      */
-    public void load(AssetLoader loader, AssetParams params) {
+    public void load(AssetParams params, AssetLoader loader) {
         queue.put(loader, params);
     }
     
