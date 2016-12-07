@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * A class representing the game board
+ * A class representing the game board.
  *
  * @author Daniel
  */
@@ -43,8 +43,6 @@ public class GameBoard {
         int index = type.getIndex();
         rows[index].addUnit(unit);
     }
-    
-    
     
     public void addWeatherCard(WeatherCard weather) {
         if (weather != null) {

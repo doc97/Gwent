@@ -7,6 +7,7 @@ import fi.riissanen.gwent.engine.render.fonts.Font;
 import fi.riissanen.gwent.engine.render.fonts.Glyph;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,8 +28,8 @@ public class FontLoader extends AssetLoader {
     private static final int PAD_BOTTOM = 2;
     private static final int PAD_RIGHT = 3;
     
-    private FileUtils files;
-    private List<String> lines;
+    private final FileUtils files = new FileUtils();
+    private List<String> lines = new ArrayList<>();
     private Map<String, String> values = new HashMap<>();
     private Map<Integer, Glyph> glyphs = new HashMap<>();
     
@@ -50,14 +51,14 @@ public class FontLoader extends AssetLoader {
     
     @Override
     public Font load(AssetParams params) {
+        reset();
         fontFileName = params.getFilename();
         if (!fontFileName.endsWith(".fnt")) {
             throw new IllegalArgumentException("Font file must be .fnt");
         }
         
         try {
-            files = new FileUtils();
-            lines = files.readLines(fontFileName);
+            lines.addAll(files.readLines(fontFileName));
             parseMetaData();
             parseGlyphData();
             loadFontTexture();
@@ -66,6 +67,24 @@ public class FontLoader extends AssetLoader {
             log = ex.getMessage();
         }
         return null;
+    }
+    
+    private void reset() {
+        lines = new ArrayList<>();
+        values = new HashMap<>();
+        glyphs = new HashMap<>();
+        padding = null;
+        paddingWidth = 0;
+        paddingHeight = 0;
+        lineHeight = 0;
+        spaceWidth = 0;
+        imageWidth = 0;
+        imageHeight = 0;
+        glyphCount = 0;
+        currLine = 0;
+        fontFileName = "";
+        textureName = "";
+        fontTexture = null;
     }
     
     private void parseMetaData() {
@@ -102,7 +121,6 @@ public class FontLoader extends AssetLoader {
     }
     
     private void parseGlyphData() {
-        glyphs = new HashMap<>();
         for (int i = 0; i < glyphCount; i++) {
             Glyph glyph = loadGlyph();
             if (glyph != null) {
@@ -113,8 +131,8 @@ public class FontLoader extends AssetLoader {
     
     private Glyph loadGlyph() {
         String line = lines.get(currLine++);
-        values = files.getKeyValues(
-                line, KEY_VALUE_DELIM, PAIR_DELIM);
+        values.putAll(files.getKeyValues(
+                line, KEY_VALUE_DELIM, PAIR_DELIM));
         int id = getIntegerValue("id");
         
         // Handle space differently since it is not actually a glyph

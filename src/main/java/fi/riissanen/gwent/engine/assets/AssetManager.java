@@ -1,7 +1,9 @@
 package fi.riissanen.gwent.engine.assets;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,7 +15,7 @@ public class AssetManager {
     public static final TextureLoader TEXTURE_LOADER = new TextureLoader();
     public static final FontLoader FONT_LOADER = new FontLoader();
     
-    private final Map<AssetLoader, AssetParams> queue = new HashMap<>();
+    private final Map<AssetLoader, List<AssetParams>> queue = new HashMap<>();
     private final Map<String, Asset> assets = new HashMap<>();
     
     /**
@@ -33,7 +35,10 @@ public class AssetManager {
      * @see AssetManager#load(String, AssetLoader) 
      */
     public void load(AssetParams params, AssetLoader loader) {
-        queue.put(loader, params);
+        if (queue.get(loader) == null) {
+            queue.put(loader, new ArrayList<>());
+        }
+        queue.get(loader).add(params);
     }
     
     /**
@@ -42,10 +47,11 @@ public class AssetManager {
     public void processQueue() {
         for (Iterator<AssetLoader> it = queue.keySet().iterator(); it.hasNext();) {
             AssetLoader loader = it.next();
-            AssetParams params = queue.get(loader);
-            Asset asset = loader.load(params);
-            if (asset != null) {
-                assets.put(params.getFilename(), asset);
+            for (AssetParams params : queue.get(loader)) {
+                Asset asset = loader.load(params);
+                if (asset != null) {
+                    assets.put(params.getFilename(), asset);
+                }
             }
             
             it.remove();
