@@ -29,3 +29,6 @@ Day        | Hours | Description
 04.12.2016 | 3.0h  | Font loading
 05.12.2016 | 1.0h  | Font rendering
 06.12.2016 | 8.0h  | Font rendering
+07.12.2016 | 4.0h  | GUI
+08.12.2016 | 1.5h  | GUI
+09.12.2016 | 4.5h  | GUI
