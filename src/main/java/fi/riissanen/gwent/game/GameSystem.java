@@ -9,10 +9,11 @@ import fi.riissanen.gwent.game.combat.GameBoard;
 import fi.riissanen.gwent.game.combat.Unit;
 import fi.riissanen.gwent.game.combat.UnitType;
 import fi.riissanen.gwent.game.events.CardPlayedEvent;
+import fi.riissanen.gwent.game.events.CardStageEvent;
 import fi.riissanen.gwent.game.states.GameStateSystem;
 import static fi.riissanen.gwent.game.states.GameStates.CHOOSE_STARTING_PLAYER_STATE;
-import static fi.riissanen.gwent.game.states.GameStates.HAND_STATE;
 import static fi.riissanen.gwent.game.states.GameStates.STAGE_STATE;
+import static fi.riissanen.gwent.game.states.GameStates.NORMAL_STATE;
 
 /**
  * In charge of handling the flow of the game.
@@ -48,14 +49,11 @@ public class GameSystem {
         this.friendly.drawCards(10);
         this.enemy.drawCards(10);
         board = new GameBoard();
-        stateSystem = new GameStateSystem();
+        stateSystem = new GameStateSystem(game);
         matchManager = new MatchManager();
         
-        if (game != null && game.getEventSystem() != null) {
-            stateSystem.setEventSystem(game.getEventSystem());
-        }
-        stateSystem.initialize(this);
-        stateSystem.push(HAND_STATE);
+        stateSystem.initialize();
+        stateSystem.push(NORMAL_STATE);
         stateSystem.push(CHOOSE_STARTING_PLAYER_STATE);
     }
     
@@ -93,6 +91,7 @@ public class GameSystem {
         if (card != null) {
             stagedCard = card;
             stateSystem.push(STAGE_STATE);
+            game.getEventSystem().register(new CardStageEvent(stagedCard, true));
         }
     }
     
@@ -100,10 +99,20 @@ public class GameSystem {
      * Unstages the currently staged card if any.
      */
     public void unstageCard() {
-        stagedCard = null;
         if (stateSystem.isCurrentState(STAGE_STATE)) {
             stateSystem.pop();
         }
+        stagedCard = null;
+    }
+    
+    /**
+     * Unstages the currently staged card.
+     */
+    public void cancelStagedCard() {
+        if (stagedCard != null) {
+            game.getEventSystem().register(new CardStageEvent(stagedCard, false));
+        }
+        unstageCard();
     }
     
     /**
@@ -132,9 +141,7 @@ public class GameSystem {
             ability.activate(this);
         }
         
-        if (game != null && game.getEventSystem() != null) {
-            game.getEventSystem().register(new CardPlayedEvent(stagedCard));
-        }
+        game.getEventSystem().register(new CardPlayedEvent(stagedCard, rowIndex));
         unstageCard();
         return true;
     }

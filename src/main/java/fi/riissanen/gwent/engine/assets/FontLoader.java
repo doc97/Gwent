@@ -158,7 +158,6 @@ public class FontLoader extends AssetLoader {
     
     private void loadFontTexture() {
         TextureLoader loader = new TextureLoader();
-        System.out.println(textureName);
         fontTexture = loader.load(new AssetParams(textureName, Format.RGBA));
     }
     

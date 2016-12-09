@@ -1,6 +1,9 @@
 package fi.riissanen.gwent.game.states;
 
 import fi.riissanen.gwent.game.GameSystem;
+import fi.riissanen.gwent.game.Gwent;
+import fi.riissanen.gwent.game.events.MatchStartEvent;
+import fi.riissanen.gwent.game.factions.Scoiatael;
 
 /**
  * State when the starting player is chosen
@@ -10,12 +13,13 @@ import fi.riissanen.gwent.game.GameSystem;
  * starts, otherwise it is random
  * @author Daniel
  */
-public class ChooseStartingPlayerState implements GameState {
+public class ChooseStartingPlayerState extends GameStateAdapter {
 
     private final GameSystem gameSys;
     
-    public ChooseStartingPlayerState(GameSystem gameSys) {
-        this.gameSys = gameSys;
+    public ChooseStartingPlayerState(Gwent game) {
+        super(game);
+        gameSys = game.getGameSystem();
     }
     
     @Override
@@ -25,5 +29,6 @@ public class ChooseStartingPlayerState implements GameState {
 
     @Override
     public void exit() {
+        game.getEventSystem().register(new MatchStartEvent());
     }
 }

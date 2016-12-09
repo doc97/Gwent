@@ -41,17 +41,32 @@ public class EventSystem {
     }
     
     public void addListener(Class<? extends Event> clazz, EventListener listener) {
-        if (listeners.containsKey(clazz)) {
+        List<EventListener> list = listeners.get(clazz);
+        if (list != null) {
             listeners.get(clazz).add(listener);
         } else {
-            List<EventListener> list = new ArrayList<>();
+            list = new ArrayList<>();
             list.add(listener);
-            setListeners(clazz, list);
+            listeners.put(clazz, list);
         }
     }
     
-    public void setListeners(Class<? extends Event> clazz, List<EventListener> listeners) {
-        this.listeners.put(clazz, listeners);
+    public void removeListener(Class<? extends Event> clazz, EventListener listener) {
+        List<EventListener> list = listeners.get(clazz);
+        if (list != null) {
+            list.remove(listener);
+            if (listeners.isEmpty()) {
+                this.listeners.remove(clazz);
+            }
+        }
+    }
+    
+    public void addListeners(Class<? extends Event> clazz, List<EventListener> listeners) {
+        if (this.listeners.containsKey(clazz)) {
+            this.listeners.get(clazz).addAll(listeners);
+        } else {
+            this.listeners.put(clazz, listeners);
+        }
     }
     
     public int getEventsPendingCount() {

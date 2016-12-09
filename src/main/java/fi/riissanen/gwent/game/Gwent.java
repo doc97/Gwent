@@ -6,8 +6,6 @@ import fi.riissanen.gwent.engine.Logger.LogLevel;
 import fi.riissanen.gwent.engine.assets.AssetManager;
 import fi.riissanen.gwent.engine.assets.AssetParams;
 import fi.riissanen.gwent.engine.interfaces.Game;
-import fi.riissanen.gwent.engine.render.Texture;
-import fi.riissanen.gwent.engine.render.Viewport;
 import fi.riissanen.gwent.engine.render.fonts.Font;
 import fi.riissanen.gwent.engine.render.fonts.Text;
 import fi.riissanen.gwent.engine.render.shaders.FontShader;
@@ -26,6 +24,7 @@ import fi.riissanen.gwent.game.factions.NilfgaardianEmpire;
 import fi.riissanen.gwent.game.factions.NorthernKingdoms;
 import fi.riissanen.gwent.game.events.MatchStartEvent;
 import fi.riissanen.gwent.game.ui.Console;
+import fi.riissanen.gwent.game.ui.GUI;
 import fi.riissanen.gwent.game.ui.TextCache;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,36 +41,39 @@ public class Gwent implements Game {
     private CardLoader cardLoader;
     private EventSystem eventSys;
     private GameSystem gameSys;
+    private GUI gui;
     private TextCache texts;
     private Font font;
     private Console console;
     
     @Override
     public void create() {
+        initialize();
+        setup();
+    }
+    
+    public void initialize() {
         assets = new AssetManager();
         cardFactory = new UnitCardFactory();
         cardLoader = new CardLoader();
         eventSys = new EventSystem();
         gameSys = new GameSystem(this);
+        gui = new GUI(assets);
         texts = new TextCache();
         console = new Console();
+    }
+    
+    public void setup() {
         console.start(gameSys);
+        
+        Engine.INSTANCE.display.setBackgroundColor(1, 0.5f, 0.5f, 1);
+        Engine.INSTANCE.batch.setViewport(0, 0, 1920, 1080);
         
         loadAssets();
         setupGameSystem();
         setupEventListeners();
 
-        int width = Engine.INSTANCE.display.getWidth();
-        int height = Engine.INSTANCE.display.getHeight();
-        Engine.INSTANCE.display.setBackgroundColor(1, 0.5f, 0.5f, 1);
-        Engine.INSTANCE.batch.setViewport(0, 0, width, height);
-        
         font = (Font) assets.get("assets/fonts/mono.fnt");
-        
-        Text text = new Text("...hey you!<3", font, 1/2f, -1);
-        text.setColor(1, 0.1f, 0.1f);
-        text.setPosition(width / 3, height / 2);
-        texts.addText(text);
         
         try {
             Engine.INSTANCE.fontRenderer.setShader(new FontShader(
@@ -112,15 +114,15 @@ public class Gwent implements Game {
             mse.add(eFaction);
         }
         
-        eventSys.setListeners(RoundEndEvent.class, ree);
-        eventSys.setListeners(MatchStartEvent.class, mse);
+        eventSys.addListeners(RoundEndEvent.class, ree);
+        eventSys.addListeners(MatchStartEvent.class, mse);
     }
     
     private void setupGameSystem() {
-        Player player = new Player(true);
+        Player player = new Player(this, true);
         player.setFaction(new NorthernKingdoms(player));
         
-        Player player2 = new Player(false);
+        Player player2 = new Player(this, false);
         player2.setFaction(new NorthernKingdoms(player2));
         
         // Create deck (temporary)
@@ -145,14 +147,23 @@ public class Gwent implements Game {
     
     @Override
     public void render(double delta) {
-        Engine.INSTANCE.display.clearDisplay();
         eventSys.update();
+        Engine.INSTANCE.display.clearDisplay();
+        gui.render(Engine.INSTANCE.batch);
         Engine.INSTANCE.fontRenderer.render(Engine.INSTANCE.batch, texts.getCache());
     }
 
     @Override
     public void dispose() {
         console.stop();
+    }
+
+    public AssetManager getAssetManager() {
+        return assets;
+    }
+
+    public GUI getGUI() {
+        return gui;
     }
     
     public GameSystem getGameSystem() {
@@ -161,5 +172,13 @@ public class Gwent implements Game {
     
     public EventSystem getEventSystem() {
         return eventSys;
+    }
+    
+    public TextCache getTextCache() {
+        return texts;
+    }
+    
+    public Font getFont() {
+        return font;
     }
 }

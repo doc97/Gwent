@@ -1,7 +1,10 @@
 package fi.riissanen.gwent.game.events;
 
+import fi.riissanen.gwent.engine.assets.AssetManager;
+import fi.riissanen.gwent.game.Gwent;
 import fi.riissanen.gwent.game.states.GameState;
-import fi.riissanen.gwent.game.states.HandState;
+import fi.riissanen.gwent.game.states.NormalState;
+import fi.riissanen.gwent.game.ui.GUI;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
@@ -15,14 +18,15 @@ public class TestStateChangeEvent {
     
     @Test
     public void testGetOldState() {
-        GameState old = new HandState();
+        Gwent game = new Gwent();
+        GameState old = new NormalState(game);
         event = new StateChangeEvent(old, null);
         assertEquals(old, event.getOldState());
     }
     
     @Test
     public void testGetNewState() {
-        GameState newState = new HandState();
+        GameState newState = new NormalState(new GUI(null), new AssetManager());
         event = new StateChangeEvent(null, newState);
         assertEquals(newState, event.getNewState());
     }

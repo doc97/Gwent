@@ -1,7 +1,9 @@
 package fi.riissanen.gwent.game.states;
 
-import fi.riissanen.gwent.game.GameSystem;
-import fi.riissanen.gwent.game.events.EventSystem;
+import fi.riissanen.gwent.game.Gwent;
+import fi.riissanen.gwent.game.events.CardPlayedEvent;
+import fi.riissanen.gwent.game.events.CardStageEvent;
+import fi.riissanen.gwent.game.events.DrawCardEvent;
 import fi.riissanen.gwent.game.events.StateChangeEvent;
 import static fi.riissanen.gwent.game.states.GameStates.*;
 import java.util.HashMap;
@@ -10,7 +12,7 @@ import java.util.Set;
 import java.util.Stack;
 
 /**
- * Handles game state transitions
+ * Handles game state transitions.
  * @author Daniel
  */
 public class GameStateSystem {
@@ -18,29 +20,33 @@ public class GameStateSystem {
     private final Map<GameStates, GameState> states = new HashMap<>();
     private final GameState emptyState;
     private final Stack<GameState> stack = new Stack();
-    private EventSystem eventSystem;
+    private final Gwent game;
     
-    public GameStateSystem() {
+    public GameStateSystem(Gwent game) {
+        this.game = game;
         emptyState = new GameState() {
+            @Override
+            public void create() {}
             @Override
             public void enter() {}
             @Override
             public void exit() {}
+            @Override
+            public void destroy() {}
         };
     }
     
-    public void initialize(GameSystem system) {
-        if (system != null) {
-            states.put(CHOOSE_STARTING_PLAYER_STATE, new ChooseStartingPlayerState(system));
-        }
-        states.put(REDRAW_STATE, new RedrawState());
-        states.put(HAND_STATE, new HandState());
-        states.put(STAGE_STATE, new StageState());
-        states.put(DISCARD_PILE_STATE, new DiscardPileState());
-    }
-    
-    public void setEventSystem(EventSystem eventSystem) {
-        this.eventSystem = eventSystem;
+    public void initialize() {
+        NormalState normalState = new NormalState(game);
+        game.getEventSystem().addListener(DrawCardEvent.class, normalState);
+        game.getEventSystem().addListener(CardStageEvent.class, normalState);
+        game.getEventSystem().addListener(CardPlayedEvent.class, normalState);
+        
+        states.put(CHOOSE_STARTING_PLAYER_STATE, new ChooseStartingPlayerState(game));
+        states.put(REDRAW_STATE, new RedrawState(game));
+        states.put(NORMAL_STATE, normalState);
+        states.put(STAGE_STATE, new StageState(game));
+        states.put(DISCARD_PILE_STATE, new DiscardPileState(game));
     }
     
     public void push(GameStates stateKey) {
@@ -51,7 +57,9 @@ public class GameStateSystem {
         
         GameState oldState = getCurrentState();
         oldState.exit();
-        stack.push(nextState).enter();
+        stack.push(nextState);
+        nextState.create();
+        nextState.enter();
         
         reportStateChangeEvent(oldState, nextState);
     }
@@ -61,6 +69,7 @@ public class GameStateSystem {
             GameState oldState = stack.pop();
             GameState newState = getCurrentState();
             oldState.exit();
+            oldState.destroy();
             newState.enter();
             reportStateChangeEvent(oldState, newState);
         }
@@ -82,8 +91,6 @@ public class GameStateSystem {
     }
     
     private void reportStateChangeEvent(GameState oldState, GameState newState) {
-        if (eventSystem != null) {
-            eventSystem.register(new StateChangeEvent(oldState, newState));
-        }
+        game.getEventSystem().register(new StateChangeEvent(oldState, newState));
     }
 }

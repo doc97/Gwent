@@ -8,6 +8,7 @@ import fi.riissanen.gwent.game.cards.Deck;
 import fi.riissanen.gwent.game.cards.Hand;
 import fi.riissanen.gwent.game.cards.UnitCard;
 import fi.riissanen.gwent.game.combat.Unit;
+import fi.riissanen.gwent.game.events.DrawCardEvent;
 import fi.riissanen.gwent.game.factions.Faction;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.Random;
  */
 public class Player {
 
+    private final Gwent game;
     private final List<Card> discardPile;
     private final Random rng;
     private final Deck deck;
@@ -27,7 +29,8 @@ public class Player {
     private boolean inTurn;
     private Faction faction;
     
-    public Player(boolean friendly) {
+    public Player(Gwent game, boolean friendly) {
+        this.game = game;
         this.friendly = friendly;
         rng = new Random();
         deck = new Deck();
@@ -83,6 +86,7 @@ public class Player {
             Card card = deck.getCard(index);
             deck.removeCard(card);
             hand.addCard(card);
+            game.getEventSystem().register(new DrawCardEvent(card, friendly));
         }
     }
     
@@ -90,7 +94,6 @@ public class Player {
         List<Card> nameCards = new ArrayList<>();
         for (int i = 0; i < deck.getCardCount(); i++) {
             Card card = deck.getCard(i);
-            System.out.println(card.getName() + ", " + name);
             if (card.getName().equals(name)) {
                 nameCards.add(card);
             }

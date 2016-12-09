@@ -1,5 +1,8 @@
 package fi.riissanen.gwent.game.states;
 
+import fi.riissanen.gwent.game.Gwent;
+import fi.riissanen.gwent.game.cards.abilities.Medic;
+
 /**
  * State in which player chooses a card from the discard pile
  * 
@@ -10,4 +13,7 @@ package fi.riissanen.gwent.game.states;
  */
 public class DiscardPileState extends GameStateAdapter {
 
+    public DiscardPileState(Gwent game) {
+        super(game);
+    }
 }
