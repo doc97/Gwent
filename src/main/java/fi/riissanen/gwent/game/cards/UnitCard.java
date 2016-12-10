@@ -6,7 +6,7 @@ import fi.riissanen.gwent.game.combat.Unit;
 import java.util.List;
 
 /**
- * A {@link Card} that contains a {@link Unit}
+ * A {@link Card} that contains a {@link Unit}.
  *
  * @author Daniel
  */
@@ -15,6 +15,10 @@ public class UnitCard implements Card {
     private Player player;
     private final Unit unit;
 
+    /**
+     * Constructor.
+     * @param unit The card's unit
+     */
     public UnitCard(Unit unit) {
         this.unit = unit;
     }

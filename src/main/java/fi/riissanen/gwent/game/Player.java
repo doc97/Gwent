@@ -43,6 +43,13 @@ public class Player {
         discardPile = new ArrayList<>();
     }
     
+    /**
+     * Assigns a deck to the player.
+     *
+     * <p>
+     * The owner of the cards is set to this player
+     * @param deck The deck to assign to player
+     */
     public void setDeck(Deck deck) {
         this.deck.clearCards();
         for (int i = 0; i < deck.getCardCount(); i++) {
@@ -136,7 +143,7 @@ public class Player {
     }
     
     /**
-     * Redraws a card
+     * Redraws a card.
      * @param card The card to redraw
      */
     public void redrawCard(Card card) {
@@ -149,10 +156,20 @@ public class Player {
         deck.addCard(card);
     }
     
+    /**
+     * Returns a card from the hand by it's index.
+     * @param index The index of the card
+     * @return The card, or null if the index is out of bounds
+     */
     public Card getHandCard(int index) {
         return hand.getCard(index);
     }
     
+    /**
+     * Returns a card from the deck by it's index.
+     * @param index The index of the card
+     * @return The card, or null if the index is out of bounds
+     */
     public Card getDeckCard(int index) {
         return deck.getCard(index);
     }
@@ -181,6 +198,9 @@ public class Player {
         return friendly;
     }
     
+    /**
+     * Prints the status of the hand to the engine long.
+     */
     public void handStatus() {
         for (int i = 0; i < hand.getCardCount(); i++) {
             Card card = hand.getCard(i);
@@ -192,6 +212,9 @@ public class Player {
         }
     }
     
+    /**
+     * Prints the status of the deck to the engine log.
+     */
     public void deckStatus() {
         StringBuilder str = new StringBuilder(" | ");
         for (int i = 0; i < deck.getCardCount(); i++) {

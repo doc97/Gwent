@@ -7,13 +7,17 @@ import fi.riissanen.gwent.game.combat.Unit;
 import java.util.List;
 
 /**
- * Morale boost ability
+ * Morale boost ability.
  * @author Daniel
  */
 public class MoraleBoost implements Ability, UnitAbility {
 
     private final UnitCard card;
     
+    /**
+     * Constructor.
+     * @param card The owner of the ability
+     */
     public MoraleBoost(UnitCard card) {
         this.card = card;
     }

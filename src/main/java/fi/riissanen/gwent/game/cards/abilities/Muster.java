@@ -10,13 +10,17 @@ import fi.riissanen.gwent.game.combat.UnitType;
 import java.util.List;
 
 /**
- * Muster ability
+ * Muster ability.
  * @author Daniel
  */
 public class Muster implements Ability, UnitAbility {
 
     private final UnitCard card;
     
+    /**
+     * Constructor.
+     * @param card The ability owner
+     */
     public Muster(UnitCard card) {
         this.card = card;
     }

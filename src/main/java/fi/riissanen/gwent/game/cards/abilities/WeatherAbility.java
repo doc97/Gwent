@@ -6,7 +6,7 @@ import fi.riissanen.gwent.game.combat.Unit;
 import fi.riissanen.gwent.game.combat.UnitType;
 
 /**
- *
+ * The ability of the weather card.
  * @author Daniel
  */
 public class WeatherAbility implements Ability {
@@ -15,6 +15,12 @@ public class WeatherAbility implements Ability {
     private final String description;
     private final UnitType row;
     
+    /**
+     * Constructor.
+     * @param name The name of the ability
+     * @param description The description of the ability
+     * @param row The row on which it was played
+     */
     public WeatherAbility(String name, String description, UnitType row) {
         this.name = name;
         this.description = description;

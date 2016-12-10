@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Tight bond ability
+ * Tight bond ability.
  * @author Daniel
  */
 
@@ -15,6 +15,10 @@ public class TightBond implements Ability, UnitAbility {
 
     private final UnitCard card;
     
+    /**
+     * Constructor.
+     * @param card The owner of the ability
+     */
     public TightBond(UnitCard card) {
         this.card = card;
     }

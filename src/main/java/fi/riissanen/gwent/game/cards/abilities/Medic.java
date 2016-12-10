@@ -6,13 +6,17 @@ import fi.riissanen.gwent.game.combat.Unit;
 import fi.riissanen.gwent.game.states.GameStates;
 
 /**
- * Medic ability
+ * Medic ability.
  * @author Daniel
  */
 public class Medic implements Ability, UnitAbility {
 
     private final UnitCard card;
     
+    /**
+     * Constructor.
+     * @param card The owner of the ability
+     */
     public Medic(UnitCard card) {
         this.card = card;
     }
