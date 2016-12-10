@@ -30,7 +30,8 @@ public class GUIHand extends GUIComponent {
     
     public void addCard(Card card, GUICard guiCard) {
         if (!cards.containsKey(card)) {
-            guiCard.setPosition(x + cards.size() * (guiCard.width + 10), y + 10);
+            guiCard.setPosition(x + 10 + cards.size() * (guiCard.getWidth() + 10),
+                    y + (height - guiCard.getHeight()) / 2);
             cards.put(card, guiCard);
             if (guiCard.hasText()) {
                 cache.addText(guiCard.getText());
@@ -47,7 +48,8 @@ public class GUIHand extends GUIComponent {
         int i = 0;
         for (Card c : cards.keySet()) {
             GUICard guiCard = cards.get(c);
-            guiCard.setPosition(x + i * (guiCard.width + 10), y + 10);
+            guiCard.setPosition(x + 10 + i * (guiCard.width + 10),
+                    y + (height - guiCard.getHeight()) / 2);
             i++;
         }
     }

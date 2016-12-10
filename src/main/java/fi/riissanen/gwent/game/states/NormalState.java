@@ -50,26 +50,28 @@ public class NormalState extends GameStateAdapter implements EventListener {
         board.setSize(Engine.INSTANCE.batch.getViewport().getWidth(),
                 Engine.INSTANCE.batch.getViewport().getHeight());
         
-        Texture handTex = (Texture) assets.get("assets/textures/hand.png");
+        Texture handTex = (Texture) assets.get("assets/lwjgl.png");
         hand = new GUIHand(handTex, game.getTextCache());
         hand.setPosition(300, 20);
-        hand.setSize(Engine.INSTANCE.batch.getViewport().getWidth() - 300 - 20, 110);
+        hand.setSize(Engine.INSTANCE.batch.getViewport().getWidth() - 2 * 300 - 20,
+                GUICard.HEIGHT + 10);
         
         Texture rowTex = (Texture) assets.get("assets/lwjgl.png");
-        float half = Engine.INSTANCE.batch.getViewport().getHeight() / 2 + hand.getHeight();
+        float half = (Engine.INSTANCE.batch.getViewport().getHeight() + hand.getHeight() + 20) / 2;
         for (int i = 0; i < 3; i++) {
             friendlyRows[i] = new GUIRow(rowTex, game.getTextCache());
-            friendlyRows[i].setPosition(300,
-                    half - (i + 1) * 115);
             friendlyRows[i].setSize(
-                    Engine.INSTANCE.batch.getViewport().getWidth() - 300 - 20,
-                    105);
+                    Engine.INSTANCE.batch.getViewport().getWidth() - 2 * 300 - 20,
+                    GUICard.HEIGHT + 10);
+            friendlyRows[i].setPosition(300,
+                    half - (i + 1) * (friendlyRows[i].getHeight() + 10));
+            
             enemyRows[i] = new GUIRow(rowTex, game.getTextCache());
-            enemyRows[i].setPosition(300,
-                    half + i * 115);
             enemyRows[i].setSize(
-                    Engine.INSTANCE.batch.getViewport().getWidth() - 300 - 20,
-                    105);
+                    Engine.INSTANCE.batch.getViewport().getWidth() - 2 * 300 - 20,
+                    GUICard.HEIGHT + 10);
+            enemyRows[i].setPosition(300,
+                    half + i * (enemyRows[i].getHeight() + 10));
         }
     }
 
@@ -129,7 +131,7 @@ public class NormalState extends GameStateAdapter implements EventListener {
             text = new Text(strength + "", game.getFont(), 1 / 6f, -1);
         }
         GUICard guiCard = new GUICard(text, texture);
-        guiCard.setSize(60, 100);
+        guiCard.setSize(GUICard.WIDTH, GUICard.HEIGHT);
         return guiCard;
     }
 }

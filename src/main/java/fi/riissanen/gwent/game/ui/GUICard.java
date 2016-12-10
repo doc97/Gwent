@@ -10,6 +10,8 @@ import fi.riissanen.gwent.engine.render.fonts.Text;
  */
 public class GUICard extends GUIComponent {
 
+    public static final int WIDTH = 80;
+    public static final int HEIGHT = 125;
     private final Text text;
     
     public GUICard(Text text, Texture texture) {
