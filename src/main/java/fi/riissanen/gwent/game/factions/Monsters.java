@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * A faction in the game
+ * A faction in the game.
  * @author Daniel
  */
 public class Monsters extends Faction {
@@ -21,6 +21,10 @@ public class Monsters extends Faction {
     private final Ability ability;
     private boolean triggered;
     
+    /**
+     * Creates the Monster faction ability.
+     * @param player The player to which the faction belongs to 
+     */
     public Monsters(Player player) {
         ability = new Ability() {
             @Override

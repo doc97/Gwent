@@ -8,7 +8,7 @@ import fi.riissanen.gwent.game.events.Event;
 import fi.riissanen.gwent.game.events.RoundEndEvent;
 
 /**
- * A faction in the game
+ * A faction in the game.
  * @author Daniel
  */
 public class NilfgaardianEmpire extends Faction {
@@ -16,6 +16,10 @@ public class NilfgaardianEmpire extends Faction {
     private final Ability ability;
     private boolean triggered;
     
+    /**
+     * Creates the Nilfgaardian Empire faction ability.
+     * @param player The player to which the faction belongs to 
+     */
     public NilfgaardianEmpire(Player player) {
         ability = new Ability() {
             @Override

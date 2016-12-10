@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
  /**
- *
+ * Tests the Client of the engine.
  * @author Daniel
  */
 public class ClientTest implements PacketListener {
@@ -15,12 +15,20 @@ public class ClientTest implements PacketListener {
     private final Client client;
     private final Scanner scanner;
     
+    /**
+     * Constructor.
+     */
     public ClientTest() {
         client = new Client();
         client.setPacketListener(this);
         scanner = new Scanner(System.in);
     }
     
+    /**
+     * Connects to a server.
+     * @param host The host address of the server.
+     * @param port The port on which the host is listening on
+     */
     public void connect(String host, int port) {
         try {
             System.out.println("Connecting to " + host + ":" + port);
@@ -44,7 +52,11 @@ public class ClientTest implements PacketListener {
             System.out.println("Me:     " + message);
         }
     }
-        
+    
+    /**
+     * Main method.
+     * @param args The command-line arguments 
+     */
     public static void main(String[] args) {
         ClientTest test = new ClientTest();
         test.connect("localhost", 6666);

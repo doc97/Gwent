@@ -7,7 +7,7 @@ import fi.riissanen.gwent.game.events.Event;
 import fi.riissanen.gwent.game.events.RoundEndEvent;
 
 /**
- * A faction in the game
+ * A faction in the game.
  * @author Daniel
  */
 public class NorthernKingdoms extends Faction {
@@ -15,6 +15,10 @@ public class NorthernKingdoms extends Faction {
     private final Ability ability;
     private boolean triggered;
     
+    /**
+     * Creates the Northern Kingdoms faction ability.
+     * @param player The player to which the faction belongs to 
+     */
     public NorthernKingdoms(Player player) {
         ability = new Ability() {
             @Override

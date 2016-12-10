@@ -6,7 +6,7 @@ import fi.riissanen.gwent.engine.net.Server;
 import java.io.IOException;
 
 /**
- *
+ * Tests the Server of the engine.
  * @author Daniel
  */
 public class ServerTest implements PacketListener {
@@ -14,12 +14,19 @@ public class ServerTest implements PacketListener {
     private final Server server;
     private final int port;
     
+    /**
+     * Constructor.
+     * @param port The port on which to listen on
+     */
     public ServerTest(int port) {
         this.port = port;
         server = new Server();
         server.setPacketListener(this);
     }
     
+    /**
+     * Start the server.
+     */
     public void launch() {
         try {
             System.out.println("Starting server at port " + port);
@@ -45,6 +52,10 @@ public class ServerTest implements PacketListener {
         }
     }
     
+    /**
+     * Main method.
+     * @param args The command-line arguments
+     */
     public static void main(String[] args) {
         new ServerTest(6666).launch();
     }

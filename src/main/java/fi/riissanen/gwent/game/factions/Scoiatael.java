@@ -7,7 +7,7 @@ import fi.riissanen.gwent.game.states.GameStates;
 import fi.riissanen.gwent.game.events.MatchStartEvent;
 
 /**
- * A faction in the game
+ * A faction in the game.
  * @author Daniel
  */
 public class Scoiatael extends Faction {
@@ -15,6 +15,9 @@ public class Scoiatael extends Faction {
     private final Ability ability;
     private boolean triggered;
     
+    /**
+     * Creates the Scoiatael faction ability.
+     */
     public Scoiatael() {
         ability = new Ability() {
             @Override
