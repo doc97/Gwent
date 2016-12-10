@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A specialized {@link CardFactory} for creating {@link UnitCard}'s
+ * A specialised {@link CardFactory} for creating {@link UnitCard}'s.
  *
  * @author Daniel
  */

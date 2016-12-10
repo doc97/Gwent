@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * An {@link AssetLoader} that loads {@link CardData} from files
+ * An {@link AssetLoader} that loads {@link CardData} from files.
  * @author Daniel
  */
 public class CardLoader extends AssetLoader {

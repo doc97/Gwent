@@ -5,7 +5,7 @@ import fi.riissanen.gwent.game.cards.abilities.Ability;
 import fi.riissanen.gwent.game.combat.Unit;
 
 /**
- * Spy attribute
+ * Spy attribute.
  * @author Daniel
  */
 public class Spy implements Attribute, Ability {

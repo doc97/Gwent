@@ -3,7 +3,7 @@ package fi.riissanen.gwent.game.cards.attributes;
 import fi.riissanen.gwent.game.combat.Unit;
 
 /**
- * Hero attribute
+ * Hero attribute.
  * @author Daniel
  */
 public class Hero implements Attribute {
