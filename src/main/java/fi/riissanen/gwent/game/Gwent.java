@@ -7,7 +7,6 @@ import fi.riissanen.gwent.engine.assets.AssetManager;
 import fi.riissanen.gwent.engine.assets.AssetParams;
 import fi.riissanen.gwent.engine.interfaces.Game;
 import fi.riissanen.gwent.engine.render.fonts.Font;
-import fi.riissanen.gwent.engine.render.fonts.Text;
 import fi.riissanen.gwent.engine.render.shaders.FontShader;
 import fi.riissanen.gwent.game.cards.Card;
 import fi.riissanen.gwent.game.cards.Deck;
@@ -144,9 +143,10 @@ public class Gwent implements Game {
             return;
         }
         for (int i = 0; i < Deck.MIN_CARDS; i++) {
-            Card card = cardFactory.createCard(data);
-            deck1.addCard(card);
-            deck2.addCard(card);
+            Card card1 = cardFactory.createCard(data);
+            Card card2 = cardFactory.createCard(data);
+            deck1.addCard(card1);
+            deck2.addCard(card2);
         }
 
         player.setDeck(deck1);
