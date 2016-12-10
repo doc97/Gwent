@@ -11,6 +11,11 @@ public class DrawCardEvent implements Event {
     private final Card card;
     private final boolean friendly;
     
+    /**
+     * Constructor.
+     * @param card The card that was drawn
+     * @param friendly If it was the friendly player who drew
+     */
     public DrawCardEvent(Card card, boolean friendly) {
         this.card = card;
         this.friendly = friendly;
@@ -20,7 +25,11 @@ public class DrawCardEvent implements Event {
         return card;
     }
     
-    public boolean wasFriendly() {
+    /**
+     * Returns whether it was the friendly player who drew the card.
+     * @return True if friendly, false if enemy
+     */
+    public boolean isFriendly() {
         return friendly;
     }
 }

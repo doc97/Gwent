@@ -11,6 +11,11 @@ public class CardStageEvent implements Event {
     private final Card card;
     private final boolean staged;
     
+    /**
+     * Constructor.
+     * @param card The card that was involved.
+     * @param staged True if the card was staged, false if it was cancelled
+     */
     public CardStageEvent(Card card, boolean staged) {
         this.card = card;
         this.staged = staged;
@@ -20,7 +25,8 @@ public class CardStageEvent implements Event {
         return card;
     }
     
-    public boolean cardIsStaged() {
+    
+    public boolean isStaged() {
         return staged;
     }
 }

@@ -1,7 +1,7 @@
 package fi.riissanen.gwent.game.events;
 
 /**
- * An abstract {@link Event} listener
+ * An abstract {@link Event} listener.
  * 
  * <p>
  * Must be set as a listener for an event in {@link EventSystem}
@@ -9,5 +9,10 @@ package fi.riissanen.gwent.game.events;
  * @author Daniel
  */
 public interface EventListener {
+    
+    /**
+     * Processes the incoming event.
+     * @param event The event
+     */
     public void process(Event event);
 }

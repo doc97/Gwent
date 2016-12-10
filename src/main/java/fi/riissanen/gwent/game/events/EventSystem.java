@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Queue;
 
 /**
- * Handles event distribution and listeners
+ * Handles event distribution and listeners.
  * @author Daniel
  */
 public class EventSystem {
@@ -16,10 +16,17 @@ public class EventSystem {
     private final Map<Class<? extends Event>, List<EventListener>> listeners = new HashMap<>();
     private final Queue<Event> events = new ArrayDeque<>();
     
+    /**
+     * Registers an event, adds it to the queue of events yet to process.
+     * @param event The event to register
+     */
     public void register(Event event) {
         events.add(event);
     }
     
+    /**
+     * Handles registered events.
+     */
     public void update() {
         Event e;
         while ((e = events.poll()) != null) {
@@ -36,10 +43,18 @@ public class EventSystem {
         }
     }
     
+    /**
+     * Removes the registered events from the queue.
+     */
     public void clear() {
         events.clear();
     }
     
+    /**
+     * Adds an event listener to an event.
+     * @param clazz The event
+     * @param listener The event listener
+     */
     public void addListener(Class<? extends Event> clazz, EventListener listener) {
         List<EventListener> list = listeners.get(clazz);
         if (list != null) {
@@ -51,6 +66,11 @@ public class EventSystem {
         }
     }
     
+    /**
+     * Removes an event listener.
+     * @param clazz The class of the event that the listener no longer will listen to
+     * @param listener The event listener
+     */
     public void removeListener(Class<? extends Event> clazz, EventListener listener) {
         List<EventListener> list = listeners.get(clazz);
         if (list != null) {
@@ -61,6 +81,11 @@ public class EventSystem {
         }
     }
     
+    /**
+     * Add a list of event listeners to listen for an event.
+     * @param clazz The class of the event
+     * @param listeners The list of listeners
+     */
     public void addListeners(Class<? extends Event> clazz, List<EventListener> listeners) {
         if (this.listeners.containsKey(clazz)) {
             this.listeners.get(clazz).addAll(listeners);
@@ -69,10 +94,19 @@ public class EventSystem {
         }
     }
     
+    /**
+     * Gets the number of events that are waiting to get processed.
+     * @return The event count
+     */
     public int getEventsPendingCount() {
         return events.size();
     }
     
+    /**
+     * Gets the number of event listeners for a certain event.
+     * @param clazz The event
+     * @return The event listener count
+     */
     public int getEventListenerCount(Class<? extends Event> clazz) {
         return listeners.get(clazz).size();
     }

@@ -99,13 +99,13 @@ public class NormalState extends GameStateAdapter implements EventListener {
     public void process(Event event) {
         if (event instanceof DrawCardEvent) {
             Card card = ((DrawCardEvent) event).getCard();
-            boolean friendly = ((DrawCardEvent) event).wasFriendly();
+            boolean friendly = ((DrawCardEvent) event).isFriendly();
             if (friendly) {
                 hand.addCard(card, createGUICard(card));
             }
         } else if (event instanceof CardStageEvent) {
             Card card = ((CardStageEvent) event).getCard();
-            boolean staged = ((CardStageEvent) event).cardIsStaged();
+            boolean staged = ((CardStageEvent) event).isStaged();
             if (staged) {
                 hand.removeCard(card);
             } else {
