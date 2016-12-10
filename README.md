@@ -17,6 +17,6 @@ If you find any issues, please use the [Github issue tracker][6]
 [1]: https://www.cs.helsinki.fi/home/
 [2]: documentation/aiheenKuvausJaRakenne.md
 [3]: documentation/tuntikirjanpito.md
-[4]: https://htmlpreview.github.io/?https://github.com/doc97/Gwent/blob/master/documentation/pit-reports/201612022357/index.html
-[5]: https://htmlpreview.github.io/?https://github.com/doc97/Gwent/blob/master/documentation/checkstyle-reports/201602122359/site/checkstyle.html 
+[4]: https://htmlpreview.github.io/?https://github.com/doc97/Gwent/blob/master/documentation/pit-reports/201612102222/index.html
+[5]: https://htmlpreview.github.io/?https://github.com/doc97/Gwent/blob/master/documentation/checkstyle-reports/201610122230/site/checkstyle.html 
 [6]: https://github.com/doc97/Gwent/issues?state=open
