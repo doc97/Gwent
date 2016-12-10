@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en_GB" lang="en_GB">
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>OutputPacketAdapter xref</title>
+<link type="text/css" rel="stylesheet" href="../../../../../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../../../../../apidocs/fi/riissanen/gwent/engine/net/OutputPacketAdapter.html">View Javadoc</a></div><pre>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> fi.riissanen.gwent.engine.net;
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> java.io.IOException;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> java.io.ObjectOutputStream;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> java.net.Socket;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> java.util.Queue;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment"> * An adapter to the socket and sends queued packets.</em>
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> * @see PacketSender</em>
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> * @author Daniel</em>
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../fi/riissanen/gwent/engine/net/OutputPacketAdapter.html">OutputPacketAdapter</a> <strong class="jxr_keyword">implements</strong> Runnable {
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../fi/riissanen/gwent/engine/net/PacketSender.html">PacketSender</a> sender;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Socket socket;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>      
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment">     * Initializes with a {@code Socket} and {@code PacketSender}.</em>
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment">     * @param socket The socket over which packets are sent</em>
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment">     * @param sender The sender who provides the packets</em>
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../fi/riissanen/gwent/engine/net/OutputPacketAdapter.html">OutputPacketAdapter</a>(Socket socket, <a href="../../../../../fi/riissanen/gwent/engine/net/PacketSender.html">PacketSender</a> sender) {
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>          <strong class="jxr_keyword">this</strong>.socket = socket;
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>          <strong class="jxr_keyword">this</strong>.sender = sender;
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>      }
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">synchronized</strong> Socket getSocket() {
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>          <strong class="jxr_keyword">return</strong> socket;
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>      }
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>      
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>      @Override
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> run() {
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>          ObjectOutputStream out = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>          <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>              out = <strong class="jxr_keyword">new</strong> ObjectOutputStream(socket.getOutputStream());
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>              <strong class="jxr_keyword">while</strong> (<strong class="jxr_keyword">true</strong>) {
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>                  <strong class="jxr_keyword">if</strong> (sender.isReady()) {
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>                      Queue&lt;Packet&gt; queue = sender.getQueuedPackets();
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>                      <strong class="jxr_keyword">synchronized</strong> (queue) {
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>                          <strong class="jxr_keyword">while</strong> (!queue.isEmpty()) {
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>                              <a href="../../../../../fi/riissanen/gwent/engine/net/Packet.html">Packet</a> packet = queue.poll();
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>                              out.writeObject(packet);
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>                          }
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>                      }
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>                  }
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>                  <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>                      Thread.sleep(10); <em class="jxr_comment">// Let other processes use the CPU</em>
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>                  } <strong class="jxr_keyword">catch</strong> (InterruptedException ex) {
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>                  }
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>              }
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>          } <strong class="jxr_keyword">catch</strong> (IOException ex) {
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>          } <strong class="jxr_keyword">finally</strong> {
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>              <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>                  <strong class="jxr_keyword">if</strong> (out != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>                      out.close();
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>                  }
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>              } <strong class="jxr_keyword">catch</strong> (IOException ex) {
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>              }
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>          }
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>      }
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>  }
+</pre>
+<hr/>
+<div id="footer">Copyright &#169; 2016. All rights reserved.</div>
+</body>
+</html>
