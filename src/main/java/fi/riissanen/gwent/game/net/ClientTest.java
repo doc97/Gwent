@@ -6,7 +6,7 @@ import fi.riissanen.gwent.engine.net.PacketListener;
 import java.io.IOException;
 import java.util.Scanner;
 
-/**
+ /**
  *
  * @author Daniel
  */

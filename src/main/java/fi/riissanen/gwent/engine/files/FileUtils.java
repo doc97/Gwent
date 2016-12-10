@@ -54,6 +54,14 @@ public class FileUtils {
         return lines;
     }
     
+    /**
+     * Parses key-value pairs from a source text.
+     * 
+     * @param src The source text
+     * @param delimeter The delimiter splitting keys from values
+     * @param splitter The delimiter splitting pairs from each other
+     * @return The key-value pairs mapped by the keys
+     */
     public Map<String, String> getKeyValues(String src, String delimeter,
             String splitter) {
         Map<String, String> values = new HashMap<>();

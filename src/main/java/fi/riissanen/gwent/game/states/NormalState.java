@@ -126,7 +126,7 @@ public class NormalState extends GameStateAdapter implements EventListener {
         Text text = null;
         if (card instanceof UnitCard) {
             int strength = ((UnitCard) card).getUnit().getStrength();
-            text = new Text(strength + "", game.getFont(), 1/6f, -1);
+            text = new Text(strength + "", game.getFont(), 1 / 6f, -1);
         }
         GUICard guiCard = new GUICard(text, texture);
         guiCard.setSize(60, 100);

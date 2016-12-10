@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
+ * Renders texts.
  * @author Daniel
  */
 public class FontRenderer {
@@ -20,6 +20,13 @@ public class FontRenderer {
         this.shader = shader;
     }
     
+    /**
+     * Renders all texts that are given.
+     * 
+     * The texts are mapped by the font to avoid texture switching.
+     * @param batch The sprite batch to render the textures with
+     * @param texts The mapping of font and texts
+     */
     public void render(SpriteBatch batch, Map<Font, List<Text>> texts) {
         ShaderProgram oldShader = batch.getShader();
         batch.setShader(shader);

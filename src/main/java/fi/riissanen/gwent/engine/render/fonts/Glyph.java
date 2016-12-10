@@ -17,6 +17,19 @@ public class Glyph {
     private final double height;
     private final double xAdvance;
     
+    /**
+     * Creates a glyph.
+     * @param asciiCode The ASCII code of the character
+     * @param u1 The start U coordinate
+     * @param v1 The start V coordinate
+     * @param u2 The end U coordinate
+     * @param v2 The end V coordinate
+     * @param xOffset The x offset to draw glyph from cursor
+     * @param yOffset The y offset to draw glyph from cursor
+     * @param width The width of the glyph
+     * @param height The height of the glyph
+     * @param xAdvance The amount to advance cursor after this glyph
+     */
     public Glyph(int asciiCode, double u1, double v1, double u2, double v2,
             double xOffset, double yOffset, double width, double height,
             double xAdvance) {

@@ -29,6 +29,9 @@ public class CardLoader extends AssetLoader {
     private static final List<String> ATTRIBUTES = new ArrayList<>();
     private static final List<String> UNIT_TYPES = new ArrayList<>();
     
+    /**
+     * Loads card validation data.
+     */
     public CardLoader() {
         TYPES.add("Unit");
         TYPES.add("Weather");

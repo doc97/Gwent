@@ -421,6 +421,13 @@ public class SpriteBatch {
         return color.cpy();
     }
     
+    /**
+     * Sets the viewport values.
+     * @param left The left of the viewport
+     * @param bottom The bottom of the viewport
+     * @param right The right of the viewport
+     * @param top The top of the viewport
+     */
     public void setViewport(float left, float bottom, float right, float top) {
         viewport.set(left, right, bottom, top);
     }

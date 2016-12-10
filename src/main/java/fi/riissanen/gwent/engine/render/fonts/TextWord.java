@@ -14,7 +14,7 @@ public class TextWord {
     private double width;
     
     /**
-     * Creates a word with a certain font size
+     * Creates a word with a certain font size.
      * @param fontSize The font size
      */
     public TextWord(double fontSize) {

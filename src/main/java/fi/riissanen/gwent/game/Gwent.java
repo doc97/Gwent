@@ -52,6 +52,12 @@ public class Gwent implements Game {
         setup();
     }
     
+    /**
+     * Initializes all internal members.
+     * 
+     * <p>
+     * Useful to use when running unit tests
+     */
     public void initialize() {
         assets = new AssetManager();
         cardFactory = new UnitCardFactory();
@@ -63,6 +69,9 @@ public class Gwent implements Game {
         console = new Console();
     }
     
+    /**
+     * Setups the actual game.
+     */
     public void setup() {
         console.start(gameSys);
         

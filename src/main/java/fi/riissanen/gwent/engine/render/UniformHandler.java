@@ -5,7 +5,7 @@ import fi.riissanen.gwent.engine.math.Vector3f;
 import org.lwjgl.opengl.GL20;
 
 /**
- *
+ * Helper class to handle uniform variable loading.
  * @author Daniel
  */
 public class UniformHandler {
@@ -34,6 +34,11 @@ public class UniformHandler {
         this.programID = programID;
     }
     
+    /**
+     * Gets the uniform location for a uniform variable by the name.
+     * @param uniformName The name of the uniform variable
+     * @return The location of the uniform variable
+     */
     public int getUniformLocation(String uniformName) {
         return GL20.glGetUniformLocation(programID, uniformName);
     }

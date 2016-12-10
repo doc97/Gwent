@@ -31,7 +31,7 @@ public class GameSystem {
     private final Gwent game;
     
     /**
-     * Creates a game system with a reference to the game
+     * Creates a game system with a reference to the game.
      * @param game 
      */
     public GameSystem(Gwent game) {

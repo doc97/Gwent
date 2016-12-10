@@ -23,7 +23,7 @@ public class Text {
     private int numberOfLines;
     
     /**
-     * Constructor
+     * Creates a text.
      * @param text The string of text
      * @param font The font to use
      * @param fontSize The relative scale of the font
@@ -39,10 +39,21 @@ public class Text {
         meshData = new TextMeshData();
     }
 
+    /**
+     * Sets the color's components.
+     * @param r The red component
+     * @param g The green component
+     * @param b The blue component
+     */
     public void setColor(float r, float g, float b) {
         color.set(r, g, b, 1);
     }
     
+    /**
+     * Sets the position of the text.
+     * @param x The x coordinate
+     * @param y The y coordinate
+     */
     public void setPosition(float x, float y) {
         position.set(x, y);
     }

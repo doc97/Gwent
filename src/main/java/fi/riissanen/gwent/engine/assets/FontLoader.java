@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
+ * Loads fonts.
  * @author Daniel
  */
 public class FontLoader extends AssetLoader {
@@ -89,7 +89,7 @@ public class FontLoader extends AssetLoader {
     
     private void parseMetaData() {
         values.clear();
-        for (;currLine < META_DATA_LINES; currLine++) {
+        for (; currLine < META_DATA_LINES; currLine++) {
             String line = lines.get(currLine);
             values.putAll(files.getKeyValues(
                     line, KEY_VALUE_DELIM, PAIR_DELIM));
@@ -170,6 +170,11 @@ public class FontLoader extends AssetLoader {
         return value.substring(1, value.length() - 1);
     }
     
+    /**
+     * Returns a glyph based on an ASCII code.
+     * @param asciiCode The ASCII code
+     * @return The glyph if it has been loaded, null otherwise
+     */
     public Glyph getGlyph(int asciiCode) {
         return glyphs.get(asciiCode);
     }

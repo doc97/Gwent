@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Represents the player playing the game
+ * Represents the player playing the game.
  * @author Daniel
  */
 public class Player {
@@ -29,6 +29,11 @@ public class Player {
     private boolean inTurn;
     private Faction faction;
     
+    /**
+     * Constructor.
+     * @param game The game
+     * @param friendly True if the player is friendly
+     */
     public Player(Gwent game, boolean friendly) {
         this.game = game;
         this.friendly = friendly;
@@ -47,18 +52,35 @@ public class Player {
         }
     }
     
+    /**
+     * Removes a card from the player's hand.
+     * @param card The card to remove
+     */
     public void removeCardFromHand(Card card) {
         hand.removeCard(card);
     }
     
+    /**
+     * Removes a card from the player's deck.
+     * @param card The card to remove
+     */
     public void removeCardFromDeck(Card card) {
         deck.removeCard(card);
     }
     
+    /**
+     * Adds a card to the discard pile.
+     * @param card The card to discard
+     */
     public void discardCard(Card card) {
         discardPile.add(card);
     }
     
+    /**
+     * Pops a card from the discard pile.
+     * @param index The index of the card
+     * @return The popped card if the index is valid
+     */
     public Card popDiscardCard(int index) {
         if (index >= 0 && index < discardPile.size()) {
             return discardPile.remove(index);
@@ -74,12 +96,19 @@ public class Player {
         inTurn = turn;
     }
     
+    /**
+     * Draws cards.
+     * @param count The amount of cards to draw 
+     */
     public void drawCards(int count) {
         for (int i = 0; i < count; i++) {
             drawCard();
         }
     }
     
+    /**
+     * Draws one card.
+     */
     public void drawCard() {
         if (deck.getCardCount() > 0) {
             int index = rng.nextInt(deck.getCardCount());
@@ -90,6 +119,11 @@ public class Player {
         }
     }
     
+    /**
+     * Retrieves a list of cards from the deck with a specific name.
+     * @param name The name to search for
+     * @return The list of cards
+     */
     public List<Card> getDeckCardsByName(String name) {
         List<Card> nameCards = new ArrayList<>();
         for (int i = 0; i < deck.getCardCount(); i++) {
@@ -101,6 +135,10 @@ public class Player {
         return nameCards;
     }
     
+    /**
+     * Redraws a card
+     * @param card The card to redraw
+     */
     public void redrawCard(Card card) {
         if (!hand.removeCard(card)) {
             throw new IllegalArgumentException(
