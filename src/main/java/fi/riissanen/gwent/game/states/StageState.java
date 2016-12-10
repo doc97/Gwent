@@ -8,6 +8,10 @@ import fi.riissanen.gwent.game.Gwent;
  */
 public class StageState extends GameStateAdapter {
 
+    /**
+     * Constructor.
+     * @param game The game instance
+     */
     public StageState(Gwent game) {
         super(game);
     }

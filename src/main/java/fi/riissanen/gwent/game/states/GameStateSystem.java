@@ -25,6 +25,10 @@ public class GameStateSystem {
     private GameStates pushState;
     private boolean popState;
     
+    /**
+     * Creates an empty game state to use to avoid NullpointerExceptions.
+     * @param game The game instance
+     */
     public GameStateSystem(Gwent game) {
         this.game = game;
         emptyState = new GameState() {
@@ -41,6 +45,9 @@ public class GameStateSystem {
         };
     }
     
+    /**
+     * Initialises states and adds them to a map.
+     */
     public void initialize() {
         NormalState normalState = new NormalState(game);
         game.getEventSystem().addListener(DrawCardEvent.class, normalState);
@@ -60,6 +67,13 @@ public class GameStateSystem {
         }
     }
     
+    /**
+     * Pushes a state onto the stack.
+     * 
+     * <p>
+     * Will fail if the state has not been loaded or if it already is in the stack
+     * @param stateKey The key to state
+     */
     public void push(GameStates stateKey) {
         GameState nextState = states.get(stateKey);
         if (stack.contains(nextState) || nextState == null) {
@@ -75,6 +89,9 @@ public class GameStateSystem {
         reportStateChangeEvent(oldState, nextState);
     }
     
+    /**
+     * Pops a state from the stack unless it is empty.
+     */
     public void pop() {
         if (stack.size() >= 1) {
             GameState oldState = stack.pop();
@@ -123,6 +140,11 @@ public class GameStateSystem {
         return stack.isEmpty() ? emptyState : stack.peek();
     }
     
+    /**
+     * Checks if the current state is connected to a key.
+     * @param stateKey The key with which to check
+     * @return True if the current state is connected to the key
+     */
     public boolean isCurrentState(GameStates stateKey) {
         if (!states.containsKey(stateKey)) {
             return false;

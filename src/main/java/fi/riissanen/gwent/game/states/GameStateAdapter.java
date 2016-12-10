@@ -3,13 +3,17 @@ package fi.riissanen.gwent.game.states;
 import fi.riissanen.gwent.game.Gwent;
 
 /**
- * Adapter for {@link GameState}
+ * Adapter for {@link GameState}.
  * @author Daniel
  */
 public class GameStateAdapter implements GameState {
 
     protected final Gwent game;
     
+    /**
+     * Constructor.
+     * @param game The game instance
+     */
     public GameStateAdapter(Gwent game) {
         this.game = game;
     }
@@ -30,6 +34,7 @@ public class GameStateAdapter implements GameState {
     public void exit() {
     }
     
+    @Override
     public void destroy() {
     }
 }

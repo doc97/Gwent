@@ -8,6 +8,10 @@ import fi.riissanen.gwent.game.Gwent;
  */
 public class RedrawState extends GameStateAdapter {
 
+    /**
+     * Constructor.
+     * @param game The game instance
+     */
     public RedrawState(Gwent game) {
         super(game);
     }

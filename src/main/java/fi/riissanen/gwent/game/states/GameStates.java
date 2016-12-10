@@ -1,7 +1,10 @@
 package fi.riissanen.gwent.game.states;
 
 /**
- * Enumerates possible game states
+ * Enumerations of possible game states.
+ * 
+ * <p>
+ * They also work as keys for the FSM in {@link GameStateSystem}
  * @author Daniel
  */
 public enum GameStates {

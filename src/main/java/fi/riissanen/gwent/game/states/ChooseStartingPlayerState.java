@@ -6,7 +6,7 @@ import fi.riissanen.gwent.game.events.MatchStartEvent;
 import fi.riissanen.gwent.game.factions.Scoiatael;
 
 /**
- * State when the starting player is chosen
+ * State when the starting player is chosen.
  * 
  * <p>
  * If a player is playing with {@link Scoiatael} then they get to choose who
@@ -17,6 +17,10 @@ public class ChooseStartingPlayerState extends GameStateAdapter {
 
     private final GameSystem gameSys;
     
+    /**
+     * Constructor.
+     * @param game The game instance
+     */
     public ChooseStartingPlayerState(Gwent game) {
         super(game);
         gameSys = game.getGameSystem();
