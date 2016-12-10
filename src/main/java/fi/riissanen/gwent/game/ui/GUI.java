@@ -36,7 +36,9 @@ public class GUI {
     }
     
     public void addComponent(GUIComponent component) {
-        components.add(component);
+        if (component != null) {
+            components.add(component);
+        }
     }
     
     public void removeComponent(GUIComponent component) {

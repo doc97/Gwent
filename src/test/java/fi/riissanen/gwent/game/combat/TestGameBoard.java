@@ -1,5 +1,6 @@
 package fi.riissanen.gwent.game.combat;
 
+import fi.riissanen.gwent.game.Gwent;
 import fi.riissanen.gwent.game.Player;
 import fi.riissanen.gwent.game.cards.Deck;
 import fi.riissanen.gwent.game.cards.abilities.WeatherAbility;
@@ -97,7 +98,9 @@ public class TestGameBoard {
     
     @Test
     public void testClearWeather() {
-        Player player = new Player(true);
+        Gwent game = new Gwent();
+        game.initialize();
+        Player player = new Player(game, true);
         WeatherCard card = new WeatherCard(new WeatherAbility("", "", UnitType.MELEE));
         card.setOwner(player);
         board.addWeatherCard(card);

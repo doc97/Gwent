@@ -26,6 +26,7 @@ public enum Engine {
     public Logger log;
     public FileUtils files;
     public double frameTime;
+    private boolean initialized;
 
     /**
      * Initializes the game engine.
@@ -49,6 +50,7 @@ public enum Engine {
         // Enable blending and therefore transparency
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        initialized = true;
     }
 
     /**
@@ -64,6 +66,14 @@ public enum Engine {
      */
     public double getTime() {
         return glfwGetTime();
+    }
+    
+    /**
+     * Returns the initialized status.
+     * @return True if engine has been initialized
+     */
+    public boolean isInitialized() {
+        return initialized;
     }
     
     /**

@@ -15,6 +15,10 @@ public class GameStateAdapter implements GameState {
     }
     
     @Override
+    public void createGUI() {    
+    }
+    
+    @Override
     public void create() {
     }
     

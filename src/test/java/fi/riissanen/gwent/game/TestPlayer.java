@@ -20,16 +20,20 @@ import org.junit.rules.ExpectedException;
  */
 public class TestPlayer {
 
-    private final Player player = new Player(true);
+    private final Gwent game = new Gwent();
     private final Card card1 = new UnitCard(new Unit("Alice", ""));
     private final Card card2 = new UnitCard(new Unit("Bob", ""));
     private final Card card3 = new UnitCard(new Unit("Bob", ""));
+    private Player player;
     
     @Rule
     public final ExpectedException exception = ExpectedException.none();
     
     @Before
     public void before() {
+        game.initialize();
+        game.getGameSystem().initialize(new Player(game, true), new Player(game, false));
+        player = game.getGameSystem().getFriendlyPlayer();
         List<Card> cards = new ArrayList<>();
         cards.add(card1);
         cards.add(card2);
@@ -41,10 +45,10 @@ public class TestPlayer {
     
     @Test
     public void testSetDeck() {
-        assertEquals(3, player.getDeckSize());
-        assertEquals(card1, player.getDeckCard(0));
-        assertEquals(card2, player.getDeckCard(1));
-        assertEquals(card3, player.getDeckCard(2));
+        assertEquals(3, game.getGameSystem().getFriendlyPlayer().getDeckSize());
+        assertEquals(card1, game.getGameSystem().getFriendlyPlayer().getDeckCard(0));
+        assertEquals(card2, game.getGameSystem().getFriendlyPlayer().getDeckCard(1));
+        assertEquals(card3, game.getGameSystem().getFriendlyPlayer().getDeckCard(2));
     }
     
     @Test

@@ -1,6 +1,7 @@
 package fi.riissanen.gwent.game.cards.abilities;
 
 import fi.riissanen.gwent.game.GameSystem;
+import fi.riissanen.gwent.game.Gwent;
 import fi.riissanen.gwent.game.Player;
 import fi.riissanen.gwent.game.combat.Unit;
 import fi.riissanen.gwent.game.combat.UnitType;
@@ -17,8 +18,9 @@ public class TestWeatherAbility {
     
     @Test
     public void testActivate() {
-        GameSystem system = new GameSystem(null);
-        system.initialize(new Player(true), new Player(false));
+        Gwent game = new Gwent();
+        game.initialize();
+        game.getGameSystem().initialize(new Player(game, true), new Player(game, false));
         Unit fUnit = new Unit("", "");
         fUnit.setUnitType(UnitType.MELEE);
         fUnit.setBaseStrength(2);
@@ -27,10 +29,10 @@ public class TestWeatherAbility {
         eUnit.setUnitType(UnitType.MELEE);
         eUnit.setBaseStrength(3);
         eUnit.setFriendlyStatus(false);
-        system.getBoard().addUnit(fUnit, UnitType.MELEE, true);
-        system.getBoard().addUnit(eUnit, UnitType.MELEE, false);
-        ability.activate(system);
-        assertEquals(1, system.getBoard().getStrength(true));
-        assertEquals(1, system.getBoard().getStrength(false));
+        game.getGameSystem().getBoard().addUnit(fUnit, UnitType.MELEE, true);
+        game.getGameSystem().getBoard().addUnit(eUnit, UnitType.MELEE, false);
+        ability.activate(game.getGameSystem());
+        assertEquals(1, game.getGameSystem().getBoard().getStrength(true));
+        assertEquals(1, game.getGameSystem().getBoard().getStrength(false));
     }
 }

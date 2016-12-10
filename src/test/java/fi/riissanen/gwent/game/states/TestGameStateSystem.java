@@ -1,5 +1,7 @@
 package fi.riissanen.gwent.game.states;
 
+import fi.riissanen.gwent.game.Gwent;
+import fi.riissanen.gwent.game.Player;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
@@ -11,39 +13,43 @@ import org.junit.Test;
  */
 public class TestGameStateSystem {
 
-    private final GameStateSystem system = new GameStateSystem();
+    private final Gwent game = new Gwent();
     
     @Before
     public void before() {
-        system.initialize(null);
+        game.initialize();
+        game.getGameSystem().initialize(new Player(game, true), new Player(game, false));
+        // Pop the two first states in GameSystem#initialize to have an empty stack
+        game.getGameSystem().getStateSystem().pop();
+        game.getGameSystem().getStateSystem().pop();
     }
     
     @Test
     public void testPush() {
-        for (GameStates stateKey : system.getLoadedStates()) {
-            system.push(stateKey);
-            assertTrue(system.isCurrentState(stateKey));
+        for (GameStates stateKey : game.getGameSystem().getStateSystem().getLoadedStates()) {
+            game.getGameSystem().getStateSystem().push(stateKey);
+            assertTrue(game.getGameSystem().getStateSystem().isCurrentState(stateKey));
         }
     }
     
     @Test
     public void testPop() {
-        system.push(GameStates.STAGE_STATE);
-        system.pop();
-        assertFalse(system.isCurrentState(GameStates.STAGE_STATE));
+        game.getGameSystem().getStateSystem().push(GameStates.STAGE_STATE);
+        game.getGameSystem().getStateSystem().pop();
+        assertFalse(game.getGameSystem().getStateSystem().isCurrentState(GameStates.STAGE_STATE));
     }
     
     @Test
     public void testPopEmpty() {
         // Test that no EmptyStackException is thrown
-        system.pop();
+        game.getGameSystem().getStateSystem().pop();
     }
     
     @Test
     public void testPushDuplicate() {
-        system.push(GameStates.STAGE_STATE);
-        system.push(GameStates.STAGE_STATE);
-        system.pop();
-        assertFalse(system.isCurrentState(GameStates.STAGE_STATE));
+        game.getGameSystem().getStateSystem().push(GameStates.STAGE_STATE);
+        game.getGameSystem().getStateSystem().push(GameStates.STAGE_STATE);
+        game.getGameSystem().getStateSystem().pop();
+        assertFalse(game.getGameSystem().getStateSystem().isCurrentState(GameStates.STAGE_STATE));
     }
 }

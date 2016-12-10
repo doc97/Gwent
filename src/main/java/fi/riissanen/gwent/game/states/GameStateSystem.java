@@ -1,5 +1,6 @@
 package fi.riissanen.gwent.game.states;
 
+import fi.riissanen.gwent.engine.Engine;
 import fi.riissanen.gwent.game.Gwent;
 import fi.riissanen.gwent.game.events.CardPlayedEvent;
 import fi.riissanen.gwent.game.events.CardStageEvent;
@@ -21,10 +22,14 @@ public class GameStateSystem {
     private final GameState emptyState;
     private final Stack<GameState> stack = new Stack();
     private final Gwent game;
+    private GameStates pushState;
+    private boolean popState;
     
     public GameStateSystem(Gwent game) {
         this.game = game;
         emptyState = new GameState() {
+            @Override
+            public void createGUI() {}
             @Override
             public void create() {}
             @Override
@@ -47,6 +52,12 @@ public class GameStateSystem {
         states.put(NORMAL_STATE, normalState);
         states.put(STAGE_STATE, new StageState(game));
         states.put(DISCARD_PILE_STATE, new DiscardPileState(game));
+        
+        if (Engine.INSTANCE.isInitialized()) {
+            for (GameStates state : GameStates.values()) {
+                states.get(state).createGUI();
+            }
+        }
     }
     
     public void push(GameStates stateKey) {
@@ -72,6 +83,35 @@ public class GameStateSystem {
             oldState.destroy();
             newState.enter();
             reportStateChangeEvent(oldState, newState);
+        }
+    }
+    
+    /**
+     * Queue a pop() next update.
+     */
+    public void popNext() {
+        popState = true;
+    }
+    
+    /**
+     * Queue a push(GameStates) next update.
+     * @param state The state to push
+     */
+    public void pushNext(GameStates state) {
+        pushState = state;
+    }
+    
+    /**
+     * Pop operation will be executed first.
+     */
+    public void update() {
+        if (popState) {
+            pop();
+            popState = false;
+        }
+        if (pushState != null) {
+            push(pushState);
+            pushState = null;
         }
     }
     

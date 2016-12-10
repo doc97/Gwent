@@ -1,6 +1,7 @@
 package fi.riissanen.gwent.game.factions;
 
 import fi.riissanen.gwent.game.GameSystem;
+import fi.riissanen.gwent.game.Gwent;
 import static fi.riissanen.gwent.game.MatchManager.MAX_LIVES;
 import fi.riissanen.gwent.game.MatchManager.Result;
 import fi.riissanen.gwent.game.Player;
@@ -39,20 +40,21 @@ public class TestNilfgaardianEmpire {
     
     @Test
     public void testAbility() {
-        Player friendly = new Player(true);
-        GameSystem system = new GameSystem(null);
-        system.initialize(friendly, new Player(false));
+        Gwent game = new Gwent();
+        game.initialize();
+        Player friendly = new Player(game, true);
+        game.getGameSystem().initialize(friendly, new Player(game, false));
         Unit unit1 = new Unit("", "");
         Unit unit2 = new Unit("", "");
         unit1.setUnitType(UnitType.MELEE);
         unit2.setUnitType(UnitType.MELEE);
-        system.getBoard().addUnit(unit1, UnitType.MELEE, true);
-        system.getBoard().addUnit(unit2, UnitType.MELEE, true);
+        game.getGameSystem().getBoard().addUnit(unit1, UnitType.MELEE, true);
+        game.getGameSystem().getBoard().addUnit(unit2, UnitType.MELEE, true);
         faction = new NilfgaardianEmpire(friendly);
         assertNotNull(faction.getAbility());
-        faction.getAbility().activate(system);
-        system.getMatchManager().finishRound();
-        assertEquals(MAX_LIVES - 1, system.getMatchManager().getEnemyLives());
-        assertEquals(MAX_LIVES, system.getMatchManager().getFriendlyLives());
+        faction.getAbility().activate(game.getGameSystem());
+        game.getGameSystem().getMatchManager().finishRound();
+        assertEquals(MAX_LIVES - 1, game.getGameSystem().getMatchManager().getEnemyLives());
+        assertEquals(MAX_LIVES, game.getGameSystem().getMatchManager().getFriendlyLives());
     }
 }

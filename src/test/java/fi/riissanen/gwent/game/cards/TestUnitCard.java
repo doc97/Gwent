@@ -1,5 +1,6 @@
 package fi.riissanen.gwent.game.cards;
 
+import fi.riissanen.gwent.game.Gwent;
 import fi.riissanen.gwent.game.Player;
 import fi.riissanen.gwent.game.combat.Unit;
 import static org.junit.Assert.assertEquals;
@@ -22,7 +23,9 @@ public class TestUnitCard {
     
     @Test
     public void testGetOwner() {
-        Player player = new Player(true);
+        Gwent game = new Gwent();
+        game.initialize();
+        Player player = new Player(game, true);
         card.setOwner(player);
         assertEquals(player, card.getOwner());
     }

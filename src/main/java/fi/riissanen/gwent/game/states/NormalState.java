@@ -25,8 +25,8 @@ import fi.riissanen.gwent.game.ui.GUIRow;
 public class NormalState extends GameStateAdapter implements EventListener {
 
     private final AssetManager assets;
-    private final GUIComponent board;
-    private final GUIHand hand;
+    private GUIComponent board;
+    private GUIHand hand;
     private final GUIRow[] friendlyRows;
     private final GUIRow[] enemyRows;
     private final GUI gui;
@@ -39,7 +39,12 @@ public class NormalState extends GameStateAdapter implements EventListener {
         super(game);
         this.gui = game.getGUI();
         assets = game.getAssetManager();
-        
+        friendlyRows = new GUIRow[3];
+        enemyRows = new GUIRow[3];
+    }
+    
+    @Override
+    public void createGUI() {
         Texture boardTex = (Texture) assets.get("assets/textures/board.png");
         board = new GUIComponent(boardTex);
         board.setSize(Engine.INSTANCE.batch.getViewport().getWidth(),
@@ -50,8 +55,6 @@ public class NormalState extends GameStateAdapter implements EventListener {
         hand.setPosition(300, 20);
         hand.setSize(Engine.INSTANCE.batch.getViewport().getWidth() - 300 - 20, 110);
         
-        friendlyRows = new GUIRow[3];
-        enemyRows = new GUIRow[3];
         Texture rowTex = (Texture) assets.get("assets/lwjgl.png");
         float half = Engine.INSTANCE.batch.getViewport().getHeight() / 2 + hand.getHeight();
         for (int i = 0; i < 3; i++) {

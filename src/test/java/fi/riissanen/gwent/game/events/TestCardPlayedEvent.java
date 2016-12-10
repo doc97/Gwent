@@ -46,7 +46,7 @@ public class TestCardPlayedEvent {
     @Test
     public void testGetCard() {
         Card card = factory.createCard(null);
-        event = new CardPlayedEvent(card);
+        event = new CardPlayedEvent(card, 0);
         assertEquals(card, event.getCard());
     }
 }

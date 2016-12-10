@@ -1,5 +1,6 @@
 package fi.riissanen.gwent.game.cards.neutral;
 
+import fi.riissanen.gwent.game.Gwent;
 import fi.riissanen.gwent.game.Player;
 import fi.riissanen.gwent.game.cards.abilities.WeatherAbility;
 import fi.riissanen.gwent.game.combat.UnitType;
@@ -21,7 +22,9 @@ public class TestWeatherCard {
     
     @Test
     public void testSetOwner() {
-        Player player = new Player(true);
+        Gwent game = new Gwent();
+        game.initialize();
+        Player player = new Player(game, true);
         card.setOwner(player);
         assertEquals(player, card.getOwner());
     }

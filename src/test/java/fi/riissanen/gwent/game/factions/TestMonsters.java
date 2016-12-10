@@ -1,6 +1,7 @@
 package fi.riissanen.gwent.game.factions;
 
 import fi.riissanen.gwent.game.GameSystem;
+import fi.riissanen.gwent.game.Gwent;
 import fi.riissanen.gwent.game.Player;
 import fi.riissanen.gwent.game.combat.Unit;
 import fi.riissanen.gwent.game.combat.UnitType;
@@ -32,7 +33,7 @@ public class TestMonsters {
     @Test
     public void testIsTriggeredFalse() {
         faction = new Monsters(null);
-        faction.process(new CardPlayedEvent(null));
+        faction.process(new CardPlayedEvent(null, 0));
         faction.process(new MatchStartEvent());
         faction.process(new StateChangeEvent(null, null));
         assertFalse(faction.isTriggered());
@@ -40,18 +41,19 @@ public class TestMonsters {
     
     @Test
     public void testAbility() {
-        Player friendly = new Player(true);
-        GameSystem system = new GameSystem(null);
-        system.initialize(friendly, new Player(false));
+        Gwent game = new Gwent();
+        game.initialize();
+        Player friendly = new Player(game, true);
+        game.getGameSystem().initialize(friendly, new Player(game, false));
         Unit unit1 = new Unit("", "");
         Unit unit2 = new Unit("", "");
         unit1.setUnitType(UnitType.MELEE);
         unit2.setUnitType(UnitType.MELEE);
-        system.getBoard().addUnit(unit1, UnitType.MELEE, true);
-        system.getBoard().addUnit(unit2, UnitType.MELEE, true);
+        game.getGameSystem().getBoard().addUnit(unit1, UnitType.MELEE, true);
+        game.getGameSystem().getBoard().addUnit(unit2, UnitType.MELEE, true);
         faction = new Monsters(friendly);
         assertNotNull(faction.getAbility());
-        faction.getAbility().activate(system);
-        assertEquals(1, system.getBoard().getSavedUnitCount());
+        faction.getAbility().activate(game.getGameSystem());
+        assertEquals(1, game.getGameSystem().getBoard().getSavedUnitCount());
     }
 }

@@ -1,6 +1,7 @@
 package fi.riissanen.gwent.game.cards.abilities;
 
 import fi.riissanen.gwent.game.GameSystem;
+import fi.riissanen.gwent.game.Gwent;
 import fi.riissanen.gwent.game.Player;
 import fi.riissanen.gwent.game.cards.Deck;
 import fi.riissanen.gwent.game.cards.UnitCard;
@@ -36,19 +37,20 @@ public class TestMuster {
     
     @Test
     public void testActivate() {
-        GameSystem system = new GameSystem(null);
-        Player friendly = new Player(true);
+        Gwent game = new Gwent();
+        game.initialize();
+        Player friendly = new Player(game, true);
         Deck deck = new Deck();
         // 10 cards are drawn when game system in initialized
         for (int i = 0; i < 10 + 2; i++) {
             deck.addCard(new UnitCard(unit));
         }
         friendly.setDeck(deck);
-        system.initialize(friendly, new Player(false));
+        game.getGameSystem().initialize(friendly, new Player(game, false));
         unit.getCard().setOwner(friendly);
-        system.getBoard().addUnit(unit, UnitType.MELEE, true);
-        ability.activate(system);
-        int count = system.getBoard().getRow(true, UnitType.MELEE).getUnitCount();
+        game.getGameSystem().getBoard().addUnit(unit, UnitType.MELEE, true);
+        ability.activate(game.getGameSystem());
+        int count = game.getGameSystem().getBoard().getRow(true, UnitType.MELEE).getUnitCount();
         assertEquals(3, count);
         assertEquals(0, friendly.getDeckSize());
     }

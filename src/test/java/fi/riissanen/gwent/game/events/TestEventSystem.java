@@ -25,7 +25,7 @@ public class TestEventSystem {
         MockEvent event = new MockEvent();
         List<EventListener> listeners = new ArrayList<>();
         listeners.add(new MockEventListener());
-        system.setListeners(MockEvent.class, listeners);
+        system.addListeners(MockEvent.class, listeners);
         system.register(event);
         system.update();
         assertEquals(1, event.getValue());
@@ -55,10 +55,10 @@ public class TestEventSystem {
     }
     
     @Test
-    public void testSetListenersNone() {
+    public void testAddListeners() {
         List<EventListener> listeners = new ArrayList<>();
         listeners.add(new MockEventListener());
-        system.setListeners(MockEvent.class, listeners);
+        system.addListeners(MockEvent.class, listeners);
         assertEquals(1, system.getEventListenerCount(MockEvent.class));
     }
     

@@ -68,7 +68,7 @@ public class GameSystem {
         if (stateSystem.isCurrentState(CHOOSE_STARTING_PLAYER_STATE)) {
             friendly.setInTurn(friendlyInTurn);
             enemy.setInTurn(!friendlyInTurn);
-            stateSystem.pop();
+            stateSystem.popNext();
         }
     }
     

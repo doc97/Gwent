@@ -1,6 +1,7 @@
 package fi.riissanen.gwent.game.cards.abilities;
 
 import fi.riissanen.gwent.game.GameSystem;
+import fi.riissanen.gwent.game.Gwent;
 import fi.riissanen.gwent.game.Player;
 import fi.riissanen.gwent.game.cards.UnitCard;
 import fi.riissanen.gwent.game.combat.Unit;
@@ -30,14 +31,15 @@ public class TestTightBond {
     
     @Test
     public void testActivate() {
-        GameSystem system = new GameSystem(null);
-        Player friendly = new Player(true);
-        Player enemy = new Player(false);
-        system.initialize(friendly, enemy);
-        system.getBoard().addUnit(unit, UnitType.MELEE, true);
-        system.getBoard().addUnit(unit, UnitType.MELEE, true);
-        ability.activate(system);
-        int strength = system.getBoard().getRow(true, UnitType.MELEE).getStrength();
+        Gwent game = new Gwent();
+        game.initialize();
+        Player friendly = new Player(game, true);
+        Player enemy = new Player(game, false);
+        game.getGameSystem().initialize(friendly, enemy);
+        game.getGameSystem().getBoard().addUnit(unit, UnitType.MELEE, true);
+        game.getGameSystem().getBoard().addUnit(unit, UnitType.MELEE, true);
+        ability.activate(game.getGameSystem());
+        int strength = game.getGameSystem().getBoard().getRow(true, UnitType.MELEE).getStrength();
         assertEquals(8, strength);
     }
 }

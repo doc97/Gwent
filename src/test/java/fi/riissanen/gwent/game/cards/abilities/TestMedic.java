@@ -1,6 +1,9 @@
 package fi.riissanen.gwent.game.cards.abilities;
 
+import fi.riissanen.gwent.engine.Engine;
+import fi.riissanen.gwent.engine.render.SpriteBatch;
 import fi.riissanen.gwent.game.GameSystem;
+import fi.riissanen.gwent.game.Gwent;
 import fi.riissanen.gwent.game.Player;
 import fi.riissanen.gwent.game.cards.UnitCard;
 import fi.riissanen.gwent.game.combat.Unit;
@@ -25,9 +28,10 @@ public class TestMedic {
     
     @Test
     public void testActivate() {
-        GameSystem system = new GameSystem(null);
-        system.initialize(new Player(true), new Player(false));
-        ability.activate(system);
-        assertTrue(system.getStateSystem().isCurrentState(GameStates.DISCARD_PILE_STATE));
+        Gwent game = new Gwent();
+        game.initialize();
+        game.getGameSystem().initialize(new Player(game, true), new Player(game, false));
+        ability.activate(game.getGameSystem());
+        assertTrue(game.getGameSystem().getStateSystem().isCurrentState(GameStates.DISCARD_PILE_STATE));
     }
 }

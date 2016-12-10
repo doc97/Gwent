@@ -1,6 +1,7 @@
 package fi.riissanen.gwent.game.factions;
 
 import fi.riissanen.gwent.game.GameSystem;
+import fi.riissanen.gwent.game.Gwent;
 import fi.riissanen.gwent.game.MatchManager.Result;
 import fi.riissanen.gwent.game.Player;
 import fi.riissanen.gwent.game.events.CardPlayedEvent;
@@ -12,7 +13,6 @@ import fi.riissanen.gwent.game.events.RoundEndEvent;
 import fi.riissanen.gwent.game.events.StateChangeEvent;
 import fi.riissanen.gwent.game.states.ChooseStartingPlayerState;
 import fi.riissanen.gwent.game.states.GameState;
-import fi.riissanen.gwent.game.states.GameStates;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -25,7 +25,6 @@ import org.junit.Test;
 public class TestScoiatael {
 
     private Scoiatael faction;
-    private boolean listenerStatus;
     
     @Test
     public void testIsTriggeredTrue() {
@@ -38,37 +37,45 @@ public class TestScoiatael {
     public void testIsTriggeredFalse() {
         faction = new Scoiatael();
         faction.process(new RoundEndEvent(Result.LOSS));
-        faction.process(new CardPlayedEvent(null));
+        faction.process(new CardPlayedEvent(null, 0));
         faction.process(new StateChangeEvent(null, null));
         assertFalse(faction.isTriggered());
     }
     
     @Test
     public void testAbility() {
-        GameSystem system = new GameSystem(null);
-        EventSystem events = new EventSystem();
-        events.addListener(StateChangeEvent.class, new AbilityEventListener());
-        system.initialize(new Player(true), new Player(false));
-        system.getStateSystem().setEventSystem(events);
+        Gwent game = new Gwent();
+        game.initialize();
+        AbilityEventListener listener = new AbilityEventListener();
+        game.getEventSystem().addListener(StateChangeEvent.class, listener);
+        game.getGameSystem().initialize(new Player(game, true), new Player(game, false));
 
         faction = new Scoiatael();
         assertNotNull(faction.getAbility());
-        faction.getAbility().activate(system);
+        faction.getAbility().activate(game.getGameSystem());
+        game.getGameSystem().getStateSystem().update();
         
-        events.update();
-        assertTrue(listenerStatus);
+        game.getEventSystem().update();
+        assertTrue(listener.getStatus());
     }
     
     
     public class AbilityEventListener implements EventListener {
+        
+        private boolean status = false;
+        
         @Override
         public void process(Event event) {
             if (event instanceof StateChangeEvent) {
                 GameState old = ((StateChangeEvent) event).getOldState();
                 if (old instanceof ChooseStartingPlayerState) {
-                    listenerStatus = true;
+                    status = true;
                 }
             }
+        }
+        
+        public boolean getStatus() {
+            return status;
         }
     }
 }

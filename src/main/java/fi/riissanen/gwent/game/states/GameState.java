@@ -5,6 +5,12 @@ package fi.riissanen.gwent.game.states;
  * @author Daniel
  */
 public interface GameState {
+    
+    /**
+     * Creates the GUI.
+     */
+    public void createGUI();
+    
     /**
      * Called when the state is added to the state stack.
      */

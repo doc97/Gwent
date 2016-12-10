@@ -1,8 +1,8 @@
 package fi.riissanen.gwent.game.cards.attributes;
 
 import fi.riissanen.gwent.game.GameSystem;
+import fi.riissanen.gwent.game.Gwent;
 import fi.riissanen.gwent.game.Player;
-import fi.riissanen.gwent.game.cards.abilities.Ability;
 import fi.riissanen.gwent.game.combat.Unit;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
@@ -33,11 +33,12 @@ public class TestSpy {
     
     @Test
     public void testActivateAbility() {
-        GameSystem system = new GameSystem(null);
-        system.initialize(new Player(true), new Player(false));
+        Gwent game = new Gwent();
+        game.initialize();
+        game.getGameSystem().initialize(new Player(game, true), new Player(game, false));
         unit.reloadAttributes();
         boolean isFriendly = unit.isFriendly();
-        spy.activate(system);
+        spy.activate(game.getGameSystem());
         assertEquals(!isFriendly, unit.isFriendly());
     }
 }

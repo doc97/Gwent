@@ -16,15 +16,15 @@ import org.junit.rules.ExpectedException;
  */
 public class TestGameSystem {
 
-    private GameSystem gameSys;
+    private final Gwent game = new Gwent();
     
     @Rule
     public final ExpectedException exception = ExpectedException.none();
     
     @Before
     public void before() {
-        gameSys = new GameSystem(null);
-        gameSys.initialize(new Player(true), new Player(false));
+        game.initialize();
+        game.getGameSystem().initialize(new Player(game, true), new Player(game, false));
     }
     
     @Test
@@ -32,15 +32,15 @@ public class TestGameSystem {
         Unit unit = new Unit("", "");
         unit.setUnitType(UnitType.MELEE);
         unit.setBaseStrength(1);
-        gameSys.stageCard(new UnitCard(unit));
+        game.getGameSystem().stageCard(new UnitCard(unit));
         exception.expect(IllegalStateException.class);
-        gameSys.playCard(-1);
+        game.getGameSystem().playCard(-1);
     }
     
     @Test
     public void testPlayCardNotStaged() {
-        gameSys.unstageCard();
-        assertFalse(gameSys.playCard(0));
+        game.getGameSystem().unstageCard();
+        assertFalse(game.getGameSystem().playCard(0));
     }
     
     @Test
@@ -48,7 +48,7 @@ public class TestGameSystem {
         Unit unit = new Unit("", "");
         unit.setUnitType(UnitType.MELEE);
         unit.setBaseStrength(1);
-        gameSys.stageCard(new UnitCard(unit));
-        assertTrue(gameSys.playCard(UnitType.MELEE.getIndex()));
+        game.getGameSystem().stageCard(new UnitCard(unit));
+        assertTrue(game.getGameSystem().playCard(UnitType.MELEE.getIndex()));
     }
 }

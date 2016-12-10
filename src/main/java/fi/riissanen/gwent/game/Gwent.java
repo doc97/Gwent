@@ -148,6 +148,8 @@ public class Gwent implements Game {
     @Override
     public void render(double delta) {
         eventSys.update();
+        gameSys.getStateSystem().update();
+        
         Engine.INSTANCE.display.clearDisplay();
         gui.render(Engine.INSTANCE.batch);
         Engine.INSTANCE.fontRenderer.render(Engine.INSTANCE.batch, texts.getCache());

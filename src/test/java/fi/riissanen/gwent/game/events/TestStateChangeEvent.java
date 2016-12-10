@@ -26,7 +26,9 @@ public class TestStateChangeEvent {
     
     @Test
     public void testGetNewState() {
-        GameState newState = new NormalState(new GUI(null), new AssetManager());
+        Gwent game = new Gwent();
+        game.initialize();
+        GameState newState = new NormalState(game);
         event = new StateChangeEvent(null, newState);
         assertEquals(newState, event.getNewState());
     }
