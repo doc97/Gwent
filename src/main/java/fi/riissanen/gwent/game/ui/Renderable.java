@@ -7,5 +7,10 @@ import fi.riissanen.gwent.engine.render.SpriteBatch;
  * @author Daniel
  */
 public interface Renderable {
+    
+    /**
+     * Render method.
+     * @param batch The sprite batch to render with
+     */
     public void render(SpriteBatch batch);
 }

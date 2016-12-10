@@ -15,7 +15,12 @@ public class GUIRow extends GUIComponent {
 
     private final Map<Card, GUICard> cards = new HashMap<>();
     private final TextCache cache;
-    
+
+    /**
+     * Creates a GUIComponent with cards, a little like the GUI hand.
+     * @param texture The texture
+     * @param cache The text cache where to add component texts
+     */
     public GUIRow(Texture texture, TextCache cache) {
         super(texture);
         this.cache = cache;
@@ -29,6 +34,11 @@ public class GUIRow extends GUIComponent {
         }
     }
     
+    /**
+     * Adds a GUICard, mapped to a Card key.
+     * @param card The key to map the GUI card to 
+     * @param guiCard The GUI component
+     */
     public void addCard(Card card, GUICard guiCard) {
         if (!cards.containsKey(card)) {
             guiCard.setPosition(x + 10 + cards.size() * (guiCard.width + 10),
@@ -38,6 +48,10 @@ public class GUIRow extends GUIComponent {
         }
     }
     
+    /**
+     * Remove a GUICard based on a Card key.
+     * @param card The key
+     */
     public void removeCard(Card card) {
         cache.removeText(cards.get(card).getText());
         cards.remove(card);

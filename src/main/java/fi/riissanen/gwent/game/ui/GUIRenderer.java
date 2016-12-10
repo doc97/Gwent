@@ -9,6 +9,11 @@ import java.util.List;
  */
 public class GUIRenderer {
     
+    /**
+     * Renders a list of GUIComponents.
+     * @param batch The sprite batch to render with
+     * @param components The components to render
+     */
     public void render(SpriteBatch batch, List<GUIComponent> components) {
         for (GUIComponent component : components) {
             component.render(batch);

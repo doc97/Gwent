@@ -32,3 +32,4 @@ Day        | Hours | Description
 07.12.2016 | 4.0h  | GUI
 08.12.2016 | 1.5h  | GUI
 09.12.2016 | 4.5h  | GUI
+10.12.2016 | 6.5h  | Bug fixing, Checkstyle, Javadoc

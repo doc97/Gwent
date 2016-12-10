@@ -1,13 +1,6 @@
 package fi.riissanen.gwent.game.ui;
 
-import fi.riissanen.gwent.engine.Engine;
-import fi.riissanen.gwent.engine.assets.AssetManager;
 import fi.riissanen.gwent.engine.render.SpriteBatch;
-import fi.riissanen.gwent.engine.render.Texture;
-import fi.riissanen.gwent.game.events.CardPlayedEvent;
-import fi.riissanen.gwent.game.events.Event;
-import fi.riissanen.gwent.game.events.EventListener;
-import fi.riissanen.gwent.game.events.MatchStartEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,30 +10,41 @@ import java.util.List;
  */
 public class GUI {
 
-    private final AssetManager assets;
     private final GUIRenderer renderer;
     private final List<GUIComponent> components;
-    private GUIComponent board;
-    private GUIHand hand; 
     
-    public GUI(AssetManager assets) {
-        this.assets = assets;
+    /**
+     * Constructor.
+     */
+    public GUI() {
         components = new ArrayList<>();
         renderer = new GUIRenderer();
     }
     
+    /**
+     * Renders the GUI components.
+     * @param batch The sprite batch to render with
+     */
     public void render(SpriteBatch batch) {
         batch.begin();
         renderer.render(batch, components);
         batch.end();
     }
     
+    /**
+     * Add a GUI component.
+     * @param component The component to add
+     */
     public void addComponent(GUIComponent component) {
         if (component != null) {
             components.add(component);
         }
     }
     
+    /**
+     * Remove a GUI component.
+     * @param component The component to remove
+     */
     public void removeComponent(GUIComponent component) {
         components.remove(component);
     }

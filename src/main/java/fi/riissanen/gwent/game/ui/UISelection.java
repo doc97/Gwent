@@ -1,6 +1,5 @@
 package fi.riissanen.gwent.game.ui;
 
-import fi.riissanen.gwent.engine.Engine;
 import fi.riissanen.gwent.engine.render.SpriteBatch;
 import fi.riissanen.gwent.engine.render.Texture;
 
@@ -8,32 +7,23 @@ import fi.riissanen.gwent.engine.render.Texture;
  * A selection on the GameBoard.
  * @author Daniel
  */
-public class UISelection implements Renderable {
+public class UISelection extends GUIComponent {
     
-    private final Texture texture;
-    private float x;
-    private float y;
-    private float width;
-    private float height;
     private boolean active;
-    
+
+    /**
+     * Creates a GUIComponent that can be activated and deactivated.
+     * @param texture The texture
+     */
     public UISelection(Texture texture) {
-        this.texture = texture;
+        super(texture);
     }
     
     @Override
     public void render(SpriteBatch batch) {
-        batch.draw(texture, x, y, width, height);
-    }
-    
-    public void setPosition(float x, float y) {
-        this.x = x;
-        this.y = y;
-    }
-    
-    public void setSize(float width, float height) {
-        this.width = width;
-        this.height = height;
+        if (active) {
+            batch.draw(texture, x, y, width, height);
+        }
     }
     
     public void setActive(boolean active) {

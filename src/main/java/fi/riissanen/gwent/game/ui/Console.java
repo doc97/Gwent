@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * A console to control the game with
+ * A console to control the game with.
  * @author Daniel
  */
 public class Console implements Runnable {
@@ -29,6 +29,10 @@ public class Console implements Runnable {
                         + "card in your hand\n"
                         + "help - Shows this message";
     
+    /**
+     * Start listening thread for console commands.
+     * @param gameSys The game system
+     */
     public void start(GameSystem gameSys) {
         this.gameSys = gameSys;
         running = true;
@@ -38,6 +42,9 @@ public class Console implements Runnable {
         thread.start();
     }
     
+    /**
+     * Stop the console thread.
+     */
     public void stop() {
         running = false;
         if (thread != null && thread.isAlive()) {

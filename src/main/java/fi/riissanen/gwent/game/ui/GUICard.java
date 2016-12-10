@@ -14,6 +14,11 @@ public class GUICard extends GUIComponent {
     public static final int HEIGHT = 125;
     private final Text text;
     
+    /**
+     * Creates a GUI component with a text.
+     * @param text The text containing the strength
+     * @param texture The texture of the card
+     */
     public GUICard(Text text, Texture texture) {
         super(texture);
         this.text = text;
@@ -43,6 +48,10 @@ public class GUICard extends GUIComponent {
         }
     }
     
+    /**
+     * Checks if the card has a text.
+     * @return True if text is not null
+     */
     public boolean hasText() {
         return text != null;
     }

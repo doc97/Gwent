@@ -15,6 +15,10 @@ public class TextCache {
 
     private final Map<Font, List<Text>> cache = new HashMap<>();
     
+    /**
+     * Adds a text to the cache.
+     * @param text The text to add
+     */
     public void addText(Text text) {
         List<Text> cachedTexts = cache.get(text.getFont());
         if (cachedTexts == null) {
@@ -25,6 +29,10 @@ public class TextCache {
         cachedTexts.add(text);
     }
     
+    /**
+     * Removes a text from the cache.
+     * @param text The text to remove
+     */
     public void removeText(Text text) {
         List<Text> cachedTexts = cache.get(text.getFont());
         cachedTexts.remove(text);

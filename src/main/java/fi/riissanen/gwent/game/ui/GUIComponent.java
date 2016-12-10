@@ -15,6 +15,10 @@ public class GUIComponent implements Renderable {
     protected float width;
     protected float height;
     
+    /**
+     * Constructor.
+     * @param texture GUI component texture
+     */
     public GUIComponent(Texture texture) {
         this.texture = texture;
     }
@@ -26,11 +30,21 @@ public class GUIComponent implements Renderable {
         }
     }
     
+    /**
+     * Sets the component position.
+     * @param x The x coordinate
+     * @param y The y coordinate
+     */
     public void setPosition(float x, float y) {
         this.x = x;
         this.y = y;
     }
     
+    /**
+     * Sets the size of the component.
+     * @param width The width
+     * @param height The height
+     */
     public void setSize(float width, float height) {
         this.width = width;
         this.height = height;

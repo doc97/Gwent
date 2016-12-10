@@ -63,7 +63,7 @@ public class Gwent implements Game {
         cardLoader = new CardLoader();
         eventSys = new EventSystem();
         gameSys = new GameSystem(this);
-        gui = new GUI(assets);
+        gui = new GUI();
         texts = new TextCache();
         console = new Console();
     }
