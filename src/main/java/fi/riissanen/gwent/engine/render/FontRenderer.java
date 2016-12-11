@@ -33,10 +33,6 @@ public class FontRenderer {
         batch.begin();
         for (Font font : texts.keySet()) {
             for (Text text : texts.get(font)) {
-                if (shader != null) {
-                    shader.loadColor(text.getColor());
-                }
-                
                 TextMeshData data = text.getMeshData();
                 float[] quadData = data.getQuadData();
                 float[] uvs = data.getUVs();
@@ -49,12 +45,15 @@ public class FontRenderer {
                         glyphUVs[j] = uvs[i + j];
                     }
                     
+                    Color oldColor = batch.getColor();
+                    batch.setColor(text.getColor());
                     batch.draw(font.getFontTexture(),
                             quadData[i] + text.getPosition().x,
                             quadData[i + 1] + text.getPosition().y,
                             quadData[i + 2], quadData[i + 3],
                             glyphUVs,
                             0, 0, 0);
+                    batch.setColor(oldColor);
                 }
             }
         }

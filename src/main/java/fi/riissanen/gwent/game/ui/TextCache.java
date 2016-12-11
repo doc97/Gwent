@@ -35,10 +35,22 @@ public class TextCache {
      */
     public void removeText(Text text) {
         List<Text> cachedTexts = cache.get(text.getFont());
-        cachedTexts.remove(text);
-        if (cachedTexts.isEmpty()) {
-            cache.remove(text.getFont());
+        if (cachedTexts != null) {
+            cachedTexts.remove(text);
+            if (cachedTexts.isEmpty()) {
+                cache.remove(text.getFont());
+            }
         }
+    }
+    
+    /**
+     * Checks whether the text has been added to the cache.
+     * @param text The text
+     * @return True if the text exists in the cache
+     */
+    public boolean hasText(Text text) {
+        List<Text> cachedTexts = cache.get(text.getFont());
+        return cachedTexts != null && cachedTexts.contains(text);
     }
     
     public Map<Font, List<Text>> getCache() {

@@ -42,7 +42,6 @@ public class Gwent implements Game {
     private GameSystem gameSys;
     private GUI gui;
     private TextCache texts;
-    private Font font;
     private Console console;
     
     @Override
@@ -81,8 +80,6 @@ public class Gwent implements Game {
         setupGameSystem();
         setupEventListeners();
 
-        font = (Font) assets.get("assets/fonts/mono.fnt");
-        
         try {
             Engine.INSTANCE.fontRenderer.setShader(new FontShader(
                     "assets/shaders/font.vert",
@@ -93,11 +90,22 @@ public class Gwent implements Game {
     }
     
     private void loadAssets() {
-        // Trying to load a font
+        // Textures
         assets.load(new AssetParams("assets/lwjgl.png", Format.RGBA),
                 AssetManager.TEXTURE_LOADER);
+        assets.load(new AssetParams("assets/textures/board.png", Format.RGBA),
+                        AssetManager.TEXTURE_LOADER);
+        assets.load(new AssetParams("assets/textures/cardbase.png", Format.RGBA),
+                AssetManager.TEXTURE_LOADER);
+        assets.load(new AssetParams("assets/textures/cardfaction.png", Format.RGBA),
+                        AssetManager.TEXTURE_LOADER);
+        assets.load(new AssetParams("assets/textures/row.png", Format.RGBA),
+                        AssetManager.TEXTURE_LOADER);
+
+        // Fonts
         assets.load("assets/fonts/arial.fnt", AssetManager.FONT_LOADER);
         assets.load("assets/fonts/mono.fnt", AssetManager.FONT_LOADER);
+        assets.load("assets/fonts/sansserif.fnt", AssetManager.FONT_LOADER);
         assets.processQueue();
     }
     
@@ -158,6 +166,7 @@ public class Gwent implements Game {
     public void render(double delta) {
         eventSys.update();
         gameSys.getStateSystem().update();
+        gui.update();
         
         Engine.INSTANCE.display.clearDisplay();
         gui.render(Engine.INSTANCE.batch);
@@ -187,9 +196,5 @@ public class Gwent implements Game {
     
     public TextCache getTextCache() {
         return texts;
-    }
-    
-    public Font getFont() {
-        return font;
     }
 }

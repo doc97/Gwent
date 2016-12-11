@@ -1,6 +1,8 @@
 package fi.riissanen.gwent.game.ui;
 
 import fi.riissanen.gwent.engine.render.SpriteBatch;
+import fi.riissanen.gwent.game.events.CardPlayedEvent;
+import fi.riissanen.gwent.game.events.Event;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +31,15 @@ public class GUI {
         batch.begin();
         renderer.render(batch, components);
         batch.end();
+    }
+    
+    /**
+     * Updates the GUI components.
+     */
+    public void update() {
+        for (GUIComponent component : components) {
+            component.update();
+        }
     }
     
     /**

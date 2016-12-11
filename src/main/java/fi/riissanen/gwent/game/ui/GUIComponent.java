@@ -31,6 +31,12 @@ public class GUIComponent implements Renderable {
     }
     
     /**
+     * Update method.
+     */
+    public void update() {
+    }
+    
+    /**
      * Sets the component position.
      * @param x The x coordinate
      * @param y The y coordinate

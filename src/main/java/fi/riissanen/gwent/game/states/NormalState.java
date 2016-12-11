@@ -2,7 +2,9 @@ package fi.riissanen.gwent.game.states;
 
 import fi.riissanen.gwent.engine.Engine;
 import fi.riissanen.gwent.engine.assets.AssetManager;
+import fi.riissanen.gwent.engine.render.Color;
 import fi.riissanen.gwent.engine.render.Texture;
+import fi.riissanen.gwent.engine.render.fonts.Font;
 import fi.riissanen.gwent.engine.render.fonts.Text;
 import fi.riissanen.gwent.game.Gwent;
 import fi.riissanen.gwent.game.cards.Card;
@@ -12,6 +14,11 @@ import fi.riissanen.gwent.game.events.CardStageEvent;
 import fi.riissanen.gwent.game.events.DrawCardEvent;
 import fi.riissanen.gwent.game.events.Event;
 import fi.riissanen.gwent.game.events.EventListener;
+import fi.riissanen.gwent.game.factions.Faction;
+import fi.riissanen.gwent.game.factions.Monsters;
+import fi.riissanen.gwent.game.factions.NilfgaardianEmpire;
+import fi.riissanen.gwent.game.factions.NorthernKingdoms;
+import fi.riissanen.gwent.game.factions.Scoiatael;
 import fi.riissanen.gwent.game.ui.GUI;
 import fi.riissanen.gwent.game.ui.GUICard;
 import fi.riissanen.gwent.game.ui.GUIComponent;
@@ -50,23 +57,28 @@ public class NormalState extends GameStateAdapter implements EventListener {
         board.setSize(Engine.INSTANCE.batch.getViewport().getWidth(),
                 Engine.INSTANCE.batch.getViewport().getHeight());
         
-        Texture handTex = (Texture) assets.get("assets/lwjgl.png");
+        Texture handTex = (Texture) assets.get("assets/textures/row.png");
         hand = new GUIHand(handTex, game.getTextCache());
         hand.setPosition(300, 20);
         hand.setSize(Engine.INSTANCE.batch.getViewport().getWidth() - 2 * 300 - 20,
                 GUICard.HEIGHT + 10);
         
-        Texture rowTex = (Texture) assets.get("assets/lwjgl.png");
+        Font font = (Font) assets.get("assets/fonts/sansserif.fnt");
+        Texture rowTex = (Texture) assets.get("assets/textures/row.png");
         float half = (Engine.INSTANCE.batch.getViewport().getHeight() + hand.getHeight() + 20) / 2;
         for (int i = 0; i < 3; i++) {
-            friendlyRows[i] = new GUIRow(rowTex, game.getTextCache());
+            Text zero = new Text("0", font, 1 / 4f, -1);
+            zero.setColor(1, 1, 1);
+            friendlyRows[i] = new GUIRow(rowTex, zero, game.getTextCache());
             friendlyRows[i].setSize(
                     Engine.INSTANCE.batch.getViewport().getWidth() - 2 * 300 - 20,
                     GUICard.HEIGHT + 10);
             friendlyRows[i].setPosition(300,
                     half - (i + 1) * (friendlyRows[i].getHeight() + 10));
             
-            enemyRows[i] = new GUIRow(rowTex, game.getTextCache());
+            zero = new Text("0", font, 1 / 4f, -1);
+            zero.setColor(1, 1, 1);
+            enemyRows[i] = new GUIRow(rowTex, zero, game.getTextCache());
             enemyRows[i].setSize(
                     Engine.INSTANCE.batch.getViewport().getWidth() - 2 * 300 - 20,
                     GUICard.HEIGHT + 10);
@@ -113,24 +125,47 @@ public class NormalState extends GameStateAdapter implements EventListener {
             }
         } else if (event instanceof CardPlayedEvent) {
             Card card = ((CardPlayedEvent) event).getCard();
-            int row = ((CardPlayedEvent) event).getRowIndex();
-            boolean friendly = card.getOwner().isFriendly();
-            if (friendly) {
-                friendlyRows[row].addCard(card, createGUICard(card));
-            } else {
-                enemyRows[row].addCard(card, createGUICard(card));
+            if (card instanceof UnitCard) {
+                int row = ((CardPlayedEvent) event).getRowIndex();
+                boolean friendly = card.getOwner().isFriendly();
+                if (friendly) {
+                    friendlyRows[row].addCard((UnitCard) card, createGUICard(card));
+                } else {
+                    enemyRows[row].addCard((UnitCard) card, createGUICard((UnitCard) card));
+                }
             }
         }
     }
     
     private GUICard createGUICard(Card card) {
-        Texture texture = (Texture) assets.get("assets/lwjgl.png");
-        Text text = null;
         if (card instanceof UnitCard) {
-            int strength = ((UnitCard) card).getUnit().getStrength();
-            text = new Text(strength + "", game.getFont(), 1 / 6f, -1);
+            return createGUIUnitCard((UnitCard) card);
         }
-        GUICard guiCard = new GUICard(text, texture);
+        return null;
+    }
+    
+    private GUICard createGUIUnitCard(UnitCard card) {
+        Texture cardBase = (Texture) assets.get("assets/textures/cardbase.png");
+        Texture cardFaction = (Texture) assets.get("assets/textures/cardfaction.png");
+
+        Font font = (Font) assets.get("assets/fonts/sansserif.fnt");
+        int strength = ((UnitCard) card).getUnit().getStrength();
+        Text text = new Text(strength + "", font, 1 / 6f, -1);
+        text.setColor(0, 0, 0);
+
+        Color color = Color.WHITE;
+        Faction faction = card.getOwner().getFaction();
+        if (faction instanceof NilfgaardianEmpire) {
+            color = new Color(1, 0.71f, 0, 1); // Yellow
+        } else if (faction instanceof NorthernKingdoms) {
+            color = new Color(0, 0.47f, 1, 1); // Blue
+        } else if (faction instanceof Monsters) {
+            color = new Color(0.88f, 0, 0, 1); // Red
+        } else if (faction instanceof Scoiatael) {
+            color = new Color(0.1f, 0.55f, 0, 1); // Green
+        }
+        
+        GUICard guiCard = new GUICard(text, cardBase, cardFaction, color);
         guiCard.setSize(GUICard.WIDTH, GUICard.HEIGHT);
         return guiCard;
     }

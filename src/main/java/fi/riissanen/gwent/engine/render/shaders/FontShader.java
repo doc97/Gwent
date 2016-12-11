@@ -26,7 +26,7 @@ public class FontShader extends ShaderProgram {
 
     @Override
     protected void getAllUniformLocations() {
-        colorUniformLoc = uniforms.getUniformLocation("color");
+        colorUniformLoc = uniforms.getUniformLocation("u_color");
     }
     
     /**

@@ -441,7 +441,7 @@ public class SpriteBatch {
      * @param color The new color
      */
     public void setColor(Color color) {
-        color.set(color);
+        this.color.set(color);
     }
 
     /**
