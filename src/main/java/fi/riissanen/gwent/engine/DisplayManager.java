@@ -163,6 +163,14 @@ public class DisplayManager {
     }
     
     /**
+     * Gets the GLFW window handle.
+     * @return The window handle
+     */
+    public long getWindow() {
+        return window;
+    }
+    
+    /**
      * Destroys the GLFW window and OpenGL context.
      */
     public void dispose() {

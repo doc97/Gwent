@@ -47,6 +47,7 @@ public class EngineLauncher {
             
             this.game.render(delta);
             Engine.INSTANCE.display.updateDisplay();
+            Engine.INSTANCE.input.update();
         }
         
         this.game.dispose();

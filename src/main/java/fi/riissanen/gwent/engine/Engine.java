@@ -2,6 +2,7 @@ package fi.riissanen.gwent.engine;
 
 import fi.riissanen.gwent.engine.Logger.LogLevel;
 import fi.riissanen.gwent.engine.files.FileUtils;
+import fi.riissanen.gwent.engine.input.InputManager;
 import fi.riissanen.gwent.engine.render.FontRenderer;
 import fi.riissanen.gwent.engine.render.SpriteBatch;
 import static org.lwjgl.glfw.GLFW.glfwGetTime;
@@ -21,6 +22,7 @@ public enum Engine {
     INSTANCE;
 
     public final DisplayManager display = new DisplayManager();
+    public final InputManager input = new InputManager();
     public SpriteBatch batch;
     public FontRenderer fontRenderer;
     public Logger log;
@@ -39,6 +41,7 @@ public enum Engine {
         }
         display.setBackgroundColor(0.5f, 0, 0.25f, 1);
 
+        input.init(display.getWindow());
         batch = new SpriteBatch();
         fontRenderer = new FontRenderer();
         log = new Logger();
