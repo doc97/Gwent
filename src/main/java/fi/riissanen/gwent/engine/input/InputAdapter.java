@@ -34,4 +34,9 @@ public class InputAdapter implements InputListener {
     public boolean mouseReleased(int key) {
         return false;
     }
+    
+    @Override
+    public boolean mouseMoved(double x, double y) {
+        return false;
+    }
 }

@@ -85,5 +85,6 @@ public enum Engine {
     public void dispose() {
         display.dispose();
         batch.dispose();
+        input.dispose();
     }
 }

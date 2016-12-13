@@ -45,4 +45,15 @@ public interface InputListener {
      * @return True if the input was captured
      */
     public boolean mouseReleased(int key);
+    
+    /**
+     * Called when the mouse moves.
+     *
+     * <p>
+     * Origin (0, 0) is in the top left corner
+     * @param x The x position on the client area
+     * @param y The y position on the client area
+     * @return True if the input was captured
+     */
+    public boolean mouseMoved(double x, double y);
 }

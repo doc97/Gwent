@@ -7,7 +7,7 @@ import java.util.List;
  * Supports multiple child input listeners.
  * @author Daniel
  */
-public class InputMultiplexer extends InputAdapter {
+public class InputMultiplexer implements InputListener {
 
     private final List<InputListener> addListeners = new ArrayList<>();
     private final List<InputListener> remListeners = new ArrayList<>();
@@ -97,6 +97,18 @@ public class InputMultiplexer extends InputAdapter {
         invokedCount++;
         for (InputListener listener : listeners) {
             if (listener.mouseReleased(key)) {
+                break;
+            }
+        }
+        invokedCount--;
+        return false;
+    }
+    
+    @Override
+    public boolean mouseMoved(double x, double y) {
+        invokedCount++;
+        for (InputListener listener : listeners) {
+            if (listener.mouseMoved(x, y)) {
                 break;
             }
         }
