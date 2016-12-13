@@ -8,12 +8,16 @@ import fi.riissanen.gwent.engine.render.fonts.Text;
 import fi.riissanen.gwent.game.Gwent;
 import fi.riissanen.gwent.game.cards.Card;
 import fi.riissanen.gwent.game.cards.UnitCard;
+import fi.riissanen.gwent.game.combat.CombatRow;
+import fi.riissanen.gwent.game.combat.GameBoard;
+import fi.riissanen.gwent.game.combat.UnitType;
 import fi.riissanen.gwent.game.events.CardPlayedEvent;
 import fi.riissanen.gwent.game.events.CardStageEvent;
 import fi.riissanen.gwent.game.events.DrawCardEvent;
 import fi.riissanen.gwent.game.events.Event;
 import fi.riissanen.gwent.game.events.EventListener;
-import fi.riissanen.gwent.game.input.NormalStateInput;
+import fi.riissanen.gwent.game.input.GUIHandInput;
+import fi.riissanen.gwent.game.input.GUIRowInput;
 import fi.riissanen.gwent.game.ui.GUI;
 import fi.riissanen.gwent.game.ui.GUICard;
 import fi.riissanen.gwent.game.ui.GUIComponent;
@@ -26,13 +30,14 @@ import fi.riissanen.gwent.game.ui.GUIRow;
  */
 public class NormalState extends GameStateAdapter implements EventListener {
 
-    private final NormalStateInput input;
+    private final GUIHandInput handInput;
+    private final GUIRowInput rowInput;
     private final AssetManager assets;
     private final GUIRow[] friendlyRows;
     private final GUIRow[] enemyRows;
     private final GUI gui;
-    private GUIComponent board;
-    private GUIHand hand;
+    private GUIComponent guiBoard;
+    private GUIHand guiHand;
     
     /**
      * Initializes the normal game state.
@@ -42,7 +47,8 @@ public class NormalState extends GameStateAdapter implements EventListener {
         super(game);
         gui = game.getGUI();
         assets = game.getAssetManager();
-        input = new NormalStateInput(game);
+        handInput = new GUIHandInput(game);
+        rowInput = new GUIRowInput(game);
         friendlyRows = new GUIRow[3];
         enemyRows = new GUIRow[3];
     }
@@ -50,23 +56,25 @@ public class NormalState extends GameStateAdapter implements EventListener {
     @Override
     public void createGUI() {
         Texture boardTex = (Texture) assets.get("assets/textures/board.png");
-        board = new GUIComponent(boardTex);
-        board.setSize(Engine.INSTANCE.batch.getViewport().getSrcWidth(),
+        guiBoard = new GUIComponent(boardTex);
+        guiBoard.setSize(Engine.INSTANCE.batch.getViewport().getSrcWidth(),
                 Engine.INSTANCE.batch.getViewport().getSrcHeight());
         
         Texture handTex = (Texture) assets.get("assets/textures/row.png");
-        hand = new GUIHand(handTex, game.getTextCache());
-        hand.setPosition(300, 20);
-        hand.setSize(Engine.INSTANCE.batch.getViewport().getSrcWidth() - 2 * 300 - 20,
+        guiHand = new GUIHand(handTex, game.getTextCache());
+        guiHand.setPosition(300, 20);
+        guiHand.setSize(Engine.INSTANCE.batch.getViewport().getSrcWidth() - 2 * 300 - 20,
                 GUICard.HEIGHT + 10);
         
         Font font = (Font) assets.get("assets/fonts/sansserif.fnt");
         Texture rowTex = (Texture) assets.get("assets/textures/row.png");
-        float half = (Engine.INSTANCE.batch.getViewport().getSrcHeight() + hand.getHeight() + 20) / 2;
+        float half = (Engine.INSTANCE.batch.getViewport().getSrcHeight() + guiHand.getHeight() + 20) / 2;
+        GameBoard board = game.getGameSystem().getBoard();
         for (int i = 0; i < 3; i++) {
             Text zero = new Text("0", font, 1 / 4f, -1);
             zero.setColor(1, 1, 1);
-            friendlyRows[i] = new GUIRow(rowTex, zero, game.getTextCache());
+            CombatRow fRow = board.getRow(true, UnitType.values()[i]);
+            friendlyRows[i] = new GUIRow(fRow, rowTex, zero, game.getTextCache());
             friendlyRows[i].setSize(
                     Engine.INSTANCE.batch.getViewport().getSrcWidth() - 2 * 300 - 20,
                     GUICard.HEIGHT + 10);
@@ -75,7 +83,8 @@ public class NormalState extends GameStateAdapter implements EventListener {
             
             zero = new Text("0", font, 1 / 4f, -1);
             zero.setColor(1, 1, 1);
-            enemyRows[i] = new GUIRow(rowTex, zero, game.getTextCache());
+            CombatRow eRow = board.getRow(false, UnitType.values()[i]);
+            enemyRows[i] = new GUIRow(eRow, rowTex, zero, game.getTextCache());
             enemyRows[i].setSize(
                     Engine.INSTANCE.batch.getViewport().getSrcWidth() - 2 * 300 - 20,
                     GUICard.HEIGHT + 10);
@@ -86,8 +95,8 @@ public class NormalState extends GameStateAdapter implements EventListener {
 
     @Override
     public void create() {
-        gui.addComponent(board);
-        gui.addComponent(hand);
+        gui.addComponent(guiBoard);
+        gui.addComponent(guiHand);
         for (int i = 0; i < 3; i++) {
             gui.addComponent(friendlyRows[i]);
             gui.addComponent(enemyRows[i]);
@@ -96,8 +105,8 @@ public class NormalState extends GameStateAdapter implements EventListener {
     
     @Override
     public void destroy() {
-        gui.removeComponent(board);
-        gui.removeComponent(hand);
+        gui.removeComponent(guiBoard);
+        gui.removeComponent(guiHand);
         for (int i = 0; i < 3; i++) {
             gui.removeComponent(friendlyRows[i]);
             gui.removeComponent(enemyRows[i]);
@@ -106,12 +115,13 @@ public class NormalState extends GameStateAdapter implements EventListener {
     
     @Override
     public void enter() {
-        input.enable();
+        handInput.enable();
+        rowInput.disable();
     }
     
     @Override
     public void exit() {
-        input.disable();
+        handInput.disable();
     }
 
     @Override
@@ -129,8 +139,8 @@ public class NormalState extends GameStateAdapter implements EventListener {
         Card card = event.getCard();
         boolean friendly = event.isFriendly();
         if (friendly) {
-            hand.addCard(card, GUI.createGUICard(card, assets));
-            gui.getInput().addListener(hand.getGUICard(card), input);
+            guiHand.addCard(card, GUI.createGUICard(card, assets));
+            gui.getInput().addListener(guiHand.getGUICard(card), handInput);
         }
     }
     
@@ -138,11 +148,14 @@ public class NormalState extends GameStateAdapter implements EventListener {
         Card card = event.getCard();
         boolean staged = event.isStaged();
         if (staged) {
-            gui.getInput().removeListener(hand.getGUICard(card), input);
-            hand.removeCard(card);
+            rowInput.load(gui.getInput(), friendlyRows, card);
+            rowInput.enable();
+            gui.getInput().removeListener(guiHand.getGUICard(card), handInput);
+            guiHand.removeCard(card);
         } else {
-            hand.addCard(card, GUI.createGUICard(card, assets));
-            gui.getInput().addListener(hand.getGUICard(card), input);
+            guiHand.addCard(card, GUI.createGUICard(card, assets));
+            gui.getInput().addListener(guiHand.getGUICard(card), handInput);
+            gui.getInput().removeListenerFromAll(rowInput);
         }
     }
     

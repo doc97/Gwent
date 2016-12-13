@@ -6,14 +6,14 @@ import fi.riissanen.gwent.game.ui.GUICard;
 import fi.riissanen.gwent.game.ui.GUIComponent;
 
 /**
- *
+ * GUI input for {@link GUIHandInput}.
  * @author Daniel
  */
-public class NormalStateInput extends GUIInputAdapter {
+public class GUIHandInput extends GUIInputAdapter {
 
     private final Gwent game;
     
-    public NormalStateInput(Gwent game) {
+    public GUIHandInput(Gwent game) {
         this.game = game;
     }
     

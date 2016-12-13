@@ -5,6 +5,7 @@ import fi.riissanen.gwent.engine.render.Texture;
 import fi.riissanen.gwent.engine.render.fonts.Font;
 import fi.riissanen.gwent.engine.render.fonts.Text;
 import fi.riissanen.gwent.game.cards.UnitCard;
+import fi.riissanen.gwent.game.combat.CombatRow;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,17 +17,20 @@ import java.util.Map;
 public class GUIRow extends GUIComponent {
 
     private final Map<UnitCard, GUICard> cards = new HashMap<>();
+    private final CombatRow row;
     private final TextCache cache;
     private final Text strength;
     
     /**
      * Creates a GUIComponent with cards, a little like the GUI hand.
+     * @param row The row that is linked with this GUIRow
      * @param texture The texture
      * @param strength The text showing the rows strength
      * @param cache The text cache where to add component texts
      */
-    public GUIRow(Texture texture, Text strength, TextCache cache) {
+    public GUIRow(CombatRow row, Texture texture, Text strength, TextCache cache) {
         super(texture);
+        this.row = row;
         this.cache = cache;
         this.strength = strength;
     }
@@ -92,5 +96,9 @@ public class GUIRow extends GUIComponent {
                     y + (height - guiCard.getHeight()) / 2);
             i++;
         }
+    }
+    
+    public CombatRow getRow() {
+        return row;
     }
 }

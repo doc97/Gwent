@@ -1,6 +1,5 @@
 package fi.riissanen.gwent.game.states;
 
-import fi.riissanen.gwent.engine.Engine;
 import fi.riissanen.gwent.engine.assets.AssetManager;
 import fi.riissanen.gwent.game.Gwent;
 import fi.riissanen.gwent.game.cards.Card;
