@@ -267,14 +267,14 @@ public class SpriteBatch {
         }
 
         // To viewport coordinates
-        x1 = viewport.toGlCoordinateX(x1);
-        y1 = viewport.toGlCoordinateY(y1);
-        x2 = viewport.toGlCoordinateX(x2);
-        y2 = viewport.toGlCoordinateY(y2);
-        x3 = viewport.toGlCoordinateX(x3);
-        y3 = viewport.toGlCoordinateY(y3);
-        x4 = viewport.toGlCoordinateX(x4);
-        y4 = viewport.toGlCoordinateY(y4);
+        x1 = viewport.toTargetCoordinateX(x1);
+        y1 = viewport.toTargetCoordinateY(y1);
+        x2 = viewport.toTargetCoordinateX(x2);
+        y2 = viewport.toTargetCoordinateY(y2);
+        x3 = viewport.toTargetCoordinateX(x3);
+        y3 = viewport.toTargetCoordinateY(y3);
+        x4 = viewport.toTargetCoordinateX(x4);
+        y4 = viewport.toTargetCoordinateY(y4);
         
         //coords for the vertices
         float vx1 = 2 * scale * x1 - (1 - scale);
@@ -429,7 +429,7 @@ public class SpriteBatch {
      * @param top The top of the viewport
      */
     public void setViewport(float left, float bottom, float right, float top) {
-        viewport.set(left, right, bottom, top);
+        viewport.sourceViewport(left, bottom, right, top);
     }
 
     public void setScale(float scale) {

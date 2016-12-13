@@ -48,24 +48,24 @@ public class NormalState extends GameStateAdapter implements EventListener {
     public void createGUI() {
         Texture boardTex = (Texture) assets.get("assets/textures/board.png");
         board = new GUIComponent(boardTex);
-        board.setSize(Engine.INSTANCE.batch.getViewport().getWidth(),
-                Engine.INSTANCE.batch.getViewport().getHeight());
+        board.setSize(Engine.INSTANCE.batch.getViewport().getSrcWidth(),
+                Engine.INSTANCE.batch.getViewport().getSrcHeight());
         
         Texture handTex = (Texture) assets.get("assets/textures/row.png");
         hand = new GUIHand(handTex, game.getTextCache());
         hand.setPosition(300, 20);
-        hand.setSize(Engine.INSTANCE.batch.getViewport().getWidth() - 2 * 300 - 20,
+        hand.setSize(Engine.INSTANCE.batch.getViewport().getSrcWidth() - 2 * 300 - 20,
                 GUICard.HEIGHT + 10);
         
         Font font = (Font) assets.get("assets/fonts/sansserif.fnt");
         Texture rowTex = (Texture) assets.get("assets/textures/row.png");
-        float half = (Engine.INSTANCE.batch.getViewport().getHeight() + hand.getHeight() + 20) / 2;
+        float half = (Engine.INSTANCE.batch.getViewport().getSrcHeight() + hand.getHeight() + 20) / 2;
         for (int i = 0; i < 3; i++) {
             Text zero = new Text("0", font, 1 / 4f, -1);
             zero.setColor(1, 1, 1);
             friendlyRows[i] = new GUIRow(rowTex, zero, game.getTextCache());
             friendlyRows[i].setSize(
-                    Engine.INSTANCE.batch.getViewport().getWidth() - 2 * 300 - 20,
+                    Engine.INSTANCE.batch.getViewport().getSrcWidth() - 2 * 300 - 20,
                     GUICard.HEIGHT + 10);
             friendlyRows[i].setPosition(300,
                     half - (i + 1) * (friendlyRows[i].getHeight() + 10));
@@ -74,7 +74,7 @@ public class NormalState extends GameStateAdapter implements EventListener {
             zero.setColor(1, 1, 1);
             enemyRows[i] = new GUIRow(rowTex, zero, game.getTextCache());
             enemyRows[i].setSize(
-                    Engine.INSTANCE.batch.getViewport().getWidth() - 2 * 300 - 20,
+                    Engine.INSTANCE.batch.getViewport().getSrcWidth() - 2 * 300 - 20,
                     GUICard.HEIGHT + 10);
             enemyRows[i].setPosition(300,
                     half + i * (enemyRows[i].getHeight() + 10));
