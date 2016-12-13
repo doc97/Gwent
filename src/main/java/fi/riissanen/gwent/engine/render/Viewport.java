@@ -19,17 +19,17 @@ public class Viewport {
      * Initializes the viewport to glViewport's default values.
      */
     public Viewport() {
-        this(-0.5f, 0.5f, -0.5f, 0.5f);
+        this(-0.5f, -0.5f, 0.5f, 0.5f);
     }
     
     /**
      * Initializes the source viewport to specified values.
      * @param srcLeft The left of the viewport
-     * @param srcRight The right of the viewport
      * @param srcBottom The bottom of the viewport
+     * @param srcRight The right of the viewport
      * @param srcTop The top of the viewport
      */
-    public Viewport(float srcLeft, float srcRight, float srcBottom, float srcTop) {
+    public Viewport(float srcLeft, float srcBottom, float srcRight, float srcTop) {
         this.srcLeft = srcLeft;
         this.srcBottom = srcBottom;
         this.srcWidth = srcRight - srcLeft;

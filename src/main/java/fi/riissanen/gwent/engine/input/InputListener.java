@@ -50,7 +50,12 @@ public interface InputListener {
      * Called when the mouse moves.
      *
      * <p>
-     * Origin (0, 0) is in the top left corner
+     * Origin (0, 0) is in the top left corner,
+     * the max values for x and y can be retrieved
+     * from:
+     * <p>
+     * {@code DisplayManager#getWidth()} and
+     * {@code DisplayManager#getHeight()}
      * @param x The x position on the client area
      * @param y The y position on the client area
      * @return True if the input was captured

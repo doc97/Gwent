@@ -26,12 +26,12 @@ public class InputAdapter implements InputListener {
     }
 
     @Override
-    public boolean mousePressed(int key) {
+    public boolean mousePressed(int button) {
         return false;
     }
 
     @Override
-    public boolean mouseReleased(int key) {
+    public boolean mouseReleased(int button) {
         return false;
     }
     
