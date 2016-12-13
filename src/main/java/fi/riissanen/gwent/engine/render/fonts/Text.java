@@ -18,8 +18,8 @@ public class Text {
     private final Vector2f position;
     private final Color color;
     private final float lineLength;
-    private final float fontSize;
-    
+
+    private float fontSize;
     private int numberOfLines;
     
     /**
@@ -60,6 +60,10 @@ public class Text {
     
     public void setNumberOfLines(int numberOfLines) {
         this.numberOfLines = numberOfLines;
+    }
+    
+    public void setFontSize(float fontSize) {
+        this.fontSize = fontSize;
     }
     
     public String getText() {

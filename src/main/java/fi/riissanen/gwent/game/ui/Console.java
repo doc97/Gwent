@@ -24,7 +24,9 @@ public class Console implements Runnable {
                         + "show_board - Shows info about the current board "
                         + "state\n"
                         + "show_hand - Shows the cards in your hand\n"
-                        + "play_card [card index] - Plays a card"
+                        + "stage_card [card index] - Stages a card\n"
+                        + "cancel_card - Cancels the staged card\n"
+                        + "play_card - Plays the staged card\n"
                         + "from your hand. \"card index\" is the index of the "
                         + "card in your hand\n"
                         + "help - Shows this message";
@@ -114,38 +116,36 @@ public class Console implements Runnable {
             case "show_board" :
                 gameSys.getBoard().status();
                 break;
-            case "play_card" :
-                if (!gameSys.getFriendlyPlayer().isInTurn()) {
-                    System.out.println("Not players turn!");
-                    break;
-                }
-                
+            case "stage_card" :
                 int index = Integer.parseInt(args[0]);
                 Card card = gameSys.getFriendlyPlayer().getHandCard(index);
                 if (card != null) {
                     gameSys.stageCard(card);
-                    if (card instanceof UnitCard) {
-                        int rowIndex = -1;
-                        int[] indices = ((UnitCard) card).getUnit().getTypeIndices();
-                        
-                        // If card is a UnitCard then it must have at least one
-                        // unit type
-                        if (indices.length == 1) {
-                            rowIndex = indices[0];
-                        } else if (indices.length > 1) {
-                            do {
-                                rowIndex = promptRowIndex(indices);
-                            } while (!validateRowIndex(indices, rowIndex));
-                        }
-                        gameSys.playCard(rowIndex);
-                    } else {
-                        gameSys.unstageCard();
-                    }
                 } else {
                     System.out.println(
                             "Player does not have a card with index: " + index);
                 }
-                
+                break;
+            case "cancel_card" :
+                gameSys.cancelStagedCard();
+                break;
+            case "play_card" :
+                int rowIndex = -1;
+                Card stagedCard = gameSys.getStagedCard();
+                if (stagedCard instanceof UnitCard) {
+                    int[] indices = ((UnitCard) stagedCard).getUnit().getTypeIndices();
+
+                    // If card is a UnitCard then it must have at least one
+                    // unit type
+                    if (indices.length == 1) {
+                        rowIndex = indices[0];
+                    } else if (indices.length > 1) {
+                        do {
+                            rowIndex = promptRowIndex(indices);
+                        } while (!validateRowIndex(indices, rowIndex));
+                    }
+                }
+                gameSys.playCard(rowIndex);
                 break;
             case "help" :
                 System.out.println(helpMsg);

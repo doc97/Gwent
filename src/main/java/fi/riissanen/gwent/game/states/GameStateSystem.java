@@ -5,6 +5,7 @@ import fi.riissanen.gwent.game.Gwent;
 import fi.riissanen.gwent.game.events.CardPlayedEvent;
 import fi.riissanen.gwent.game.events.CardStageEvent;
 import fi.riissanen.gwent.game.events.DrawCardEvent;
+import fi.riissanen.gwent.game.events.EventSystem;
 import fi.riissanen.gwent.game.events.StateChangeEvent;
 import static fi.riissanen.gwent.game.states.GameStates.*;
 import java.util.HashMap;
@@ -49,15 +50,19 @@ public class GameStateSystem {
      * Initialises states and adds them to a map.
      */
     public void initialize() {
+        EventSystem eventSys = game.getEventSystem();
         NormalState normalState = new NormalState(game);
-        game.getEventSystem().addListener(DrawCardEvent.class, normalState);
-        game.getEventSystem().addListener(CardStageEvent.class, normalState);
-        game.getEventSystem().addListener(CardPlayedEvent.class, normalState);
+        StageState stageState = new StageState(game);
+        eventSys.addListener(DrawCardEvent.class, normalState);
+        eventSys.addListener(CardStageEvent.class, normalState);
+        eventSys.addListener(CardPlayedEvent.class, normalState);
+        eventSys.addListener(CardStageEvent.class, stageState);
+        eventSys.addListener(CardPlayedEvent.class, stageState);
         
         states.put(CHOOSE_STARTING_PLAYER_STATE, new ChooseStartingPlayerState(game));
         states.put(REDRAW_STATE, new RedrawState(game));
         states.put(NORMAL_STATE, normalState);
-        states.put(STAGE_STATE, new StageState(game));
+        states.put(STAGE_STATE, stageState);
         states.put(DISCARD_PILE_STATE, new DiscardPileState(game));
         
         if (Engine.INSTANCE.isInitialized()) {

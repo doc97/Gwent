@@ -89,6 +89,7 @@ public class GameSystem {
      */
     public void stageCard(Card card) {
         if (card != null) {
+            cancelStagedCard();
             stagedCard = card;
             stateSystem.push(STAGE_STATE);
             game.getEventSystem().register(new CardStageEvent(stagedCard, true));
@@ -176,5 +177,9 @@ public class GameSystem {
     
     public Player getEnemyPlayer() {
         return enemy;
+    }
+    
+    public Card getStagedCard() {
+        return stagedCard;
     }
 }

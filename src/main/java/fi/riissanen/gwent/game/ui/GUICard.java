@@ -54,6 +54,7 @@ public class GUICard extends GUIComponent {
     public void setSize(float width, float height) {
         super.setSize(width, height);
         if (hasText()) {
+            text.setFontSize(text.getFontSize() * height / GUICard.HEIGHT);
             float lineHeight = text.getFont().getLineHeight() * text.getFontSize();
             text.setPosition(this.x + 2, this.y + height - lineHeight);
         }
