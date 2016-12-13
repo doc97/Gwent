@@ -1,9 +1,11 @@
 package fi.riissanen.gwent.game.ui;
 
+import fi.riissanen.gwent.engine.Engine;
 import fi.riissanen.gwent.engine.assets.AssetManager;
 import fi.riissanen.gwent.engine.render.Color;
 import fi.riissanen.gwent.engine.render.SpriteBatch;
 import fi.riissanen.gwent.engine.render.Texture;
+import fi.riissanen.gwent.engine.render.Viewport;
 import fi.riissanen.gwent.engine.render.fonts.Font;
 import fi.riissanen.gwent.engine.render.fonts.Text;
 import fi.riissanen.gwent.game.cards.Card;
@@ -13,6 +15,8 @@ import fi.riissanen.gwent.game.factions.Monsters;
 import fi.riissanen.gwent.game.factions.NilfgaardianEmpire;
 import fi.riissanen.gwent.game.factions.NorthernKingdoms;
 import fi.riissanen.gwent.game.factions.Scoiatael;
+import fi.riissanen.gwent.game.input.GUIInput;
+import fi.riissanen.gwent.game.input.GUIInputListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +26,7 @@ import java.util.List;
  */
 public class GUI {
 
+    private final GUIInput input;
     private final GUIRenderer renderer;
     private final List<GUIComponent> components;
     
@@ -31,6 +36,14 @@ public class GUI {
     public GUI() {
         components = new ArrayList<>();
         renderer = new GUIRenderer();
+        input = new GUIInput();
+    }
+    
+    /**
+     * Initialization code for GUI.
+     */
+    public void initialize() {
+        input.initialize();
     }
     
     /**
@@ -71,6 +84,28 @@ public class GUI {
     }
     
     /**
+     * Adds a listener to listen for input for a component.
+     * @param component The component to listen to
+     * @param listener The listener
+     */
+    public void addListener(GUIComponent component, GUIInputListener listener) {
+        input.addListener(component, listener);
+    }
+    
+    /**
+     * Removes a listener from listening for input for a component.
+     * @param component The component being listened to
+     * @param listener The listener to remove
+     */
+    public void removeListener(GUIComponent component, GUIInputListener listener) {
+        input.removeListener(component, listener);
+    }
+    
+    public GUIInput getInput() {
+        return input;
+    }
+    
+    /**
      * Creates a GUI card.
      *
      * <p>
@@ -108,7 +143,7 @@ public class GUI {
             color = new Color(0.1f, 0.55f, 0, 1); // Green
         }
         
-        GUICard guiCard = new GUICard(text, cardBase, cardFaction, color);
+        GUICard guiCard = new GUICard(card, text, cardBase, cardFaction, color);
         guiCard.setSize(GUICard.WIDTH, GUICard.HEIGHT);
         return guiCard;
     }

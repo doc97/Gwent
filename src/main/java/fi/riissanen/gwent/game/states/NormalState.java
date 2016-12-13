@@ -13,6 +13,7 @@ import fi.riissanen.gwent.game.events.CardStageEvent;
 import fi.riissanen.gwent.game.events.DrawCardEvent;
 import fi.riissanen.gwent.game.events.Event;
 import fi.riissanen.gwent.game.events.EventListener;
+import fi.riissanen.gwent.game.input.NormalStateInput;
 import fi.riissanen.gwent.game.ui.GUI;
 import fi.riissanen.gwent.game.ui.GUICard;
 import fi.riissanen.gwent.game.ui.GUIComponent;
@@ -25,6 +26,7 @@ import fi.riissanen.gwent.game.ui.GUIRow;
  */
 public class NormalState extends GameStateAdapter implements EventListener {
 
+    private final NormalStateInput input;
     private final AssetManager assets;
     private final GUIRow[] friendlyRows;
     private final GUIRow[] enemyRows;
@@ -40,6 +42,7 @@ public class NormalState extends GameStateAdapter implements EventListener {
         super(game);
         gui = game.getGUI();
         assets = game.getAssetManager();
+        input = new NormalStateInput(game);
         friendlyRows = new GUIRow[3];
         enemyRows = new GUIRow[3];
     }
@@ -100,35 +103,59 @@ public class NormalState extends GameStateAdapter implements EventListener {
             gui.removeComponent(enemyRows[i]);
         }
     }
+    
+    @Override
+    public void enter() {
+        input.enable();
+    }
+    
+    @Override
+    public void exit() {
+        input.disable();
+    }
 
     @Override
     public void process(Event event) {
         if (event instanceof DrawCardEvent) {
-            Card card = ((DrawCardEvent) event).getCard();
-            boolean friendly = ((DrawCardEvent) event).isFriendly();
-            if (friendly) {
-                hand.addCard(card, GUI.createGUICard(card, assets));
-            }
+            processDrawCard((DrawCardEvent) event);
         } else if (event instanceof CardStageEvent) {
-            Card card = ((CardStageEvent) event).getCard();
-            boolean staged = ((CardStageEvent) event).isStaged();
-            if (staged) {
-                hand.removeCard(card);
-            } else {
-                hand.addCard(card, GUI.createGUICard(card, assets));
-            }
+            processCardStage((CardStageEvent) event);
         } else if (event instanceof CardPlayedEvent) {
-            Card card = ((CardPlayedEvent) event).getCard();
-            if (card instanceof UnitCard) {
-                int row = ((CardPlayedEvent) event).getRowIndex();
-                boolean friendly = card.getOwner().isFriendly();
-                if (friendly) {
-                    friendlyRows[row].addCard((UnitCard) card,
-                            GUI.createGUICard(card, assets));
-                } else {
-                    enemyRows[row].addCard((UnitCard) card,
-                            GUI.createGUICard(card, assets));
-                }
+            processCardPlayed((CardPlayedEvent) event);
+        }
+    }
+    
+    private void processDrawCard(DrawCardEvent event) {
+        Card card = event.getCard();
+        boolean friendly = event.isFriendly();
+        if (friendly) {
+            hand.addCard(card, GUI.createGUICard(card, assets));
+            gui.getInput().addListener(hand.getGUICard(card), input);
+        }
+    }
+    
+    private void processCardStage(CardStageEvent event) {
+        Card card = event.getCard();
+        boolean staged = event.isStaged();
+        if (staged) {
+            gui.getInput().removeListener(hand.getGUICard(card), input);
+            hand.removeCard(card);
+        } else {
+            hand.addCard(card, GUI.createGUICard(card, assets));
+            gui.getInput().addListener(hand.getGUICard(card), input);
+        }
+    }
+    
+    private void processCardPlayed(CardPlayedEvent event) {
+        Card card = event.getCard();
+        if (card instanceof UnitCard) {
+            int row = event.getRowIndex();
+            boolean friendly = card.getOwner().isFriendly();
+            GUICard guiCard = GUI.createGUICard(card, assets);
+            if (friendly) {
+                friendlyRows[row].addCard((UnitCard) card, guiCard);
+            } else {
+                enemyRows[row].addCard((UnitCard) card, guiCard);
             }
         }
     }

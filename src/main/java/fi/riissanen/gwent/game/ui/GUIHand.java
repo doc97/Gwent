@@ -67,4 +67,8 @@ public class GUIHand extends GUIComponent {
             i++;
         }
     }
+    
+    public GUICard getGUICard(Card card) {
+        return cards.get(card);
+    }
 }

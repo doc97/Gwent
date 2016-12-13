@@ -88,10 +88,10 @@ public class GameSystem {
      * @param card The card to stage
      */
     public void stageCard(Card card) {
-        if (card != null) {
+        if (stagedCard == null && card != null) {
             cancelStagedCard();
             stagedCard = card;
-            stateSystem.push(STAGE_STATE);
+            stateSystem.pushNext(STAGE_STATE);
             game.getEventSystem().register(new CardStageEvent(stagedCard, true));
         }
     }

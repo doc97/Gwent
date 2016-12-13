@@ -4,6 +4,7 @@ import fi.riissanen.gwent.engine.render.Color;
 import fi.riissanen.gwent.engine.render.SpriteBatch;
 import fi.riissanen.gwent.engine.render.Texture;
 import fi.riissanen.gwent.engine.render.fonts.Text;
+import fi.riissanen.gwent.game.cards.Card;
 
 /**
  * Graphical representation of card.
@@ -13,19 +14,22 @@ public class GUICard extends GUIComponent {
 
     public static final int WIDTH = 80;
     public static final int HEIGHT = 125;
+    private final Card card;
     private final Texture faction;
     private final Color factionColor = new Color(1, 1, 1, 1);
     private Text text;
     
     /**
      * Creates a GUI component with a text.
+     * @param card The card that is linked with this GUICard
      * @param text The text containing the strength
      * @param base The base card texture
      * @param faction The faction specific texture
      * @param factionColor The color to draw the faction texture with
      */
-    public GUICard(Text text, Texture base, Texture faction, Color factionColor) {
+    public GUICard(Card card, Text text, Texture base, Texture faction, Color factionColor) {
         super(base);
+        this.card = card;
         this.text = text;
         this.faction = faction;
         this.factionColor.set(factionColor);
@@ -78,5 +82,9 @@ public class GUICard extends GUIComponent {
     
     public Text getText() {
         return text;
+    }
+    
+    public Card getCard() {
+        return card;
     }
 }

@@ -5,8 +5,8 @@ import fi.riissanen.gwent.engine.Engine;
 import fi.riissanen.gwent.engine.Logger.LogLevel;
 import fi.riissanen.gwent.engine.assets.AssetManager;
 import fi.riissanen.gwent.engine.assets.AssetParams;
+import fi.riissanen.gwent.engine.input.InputMultiplexer;
 import fi.riissanen.gwent.engine.interfaces.Game;
-import fi.riissanen.gwent.engine.render.fonts.Font;
 import fi.riissanen.gwent.engine.render.shaders.FontShader;
 import fi.riissanen.gwent.game.cards.Card;
 import fi.riissanen.gwent.game.cards.Deck;
@@ -41,6 +41,7 @@ public class Gwent implements Game {
     private EventSystem eventSys;
     private GameSystem gameSys;
     private GUI gui;
+    private InputMultiplexer input;
     private TextCache texts;
     private Console console;
     
@@ -63,6 +64,7 @@ public class Gwent implements Game {
         eventSys = new EventSystem();
         gameSys = new GameSystem(this);
         gui = new GUI();
+        input = new InputMultiplexer();
         texts = new TextCache();
         console = new Console();
     }
@@ -87,6 +89,10 @@ public class Gwent implements Game {
         } catch (IOException ex) {
             System.err.println("Cannot set font shader");
         }
+        
+        gui.initialize();
+        input.addListener(gui.getInput());
+        Engine.INSTANCE.input.setInputListener(input);
     }
     
     private void loadAssets() {
@@ -184,6 +190,10 @@ public class Gwent implements Game {
 
     public GUI getGUI() {
         return gui;
+    }
+    
+    public InputMultiplexer getInput() {
+        return input;
     }
     
     public GameSystem getGameSystem() {
