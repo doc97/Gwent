@@ -64,6 +64,7 @@ public class GameStateSystem {
         states.put(NORMAL_STATE, normalState);
         states.put(STAGE_STATE, stageState);
         states.put(DISCARD_PILE_STATE, new DiscardPileState(game));
+        states.put(MATCH_OVER_STATE, new MatchOverState(game));
         
         if (Engine.INSTANCE.isInitialized()) {
             for (GameStates state : GameStates.values()) {

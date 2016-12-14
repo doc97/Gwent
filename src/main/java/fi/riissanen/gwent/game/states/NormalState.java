@@ -18,6 +18,7 @@ import fi.riissanen.gwent.game.events.Event;
 import fi.riissanen.gwent.game.events.EventListener;
 import fi.riissanen.gwent.game.input.GUIHandInput;
 import fi.riissanen.gwent.game.input.GUIRowInput;
+import fi.riissanen.gwent.game.input.NormalStateInput;
 import fi.riissanen.gwent.game.ui.GUI;
 import fi.riissanen.gwent.game.ui.GUICard;
 import fi.riissanen.gwent.game.ui.GUIComponent;
@@ -31,6 +32,7 @@ import fi.riissanen.gwent.game.ui.TextCache;
  */
 public class NormalState extends GameStateAdapter implements EventListener {
 
+    private final NormalStateInput input;
     private final GUIHandInput handInput;
     private final GUIRowInput rowInput;
     private final AssetManager assets;
@@ -50,6 +52,7 @@ public class NormalState extends GameStateAdapter implements EventListener {
         gui = game.getGUI();
         cache = game.getTextCache();
         assets = game.getAssetManager();
+        input = new NormalStateInput(game);
         handInput = new GUIHandInput(game);
         rowInput = new GUIRowInput(game);
         friendlyRows = new GUIRow[3];
@@ -118,12 +121,14 @@ public class NormalState extends GameStateAdapter implements EventListener {
     
     @Override
     public void enter() {
+        game.getInput().addListener(input);
         handInput.enable();
         rowInput.disable();
     }
     
     @Override
     public void exit() {
+        game.getInput().removeListener(input);
         handInput.disable();
     }
 

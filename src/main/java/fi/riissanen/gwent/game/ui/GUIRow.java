@@ -1,14 +1,15 @@
 package fi.riissanen.gwent.game.ui;
 
-import fi.riissanen.gwent.engine.math.Vector2f;
 import fi.riissanen.gwent.engine.render.Color;
 import fi.riissanen.gwent.engine.render.SpriteBatch;
 import fi.riissanen.gwent.engine.render.Texture;
 import fi.riissanen.gwent.engine.render.fonts.Font;
 import fi.riissanen.gwent.engine.render.fonts.Text;
+import fi.riissanen.gwent.game.cards.Card;
 import fi.riissanen.gwent.game.cards.UnitCard;
 import fi.riissanen.gwent.game.combat.CombatRow;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -48,7 +49,13 @@ public class GUIRow extends GUIComponent {
     @Override
     public void update() {
         // Update card information
-        for (UnitCard card : cards.keySet()) {
+        for (Iterator<UnitCard> it = cards.keySet().iterator(); it.hasNext();) {
+            UnitCard card = it.next();
+            if (!row.hasUnit(card.getUnit())) {
+                cards.get(card).destroy();
+                it.remove();
+                continue;
+            }
             cards.get(card).update();
         }
         

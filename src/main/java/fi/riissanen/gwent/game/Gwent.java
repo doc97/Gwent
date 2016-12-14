@@ -8,12 +8,10 @@ import fi.riissanen.gwent.engine.assets.AssetParams;
 import fi.riissanen.gwent.engine.input.InputMultiplexer;
 import fi.riissanen.gwent.engine.interfaces.Game;
 import fi.riissanen.gwent.engine.render.shaders.FontShader;
-import fi.riissanen.gwent.game.cards.Card;
 import fi.riissanen.gwent.game.cards.Deck;
 import fi.riissanen.gwent.game.cards.factories.CardCreator;
 import fi.riissanen.gwent.game.cards.factories.CardData;
-import fi.riissanen.gwent.game.cards.factories.CardLoader;
-import fi.riissanen.gwent.game.cards.factories.UnitCardFactory;
+import fi.riissanen.gwent.game.events.AfterEvent;
 import fi.riissanen.gwent.game.events.EventListener;
 import fi.riissanen.gwent.game.events.EventSystem;
 import fi.riissanen.gwent.game.events.RoundEndEvent;
@@ -140,6 +138,7 @@ public class Gwent implements Game {
         
         eventSys.addListeners(RoundEndEvent.class, ree);
         eventSys.addListeners(MatchStartEvent.class, mse);
+        eventSys.addListener(AfterEvent.class, gameSys.getMatchManager());
     }
     
     private void setupGameSystem() {
@@ -147,7 +146,7 @@ public class Gwent implements Game {
         player.setFaction(new NorthernKingdoms(player));
         
         Player player2 = new Player(this, false);
-        player2.setFaction(new NorthernKingdoms(player2));
+        player2.setFaction(new Monsters(player2));
         
         // Create deck (temporary)
         Deck deck1 = new Deck();
@@ -178,7 +177,7 @@ public class Gwent implements Game {
     @Override
     public void render(double delta) {
         eventSys.update();
-        gameSys.getStateSystem().update();
+        gameSys.update();
         gui.update();
         
         Engine.INSTANCE.display.clearDisplay();

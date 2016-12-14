@@ -2,6 +2,7 @@ package fi.riissanen.gwent.game;
 
 import fi.riissanen.gwent.engine.Engine;
 import fi.riissanen.gwent.engine.Logger;
+import fi.riissanen.gwent.game.MatchManager.Result;
 import fi.riissanen.gwent.game.cards.Card;
 import fi.riissanen.gwent.game.cards.UnitCard;
 import fi.riissanen.gwent.game.cards.abilities.Ability;
@@ -10,8 +11,10 @@ import fi.riissanen.gwent.game.combat.Unit;
 import fi.riissanen.gwent.game.combat.UnitType;
 import fi.riissanen.gwent.game.events.CardPlayedEvent;
 import fi.riissanen.gwent.game.events.CardStageEvent;
+import fi.riissanen.gwent.game.events.RoundEndEvent;
 import fi.riissanen.gwent.game.states.GameStateSystem;
 import static fi.riissanen.gwent.game.states.GameStates.CHOOSE_STARTING_PLAYER_STATE;
+import static fi.riissanen.gwent.game.states.GameStates.MATCH_OVER_STATE;
 import static fi.riissanen.gwent.game.states.GameStates.STAGE_STATE;
 import static fi.riissanen.gwent.game.states.GameStates.NORMAL_STATE;
 
@@ -55,6 +58,13 @@ public class GameSystem {
         stateSystem.initialize();
         stateSystem.push(NORMAL_STATE);
         stateSystem.push(CHOOSE_STARTING_PLAYER_STATE);
+    }
+    
+    public void update() {
+        stateSystem.update();
+        if (matchManager.getMatchResult() != Result.NONE) {
+            stateSystem.push(MATCH_OVER_STATE);
+        }
     }
     
     /**
@@ -145,6 +155,33 @@ public class GameSystem {
         game.getEventSystem().register(new CardPlayedEvent(stagedCard, rowIndex));
         unstageCard();
         return true;
+    }
+    
+    /**
+     * Passes the current round.
+     */
+    public void passRound() {
+        if (stateSystem.isCurrentState(NORMAL_STATE)) {
+            int fStrength = board.getStrength(true);
+            int eStrength = board.getStrength(false);
+            Result res;
+            if (fStrength == eStrength) {
+                res = Result.DRAW;
+            } else if (fStrength > eStrength) {
+                res = Result.WIN;
+            } else {
+                res = Result.LOSS;
+            }
+            
+            matchManager.setFriendlyRoundStatus(res);
+            game.getEventSystem().register(new RoundEndEvent(res));
+            resetRound();
+        }
+    }
+    
+    private void resetRound() {
+        board.clearRows();
+        board.clearWeather();
     }
     
     /**

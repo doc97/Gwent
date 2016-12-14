@@ -12,5 +12,6 @@ public enum GameStates {
     REDRAW_STATE,
     NORMAL_STATE,
     STAGE_STATE,
-    DISCARD_PILE_STATE;
+    DISCARD_PILE_STATE,
+    MATCH_OVER_STATE;
 }

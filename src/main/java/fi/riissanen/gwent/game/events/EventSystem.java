@@ -41,6 +41,10 @@ public class EventSystem {
                 listener.process(event);
             }
         }
+        
+        if (!(event instanceof AfterEvent)) {
+            register(new AfterEvent(event.getClass()));
+        }
     }
     
     /**

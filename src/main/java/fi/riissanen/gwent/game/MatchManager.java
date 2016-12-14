@@ -4,12 +4,26 @@ import static fi.riissanen.gwent.game.MatchManager.Result.DRAW;
 import static fi.riissanen.gwent.game.MatchManager.Result.LOSS;
 import static fi.riissanen.gwent.game.MatchManager.Result.NONE;
 import static fi.riissanen.gwent.game.MatchManager.Result.WIN;
+import fi.riissanen.gwent.game.events.AfterEvent;
+import fi.riissanen.gwent.game.events.Event;
+import fi.riissanen.gwent.game.events.EventListener;
+import fi.riissanen.gwent.game.events.RoundEndEvent;
 
 /**
  * Manages round results and match result.
  * @author Daniel
  */
-public class MatchManager {
+public class MatchManager implements EventListener {
+
+    @Override
+    public void process(Event event) {
+        if (event instanceof AfterEvent) {
+            Class<? extends Event> firedEvent = ((AfterEvent) event).getEvent();
+            if (firedEvent.equals(RoundEndEvent.class)) {
+                finishRound();
+            }
+        }
+    }
 
     public enum Result {
         WIN, LOSS, DRAW, NONE;
