@@ -9,6 +9,7 @@ import fi.riissanen.gwent.game.events.Event;
 import fi.riissanen.gwent.game.events.EventListener;
 import fi.riissanen.gwent.game.ui.GUI;
 import fi.riissanen.gwent.game.ui.GUICard;
+import fi.riissanen.gwent.game.ui.TextCache;
 
 /**
  * When the player wants to play a card he stages it.
@@ -17,6 +18,7 @@ import fi.riissanen.gwent.game.ui.GUICard;
 public class StageState extends GameStateAdapter implements EventListener {
 
     private final AssetManager assets;
+    private final TextCache cache;
     private final GUI gui;
     private GUICard guiCard;
     
@@ -27,6 +29,7 @@ public class StageState extends GameStateAdapter implements EventListener {
     public StageState(Gwent game) {
         super(game);
         gui = game.getGUI();
+        cache = game.getTextCache();
         assets = game.getAssetManager();
     }
     
@@ -46,21 +49,16 @@ public class StageState extends GameStateAdapter implements EventListener {
     }
     
     private void addGUICard(Card card) {
-        guiCard = GUI.createGUICard(card, assets);
+        guiCard = GUI.createGUICard(card, assets, cache);
         guiCard.setSize(GUICard.WIDTH * 2.5f, GUICard.HEIGHT * 2.5f);
         guiCard.setPosition(
                 1620 + (300 - guiCard.getWidth()) / 2,
                 225);
-        if (guiCard.hasText()) {
-            game.getTextCache().addText(guiCard.getText());
-        }
         gui.addComponent(guiCard);
     }
     
     private void removeGUICard() {
-        if (guiCard.hasText()) {
-            game.getTextCache().removeText(guiCard.getText());
-        }
+        guiCard.destroy();
         gui.removeComponent(guiCard);
     }
 }

@@ -23,6 +23,7 @@ import fi.riissanen.gwent.game.ui.GUICard;
 import fi.riissanen.gwent.game.ui.GUIComponent;
 import fi.riissanen.gwent.game.ui.GUIHand;
 import fi.riissanen.gwent.game.ui.GUIRow;
+import fi.riissanen.gwent.game.ui.TextCache;
 
 /**
  * The normal state, where the player chooses a card from their hand.
@@ -33,6 +34,7 @@ public class NormalState extends GameStateAdapter implements EventListener {
     private final GUIHandInput handInput;
     private final GUIRowInput rowInput;
     private final AssetManager assets;
+    private final TextCache cache;
     private final GUIRow[] friendlyRows;
     private final GUIRow[] enemyRows;
     private final GUI gui;
@@ -46,6 +48,7 @@ public class NormalState extends GameStateAdapter implements EventListener {
     public NormalState(Gwent game) {
         super(game);
         gui = game.getGUI();
+        cache = game.getTextCache();
         assets = game.getAssetManager();
         handInput = new GUIHandInput(game);
         rowInput = new GUIRowInput(game);
@@ -139,7 +142,7 @@ public class NormalState extends GameStateAdapter implements EventListener {
         Card card = event.getCard();
         boolean friendly = event.isFriendly();
         if (friendly) {
-            guiHand.addCard(card, GUI.createGUICard(card, assets));
+            guiHand.addCard(card, GUI.createGUICard(card, assets, cache));
             gui.getInput().addListener(guiHand.getGUICard(card), handInput);
         }
     }
@@ -153,7 +156,7 @@ public class NormalState extends GameStateAdapter implements EventListener {
             gui.getInput().removeListener(guiHand.getGUICard(card), handInput);
             guiHand.removeCard(card);
         } else {
-            guiHand.addCard(card, GUI.createGUICard(card, assets));
+            guiHand.addCard(card, GUI.createGUICard(card, assets, cache));
             gui.getInput().addListener(guiHand.getGUICard(card), handInput);
             gui.getInput().removeListenerFromAll(rowInput);
         }
@@ -164,7 +167,7 @@ public class NormalState extends GameStateAdapter implements EventListener {
         if (card instanceof UnitCard) {
             int row = event.getRowIndex();
             boolean friendly = card.getOwner().isFriendly();
-            GUICard guiCard = GUI.createGUICard(card, assets);
+            GUICard guiCard = GUI.createGUICard(card, assets, cache);
             if (friendly) {
                 friendlyRows[row].addCard((UnitCard) card, guiCard);
             } else {

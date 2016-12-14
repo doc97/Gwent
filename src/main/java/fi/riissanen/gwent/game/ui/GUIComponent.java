@@ -37,6 +37,12 @@ public class GUIComponent implements Renderable {
     }
     
     /**
+     * Called when the component is destroyed.
+     */
+    public void destroy() {
+    }
+    
+    /**
      * Sets the component position.
      * @param x The x coordinate
      * @param y The y coordinate

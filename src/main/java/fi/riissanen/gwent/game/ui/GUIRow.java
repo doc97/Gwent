@@ -1,5 +1,7 @@
 package fi.riissanen.gwent.game.ui;
 
+import fi.riissanen.gwent.engine.math.Vector2f;
+import fi.riissanen.gwent.engine.render.Color;
 import fi.riissanen.gwent.engine.render.SpriteBatch;
 import fi.riissanen.gwent.engine.render.Texture;
 import fi.riissanen.gwent.engine.render.fonts.Font;
@@ -19,7 +21,8 @@ public class GUIRow extends GUIComponent {
     private final Map<UnitCard, GUICard> cards = new HashMap<>();
     private final CombatRow row;
     private final TextCache cache;
-    private final Text strength;
+    private Text strength;
+    private int rowStrength;
     
     /**
      * Creates a GUIComponent with cards, a little like the GUI hand.
@@ -45,19 +48,30 @@ public class GUIRow extends GUIComponent {
     
     @Override
     public void update() {
-        if (!cache.hasText(strength)) {
-            cache.addText(strength);
-        }
-        
         // Update card information
         for (UnitCard card : cards.keySet()) {
-            Text currentText = cards.get(card).getText();
-            int cardStr = card.getUnit().getStrength();
-            Font font = currentText.getFont();
-            float fontSize = currentText.getFontSize();
-            float lineLength = currentText.getLineLength();
-            Text newText = new Text(cardStr + "", font, fontSize, lineLength);
-            cards.get(card).setText(newText);
+            cards.get(card).update();
+        }
+        
+        // Update row strength
+        int rowStr = row.getStrength();
+        if (rowStr != rowStrength) {
+            rowStrength = rowStr;
+            cache.removeText(strength);
+            
+            Vector2f pos = strength.getPosition();
+            Color color = strength.getColor();
+            Font font = strength.getFont();
+            float fontSize = strength.getFontSize();
+            float lineLength = strength.getLineLength();
+            Text newStr = new Text(rowStrength + "", font, fontSize, lineLength);
+            strength = newStr;
+            strength.setPosition(pos.x, pos.y);
+            strength.setColor(color.getRed(), color.getGreen(), color.getBlue());
+        }
+        
+        if (!cache.hasText(strength)) {
+            cache.addText(strength);
         }
     }
     
@@ -77,7 +91,6 @@ public class GUIRow extends GUIComponent {
             guiCard.setPosition(x + 10 + cards.size() * (guiCard.width + 10),
                     y + (height - guiCard.getHeight()) / 2);
             cards.put(card, guiCard);
-            cache.addText(guiCard.getText());
         }
     }
     
@@ -86,7 +99,7 @@ public class GUIRow extends GUIComponent {
      * @param card The key
      */
     public void removeCard(UnitCard card) {
-        cache.removeText(cards.get(card).getText());
+        cards.get(card).destroy();
         cards.remove(card);
         
         int i = 0;

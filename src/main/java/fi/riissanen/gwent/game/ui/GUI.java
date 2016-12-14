@@ -1,11 +1,9 @@
 package fi.riissanen.gwent.game.ui;
 
-import fi.riissanen.gwent.engine.Engine;
 import fi.riissanen.gwent.engine.assets.AssetManager;
 import fi.riissanen.gwent.engine.render.Color;
 import fi.riissanen.gwent.engine.render.SpriteBatch;
 import fi.riissanen.gwent.engine.render.Texture;
-import fi.riissanen.gwent.engine.render.Viewport;
 import fi.riissanen.gwent.engine.render.fonts.Font;
 import fi.riissanen.gwent.engine.render.fonts.Text;
 import fi.riissanen.gwent.game.cards.Card;
@@ -113,16 +111,19 @@ public class GUI {
      * "instance of"-operator.
      * @param card The card for card data like strength
      * @param assets AssetManager to get textures
+     * @param cache Text cache where GUI texts are added
      * @return The created GUICard or null card type cannot be recognized
      */
-    public static GUICard createGUICard(Card card, AssetManager assets) {
+    public static GUICard createGUICard(Card card, AssetManager assets,
+            TextCache cache) {
         if (card instanceof UnitCard) {
-            return createGUIUnitCard((UnitCard) card, assets);
+            return createGUIUnitCard((UnitCard) card, assets, cache);
         }
         return null;
     }
     
-    private static GUICard createGUIUnitCard(UnitCard card, AssetManager assets) {
+    private static GUICard createGUIUnitCard(UnitCard card, AssetManager assets,
+            TextCache cache) {
         Texture cardBase = (Texture) assets.get("assets/textures/cardbase.png");
         Texture cardFaction = (Texture) assets.get("assets/textures/cardfaction.png");
 
@@ -143,7 +144,7 @@ public class GUI {
             color = new Color(0.1f, 0.55f, 0, 1); // Green
         }
         
-        GUICard guiCard = new GUICard(card, text, cardBase, cardFaction, color);
+        GUICard guiCard = new GUICard(card, text, cache, cardBase, cardFaction, color);
         guiCard.setSize(GUICard.WIDTH, GUICard.HEIGHT);
         return guiCard;
     }

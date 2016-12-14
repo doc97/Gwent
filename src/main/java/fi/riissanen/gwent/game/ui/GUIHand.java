@@ -33,6 +33,13 @@ public class GUIHand extends GUIComponent {
         }
     }
     
+    @Override
+    public void update() {
+        for (Card card : cards.keySet()) {
+            cards.get(card).update();
+        }
+    }
+    
     /**
      * Adds a GUICard, mapped to a Card key.
      * @param card The key to map the GUI card to 
@@ -43,9 +50,6 @@ public class GUIHand extends GUIComponent {
             guiCard.setPosition(x + 10 + cards.size() * (guiCard.getWidth() + 10),
                     y + (height - guiCard.getHeight()) / 2);
             cards.put(card, guiCard);
-            if (guiCard.hasText()) {
-                cache.addText(guiCard.getText());
-            }
         }
     }
     
@@ -54,9 +58,7 @@ public class GUIHand extends GUIComponent {
      * @param card The key
      */
     public void removeCard(Card card) {
-        if (cards.get(card).hasText()) {
-            cache.removeText(cards.get(card).getText());
-        }
+        cards.get(card).destroy();
         cards.remove(card);
         
         int i = 0;

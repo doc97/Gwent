@@ -1,10 +1,13 @@
 package fi.riissanen.gwent.game.ui;
 
+import fi.riissanen.gwent.engine.math.Vector2f;
 import fi.riissanen.gwent.engine.render.Color;
 import fi.riissanen.gwent.engine.render.SpriteBatch;
 import fi.riissanen.gwent.engine.render.Texture;
+import fi.riissanen.gwent.engine.render.fonts.Font;
 import fi.riissanen.gwent.engine.render.fonts.Text;
 import fi.riissanen.gwent.game.cards.Card;
+import fi.riissanen.gwent.game.cards.UnitCard;
 
 /**
  * Graphical representation of card.
@@ -17,20 +20,24 @@ public class GUICard extends GUIComponent {
     private final Card card;
     private final Texture faction;
     private final Color factionColor = new Color(1, 1, 1, 1);
+    private final TextCache cache;
     private Text text;
     
     /**
      * Creates a GUI component with a text.
      * @param card The card that is linked with this GUICard
      * @param text The text containing the strength
+     * @param cache The text cache where to add component texts
      * @param base The base card texture
      * @param faction The faction specific texture
      * @param factionColor The color to draw the faction texture with
      */
-    public GUICard(Card card, Text text, Texture base, Texture faction, Color factionColor) {
+    public GUICard(Card card, Text text, TextCache cache,
+            Texture base, Texture faction, Color factionColor) {
         super(base);
         this.card = card;
         this.text = text;
+        this.cache = cache;
         this.faction = faction;
         this.factionColor.set(factionColor);
     }
@@ -44,6 +51,29 @@ public class GUICard extends GUIComponent {
             batch.draw(faction, x, y, width, height);
             batch.setColor(oldColor);
         }
+    }
+    
+    @Override
+    public void update() {
+        if (hasText()) {
+            cache.removeText(text);
+            int cardStr = ((UnitCard) card).getUnit().getStrength();
+            Vector2f pos = text.getPosition();
+            Color color = text.getColor();
+            Font font = text.getFont();
+            float fontSize = text.getFontSize();
+            float lineLength = text.getLineLength();
+            Text newText = new Text(cardStr + "", font, fontSize, lineLength);
+            text = newText;
+            text.setPosition(pos.x, pos.y);
+            text.setColor(color.getRed(), color.getGreen(), color.getBlue());
+            cache.addText(text);
+        }
+    }
+    
+    @Override
+    public void destroy() {
+        cache.removeText(text);
     }
     
     @Override
@@ -78,10 +108,6 @@ public class GUICard extends GUIComponent {
      */
     public boolean hasText() {
         return text != null;
-    }
-    
-    public Text getText() {
-        return text;
     }
     
     public Card getCard() {
