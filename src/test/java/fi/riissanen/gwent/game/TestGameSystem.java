@@ -33,6 +33,7 @@ public class TestGameSystem {
         unit.setUnitType(UnitType.MELEE);
         unit.setBaseStrength(1);
         game.getGameSystem().stageCard(new UnitCard(unit));
+        game.getGameSystem().getStateSystem().update();
         exception.expect(IllegalStateException.class);
         game.getGameSystem().playCard(-1);
     }
@@ -49,6 +50,7 @@ public class TestGameSystem {
         unit.setUnitType(UnitType.MELEE);
         unit.setBaseStrength(1);
         game.getGameSystem().stageCard(new UnitCard(unit));
+        game.getGameSystem().getStateSystem().update();
         assertTrue(game.getGameSystem().playCard(UnitType.MELEE.getIndex()));
     }
 }

@@ -1,6 +1,5 @@
 package fi.riissanen.gwent.game.cards.abilities;
 
-import fi.riissanen.gwent.game.GameSystem;
 import fi.riissanen.gwent.game.Gwent;
 import fi.riissanen.gwent.game.Player;
 import fi.riissanen.gwent.game.combat.Unit;
@@ -14,7 +13,7 @@ import org.junit.Test;
  */
 public class TestWeatherAbility {
 
-    private final WeatherAbility ability = new WeatherAbility("", "", UnitType.MELEE);
+    private final Frost ability = new Frost();
     
     @Test
     public void testActivate() {

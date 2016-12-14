@@ -2,8 +2,7 @@ package fi.riissanen.gwent.game.cards.neutral;
 
 import fi.riissanen.gwent.game.Gwent;
 import fi.riissanen.gwent.game.Player;
-import fi.riissanen.gwent.game.cards.abilities.WeatherAbility;
-import fi.riissanen.gwent.game.combat.UnitType;
+import fi.riissanen.gwent.game.cards.abilities.Frost;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
@@ -13,7 +12,7 @@ import org.junit.Test;
  */
 public class TestWeatherCard {
 
-    private final WeatherCard card = new WeatherCard(new WeatherAbility("", "", UnitType.MELEE));
+    private final WeatherCard card = new WeatherCard(new Frost());
     
     @Test
     public void testGetAbilities() {

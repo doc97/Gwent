@@ -2,8 +2,7 @@ package fi.riissanen.gwent.game.combat;
 
 import fi.riissanen.gwent.game.Gwent;
 import fi.riissanen.gwent.game.Player;
-import fi.riissanen.gwent.game.cards.Deck;
-import fi.riissanen.gwent.game.cards.abilities.WeatherAbility;
+import fi.riissanen.gwent.game.cards.abilities.Frost;
 import fi.riissanen.gwent.game.cards.neutral.WeatherCard;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +84,7 @@ public class TestGameBoard {
 
     @Test
     public void testAddWeatherCard() {
-        WeatherAbility ability = new WeatherAbility("", "", UnitType.MELEE);
+        Frost ability = new Frost();
         board.addWeatherCard(new WeatherCard(ability));
         assertEquals(1, board.getWeatherCardCount());
     }
@@ -101,7 +100,7 @@ public class TestGameBoard {
         Gwent game = new Gwent();
         game.initialize();
         Player player = new Player(game, true);
-        WeatherCard card = new WeatherCard(new WeatherAbility("", "", UnitType.MELEE));
+        WeatherCard card = new WeatherCard(new Frost());
         card.setOwner(player);
         board.addWeatherCard(card);
         board.clearWeather();
