@@ -10,8 +10,8 @@ import fi.riissanen.gwent.engine.interfaces.Game;
 import fi.riissanen.gwent.engine.render.shaders.FontShader;
 import fi.riissanen.gwent.game.cards.Card;
 import fi.riissanen.gwent.game.cards.Deck;
+import fi.riissanen.gwent.game.cards.factories.CardCreator;
 import fi.riissanen.gwent.game.cards.factories.CardData;
-import fi.riissanen.gwent.game.cards.factories.CardFactory;
 import fi.riissanen.gwent.game.cards.factories.CardLoader;
 import fi.riissanen.gwent.game.cards.factories.UnitCardFactory;
 import fi.riissanen.gwent.game.events.EventListener;
@@ -36,8 +36,7 @@ import java.util.List;
 public class Gwent implements Game {
 
     private AssetManager assets;
-    private CardFactory cardFactory;
-    private CardLoader cardLoader;
+    private CardCreator cardCreator;
     private EventSystem eventSys;
     private GameSystem gameSys;
     private GUI gui;
@@ -59,8 +58,7 @@ public class Gwent implements Game {
      */
     public void initialize() {
         assets = new AssetManager();
-        cardFactory = new UnitCardFactory();
-        cardLoader = new CardLoader();
+        cardCreator = new CardCreator();
         eventSys = new EventSystem();
         gameSys = new GameSystem(this);
         gui = new GUI();
@@ -112,6 +110,10 @@ public class Gwent implements Game {
         assets.load("assets/fonts/arial.fnt", AssetManager.FONT_LOADER);
         assets.load("assets/fonts/mono.fnt", AssetManager.FONT_LOADER);
         assets.load("assets/fonts/sansserif.fnt", AssetManager.FONT_LOADER);
+        
+        // Cards
+        assets.load("assets/cards/TestCard.card", AssetManager.CARD_LOADER);
+        assets.load("assets/cards/Biting Frost.card", AssetManager.CARD_LOADER);
         assets.processQueue();
     }
     
@@ -150,17 +152,22 @@ public class Gwent implements Game {
         // Create deck (temporary)
         Deck deck1 = new Deck();
         Deck deck2 = new Deck();
-        CardData data = cardLoader.load(new AssetParams("assets/cards/TestCard.card"));
-        if (data == null) {
-            Engine.INSTANCE.log.write(LogLevel.ERROR, cardLoader.getLog());
+        CardData data = (CardData) assets.get("assets/cards/TestCard.card");
+        CardData frost = (CardData) assets.get("assets/cards/Biting Frost.card");
+        if (data == null || frost == null) {
+            Engine.INSTANCE.log.write(LogLevel.ERROR, "Failed to load cards, terminating...");
             Engine.INSTANCE.exit();
             return;
         }
+        
         for (int i = 0; i < Deck.MIN_CARDS; i++) {
-            Card card1 = cardFactory.createCard(data);
-            Card card2 = cardFactory.createCard(data);
-            deck1.addCard(card1);
-            deck2.addCard(card2);
+            deck1.addCard(cardCreator.createCard(data));
+            deck2.addCard(cardCreator.createCard(data));
+        }
+        
+        for (int i = 0; i < 10; i++) {
+            deck1.addCard(cardCreator.createCard(frost));
+            deck2.addCard(cardCreator.createCard(frost));
         }
 
         player.setDeck(deck1);

@@ -1,5 +1,6 @@
 package fi.riissanen.gwent.engine.assets;
 
+import fi.riissanen.gwent.game.cards.factories.CardLoader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -14,6 +15,7 @@ public class AssetManager {
     
     public static final TextureLoader TEXTURE_LOADER = new TextureLoader();
     public static final FontLoader FONT_LOADER = new FontLoader();
+    public static final CardLoader CARD_LOADER = new CardLoader();
     
     private final Map<AssetLoader, List<AssetParams>> queue = new HashMap<>();
     private final Map<String, Asset> assets = new HashMap<>();

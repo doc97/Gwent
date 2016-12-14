@@ -42,6 +42,9 @@ public class CardLoader extends AssetLoader {
         ABILITIES.add("Morale boost");
         ABILITIES.add("Muster");
         ABILITIES.add("Tight bond");
+        ABILITIES.add("Frost");
+        ABILITIES.add("Fog");
+        ABILITIES.add("Rain");
         
         ATTRIBUTES.add("Agile");
         ATTRIBUTES.add("Hero");
@@ -106,7 +109,7 @@ public class CardLoader extends AssetLoader {
         
         boolean typeValidated = validateType(data.get(TYPE_KEY));
         boolean abilitiesValidated = validateAbilities(data.get(ABILITIES_KEY));
-        boolean unitValidated = data.get(TYPE_KEY).equals("Unit") &&
+        boolean unitValidated = !data.get(TYPE_KEY).equals("Unit") ||
                 validateUnit(data.get(STRENGTH_KEY),
                         data.get(ATTRIBUTES_KEY),
                         data.get(UNIT_TYPE_KEY));

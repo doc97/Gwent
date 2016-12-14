@@ -55,18 +55,23 @@ public class GUICard extends GUIComponent {
     
     @Override
     public void update() {
-        if (hasText()) {
-            cache.removeText(text);
+        if (card instanceof UnitCard) {
             int cardStr = ((UnitCard) card).getUnit().getStrength();
-            Vector2f pos = text.getPosition();
-            Color color = text.getColor();
-            Font font = text.getFont();
-            float fontSize = text.getFontSize();
-            float lineLength = text.getMaxLineLength();
-            Text newText = new Text(cardStr + "", font, fontSize, lineLength);
-            text = newText;
-            text.setPosition(pos.x, pos.y);
-            text.setColor(color.getRed(), color.getGreen(), color.getBlue());
+            int cardStrength = Integer.parseInt(text.getText());
+            if (cardStr != cardStrength) {
+                cache.removeText(text);
+                Vector2f pos = text.getPosition();
+                Color color = text.getColor();
+                Font font = text.getFont();
+                float fontSize = text.getFontSize();
+                float lineLength = text.getMaxLineLength();
+                
+                text = new Text(cardStr + "", font, fontSize, lineLength);
+                text.setPosition(pos.x, pos.y);
+                text.setColor(color.getRed(), color.getGreen(), color.getBlue());
+            }
+        }
+        if (!cache.hasText(text)) {
             cache.addText(text);
         }
     }

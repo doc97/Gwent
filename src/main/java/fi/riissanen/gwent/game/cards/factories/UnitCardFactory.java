@@ -1,11 +1,13 @@
 package fi.riissanen.gwent.game.cards.factories;
 
-import fi.riissanen.gwent.game.cards.Card;
 import fi.riissanen.gwent.game.cards.UnitCard;
 import fi.riissanen.gwent.game.cards.abilities.Ability;
+import fi.riissanen.gwent.game.cards.abilities.Fog;
+import fi.riissanen.gwent.game.cards.abilities.Frost;
 import fi.riissanen.gwent.game.cards.abilities.Medic;
 import fi.riissanen.gwent.game.cards.abilities.MoraleBoost;
 import fi.riissanen.gwent.game.cards.abilities.Muster;
+import fi.riissanen.gwent.game.cards.abilities.Rain;
 import fi.riissanen.gwent.game.cards.abilities.TightBond;
 import fi.riissanen.gwent.game.cards.attributes.Agile;
 import fi.riissanen.gwent.game.cards.attributes.Attribute;
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A specialised {@link CardFactory} for creating {@link UnitCard}'s.
+ * A specialized {@link CardFactory} for creating {@link UnitCard}'s.
  *
  * @author Daniel
  */
@@ -49,16 +51,16 @@ public class UnitCardFactory implements CardFactory {
         String[] abilitiesStr = inputStr.split(",");
         for (String abilityStr : abilitiesStr) {
             switch (abilityStr) {
-                case "Medic":
+                case "Medic" :
                     abilities.add(new Medic(card));
                     break;
-                case "Morale boost":
+                case "Morale boost" :
                     abilities.add(new MoraleBoost(card));
                     break;
-                case "Muster":
+                case "Muster" :
                     abilities.add(new Muster(card));
                     break;
-                case "Tight bond":
+                case "Tight bond" :
                     abilities.add(new TightBond(card));
                     break;
             }

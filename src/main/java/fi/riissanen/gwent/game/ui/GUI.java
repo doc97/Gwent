@@ -8,6 +8,7 @@ import fi.riissanen.gwent.engine.render.fonts.Font;
 import fi.riissanen.gwent.engine.render.fonts.Text;
 import fi.riissanen.gwent.game.cards.Card;
 import fi.riissanen.gwent.game.cards.UnitCard;
+import fi.riissanen.gwent.game.cards.neutral.WeatherCard;
 import fi.riissanen.gwent.game.factions.Faction;
 import fi.riissanen.gwent.game.factions.Monsters;
 import fi.riissanen.gwent.game.factions.NilfgaardianEmpire;
@@ -118,6 +119,8 @@ public class GUI {
             TextCache cache) {
         if (card instanceof UnitCard) {
             return createGUIUnitCard((UnitCard) card, assets, cache);
+        } else if (card instanceof WeatherCard) {
+            return createGUIWeatherCard((WeatherCard) card, assets, cache);
         }
         return null;
     }
@@ -143,6 +146,21 @@ public class GUI {
         } else if (faction instanceof Scoiatael) {
             color = new Color(0.1f, 0.55f, 0, 1); // Green
         }
+        
+        GUICard guiCard = new GUICard(card, text, cache, cardBase, cardFaction, color);
+        guiCard.setSize(GUICard.WIDTH, GUICard.HEIGHT);
+        return guiCard;
+    }
+    
+    private static GUICard createGUIWeatherCard(WeatherCard card, AssetManager assets,
+            TextCache cache) {
+        Texture cardBase = (Texture) assets.get("assets/textures/cardbase.png");
+        Texture cardFaction = (Texture) assets.get("assets/textures/cardfaction.png");
+        Color color = Color.WHITE;
+        
+        Font font = (Font) assets.get("assets/fonts/sansserif.fnt");
+        Text text = new Text("F", font, 1 / 6f, -1);
+        text.setColor(0, 0, 0);
         
         GUICard guiCard = new GUICard(card, text, cache, cardBase, cardFaction, color);
         guiCard.setSize(GUICard.WIDTH, GUICard.HEIGHT);

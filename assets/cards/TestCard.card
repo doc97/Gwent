@@ -7,12 +7,12 @@ Type=Unit
 # Medic/Morale boost/Muster/Tight bond
 Abilities=Morale boost
 
-Strength=1
+Strength=2
 
 # Agile/Hero/Spy
 Attributes=
 
 # Melee/Ranged/Siege
-UnitType=Ranged
+UnitType=Melee
 
 

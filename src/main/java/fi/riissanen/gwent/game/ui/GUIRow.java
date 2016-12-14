@@ -22,7 +22,6 @@ public class GUIRow extends GUIComponent {
     private final CombatRow row;
     private final TextCache cache;
     private Text strength;
-    private int rowStrength;
     
     /**
      * Creates a GUIComponent with cards, a little like the GUI hand.
@@ -55,16 +54,15 @@ public class GUIRow extends GUIComponent {
         
         // Update row strength
         int rowStr = row.getStrength();
+        int rowStrength = Integer.parseInt(strength.getText());
         if (rowStr != rowStrength) {
-            rowStrength = rowStr;
             cache.removeText(strength);
-            
             Color color = strength.getColor();
             Font font = strength.getFont();
             float fontSize = strength.getFontSize();
             float lineLength = strength.getMaxLineLength();
-            Text newStr = new Text(rowStrength + "", font, fontSize, lineLength);
-            strength = newStr;
+
+            strength = new Text(rowStr + "", font, fontSize, lineLength);;
             strength.setColor(color.getRed(), color.getGreen(), color.getBlue());
         }
         

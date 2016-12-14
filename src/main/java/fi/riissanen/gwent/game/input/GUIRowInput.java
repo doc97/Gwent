@@ -3,7 +3,14 @@ package fi.riissanen.gwent.game.input;
 import fi.riissanen.gwent.game.Gwent;
 import fi.riissanen.gwent.game.cards.Card;
 import fi.riissanen.gwent.game.cards.UnitCard;
+import fi.riissanen.gwent.game.cards.abilities.Ability;
+import fi.riissanen.gwent.game.cards.abilities.ClearWeather;
+import fi.riissanen.gwent.game.cards.abilities.Fog;
+import fi.riissanen.gwent.game.cards.abilities.Frost;
+import fi.riissanen.gwent.game.cards.abilities.Rain;
+import fi.riissanen.gwent.game.cards.neutral.WeatherCard;
 import fi.riissanen.gwent.game.combat.CombatRow;
+import fi.riissanen.gwent.game.combat.UnitType;
 import fi.riissanen.gwent.game.ui.GUIComponent;
 import fi.riissanen.gwent.game.ui.GUIRow;
 
@@ -35,6 +42,20 @@ public class GUIRowInput extends GUIInputAdapter {
             int[] indices = ((UnitCard) card).getUnit().getTypeIndices();
             for (int i = 0; i < indices.length; i++) {
                 guiInput.addListener(rows[indices[i]], this);
+            }
+        } else if (card instanceof WeatherCard) {
+            Ability ability = ((WeatherCard) card).getAbilities().get(0);
+            
+            if (ability instanceof Frost) {
+                guiInput.addListener(rows[UnitType.MELEE.getIndex()], this);
+            } else if (ability instanceof Fog) {
+                guiInput.addListener(rows[UnitType.RANGED.getIndex()], this);
+            } else if (ability instanceof Rain) {
+                guiInput.addListener(rows[UnitType.SIEGE.getIndex()], this);
+            } else if (ability instanceof ClearWeather) {
+                for (int i = 0; i < UnitType.values().length; i++) {
+                    guiInput.addListener(rows[i], this);
+                }
             }
         }
     }

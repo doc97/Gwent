@@ -1,0 +1,8 @@
+Name=Biting Frost
+Description=Sets all melee units to strength 1 for both players
+
+# Unit/Weather/Leader/Special
+Type=Weather
+
+# Medic/Morale boost/Muster/Tight bond/Frost/Fog/Rain
+Abilities=Frost
