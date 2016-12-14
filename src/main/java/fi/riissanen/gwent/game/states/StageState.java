@@ -1,6 +1,8 @@
 package fi.riissanen.gwent.game.states;
 
+import fi.riissanen.gwent.engine.Engine;
 import fi.riissanen.gwent.engine.assets.AssetManager;
+import fi.riissanen.gwent.engine.render.Viewport;
 import fi.riissanen.gwent.game.Gwent;
 import fi.riissanen.gwent.game.cards.Card;
 import fi.riissanen.gwent.game.events.CardPlayedEvent;
@@ -51,9 +53,10 @@ public class StageState extends GameStateAdapter implements EventListener {
     private void addGUICard(Card card) {
         guiCard = GUI.createGUICard(card, assets, cache);
         guiCard.setSize(GUICard.WIDTH * 2.5f, GUICard.HEIGHT * 2.5f);
+        Viewport viewport = Engine.INSTANCE.batch.getViewport();
         guiCard.setPosition(
-                1620 + (300 - guiCard.getWidth()) / 2,
-                225);
+                viewport.getSrcWidth() - 300 + (300 - guiCard.getWidth()) / 2,
+                (viewport.getSrcHeight() - guiCard.getHeight()) / 2 );
         gui.addComponent(guiCard);
     }
     

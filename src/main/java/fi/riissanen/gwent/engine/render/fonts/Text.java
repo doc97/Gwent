@@ -17,9 +17,10 @@ public class Text {
     private final TextMeshData meshData;
     private final Vector2f position;
     private final Color color;
-    private final float lineLength;
+    private final float maxLineLength;
 
     private float fontSize;
+    private float lineLength;
     private int numberOfLines;
     
     /**
@@ -27,18 +28,18 @@ public class Text {
      * @param text The string of text
      * @param font The font to use
      * @param fontSize The relative scale of the font
-     * @param lineLength The length of one line of text, -1 indicates no limit
+     * @param maxLineLength The max length of one line of text, -1 indicates no limit
      */
-    public Text(String text, Font font, float fontSize, float lineLength) {
+    public Text(String text, Font font, float fontSize, float maxLineLength) {
         this.text = text;
         this.font = font;
         this.fontSize = fontSize;
-        this.lineLength = lineLength;
+        this.maxLineLength = maxLineLength;
         position = new Vector2f();
         color = new Color(1, 1, 1, 1);
         meshData = new TextMeshData();
     }
-
+    
     /**
      * Sets the color's components.
      * @param r The red component
@@ -60,6 +61,10 @@ public class Text {
     
     public void setNumberOfLines(int numberOfLines) {
         this.numberOfLines = numberOfLines;
+    }
+    
+    public void setLineLength(float lineLength) {
+        this.lineLength = lineLength;
     }
     
     public void setFontSize(float fontSize) {
@@ -92,6 +97,10 @@ public class Text {
     
     public float getLineLength() {
         return lineLength;
+    }
+    
+    public float getMaxLineLength() {
+        return maxLineLength;
     }
     
     public int getNumberOfLines() {

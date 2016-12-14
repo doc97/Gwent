@@ -59,26 +59,26 @@ public class GUIRow extends GUIComponent {
             rowStrength = rowStr;
             cache.removeText(strength);
             
-            Vector2f pos = strength.getPosition();
             Color color = strength.getColor();
             Font font = strength.getFont();
             float fontSize = strength.getFontSize();
-            float lineLength = strength.getLineLength();
+            float lineLength = strength.getMaxLineLength();
             Text newStr = new Text(rowStrength + "", font, fontSize, lineLength);
             strength = newStr;
-            strength.setPosition(pos.x, pos.y);
             strength.setColor(color.getRed(), color.getGreen(), color.getBlue());
         }
         
         if (!cache.hasText(strength)) {
             cache.addText(strength);
+            // Recalculate position after the text has been reloaded
+            strength.setPosition(x - strength.getLineLength() - 10, y + height / 2);
         }
     }
     
     @Override
     public void setPosition(float x, float y) {
         super.setPosition(x, y);
-        strength.setPosition(x - 20, y + height / 2);
+        strength.setPosition(x - strength.getLineLength() - 10, y + height / 2);
     }
     
     /**

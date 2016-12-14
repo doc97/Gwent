@@ -40,7 +40,7 @@ public class TextMeshData {
         TextLine currLine = new TextLine(
                 font.getSpaceWidth(),
                 text.getFontSize(),
-                text.getLineLength());
+                text.getMaxLineLength());
         TextWord currWord = new TextWord(text.getFontSize());
         for (char c : chars) {
             int ascii = (int) c;
@@ -64,13 +64,14 @@ public class TextMeshData {
             currLine = new TextLine(
                     text.getFont().getSpaceWidth(),
                     text.getFontSize(),
-                    text.getLineLength());
+                    text.getMaxLineLength());
             currLine.addWord(currWord);
         }
     }
     
     private void calculateMesh(Text text, List<TextLine> lines) {
         text.setNumberOfLines(lines.size());
+        double lastCursorX = 0;
         double cursorX = 0;
         double cursorY = 0;
         for (TextLine line : lines) {
@@ -83,8 +84,15 @@ public class TextMeshData {
                 }
                 cursorX += text.getFont().getSpaceWidth() * text.getFontSize();
             }
+            lastCursorX = cursorX;
             cursorX = 0;
             cursorY -= text.getFont().getLineHeight() * text.getFontSize();
+        }
+        
+        if (text.getNumberOfLines() > 1) {
+            text.setLineLength(text.getMaxLineLength());
+        } else if (text.getNumberOfLines() == 1) {
+            text.setLineLength((float) lastCursorX);
         }
     }
     

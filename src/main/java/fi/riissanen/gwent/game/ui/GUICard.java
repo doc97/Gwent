@@ -62,7 +62,7 @@ public class GUICard extends GUIComponent {
             Color color = text.getColor();
             Font font = text.getFont();
             float fontSize = text.getFontSize();
-            float lineLength = text.getLineLength();
+            float lineLength = text.getMaxLineLength();
             Text newText = new Text(cardStr + "", font, fontSize, lineLength);
             text = newText;
             text.setPosition(pos.x, pos.y);
