@@ -52,10 +52,10 @@ public class StageState extends GameStateAdapter implements EventListener {
     
     private void addGUICard(Card card) {
         guiCard = GUI.createGUICard(card, assets, cache);
-        guiCard.setSize(GUICard.WIDTH * 2.5f, GUICard.HEIGHT * 2.5f);
+        guiCard.setSize(GUICard.WIDTH * 3.5f, GUICard.HEIGHT * 3.5f);
         Viewport viewport = Engine.INSTANCE.batch.getViewport();
         guiCard.setPosition(
-                viewport.getSrcWidth() - 300 + (300 - guiCard.getWidth()) / 2,
+                viewport.getSrcWidth() - 400 + (400 - guiCard.getWidth()) / 2,
                 (viewport.getSrcHeight() - guiCard.getHeight()) / 2 );
         gui.addComponent(guiCard);
     }

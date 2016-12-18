@@ -16,7 +16,7 @@ import fi.riissanen.gwent.game.cards.UnitCard;
 public class GUICard extends GUIComponent {
 
     public static final int WIDTH = 80;
-    public static final int HEIGHT = 125;
+    public static final int HEIGHT = 120;
     private final Card card;
     private final Texture faction;
     private final Color factionColor = new Color(1, 1, 1, 1);

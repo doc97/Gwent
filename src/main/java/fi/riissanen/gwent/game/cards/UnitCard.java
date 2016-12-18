@@ -26,6 +26,7 @@ public class UnitCard implements Card {
     @Override
     public void setOwner(Player player) {
         this.player = player;
+        unit.setOwner(player);
     }
 
     public Unit getUnit() {

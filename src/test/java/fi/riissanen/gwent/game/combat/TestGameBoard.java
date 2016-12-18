@@ -110,10 +110,13 @@ public class TestGameBoard {
     
     @Test
     public void testClearRowsNoSaved() {
+        Player owner = new Player(null, true);
         Unit u1 = new Unit("", "");
         u1.setUnitType(UnitType.MELEE);
+        u1.setOwner(owner);
         Unit u2 = new Unit("", "");
         u2.setUnitType(UnitType.RANGED);
+        u2.setOwner(owner);
         board.addUnit(u1, UnitType.MELEE, true);
         board.addUnit(u2, UnitType.RANGED, true);
         board.clearRows();
@@ -122,12 +125,14 @@ public class TestGameBoard {
     
     @Test
     public void testClearRowsSaved() {
+        Player player = new Player(null, true);
         Unit u1 = new Unit("", "");
         u1.setUnitType(UnitType.MELEE);
         Unit u2 = new Unit("", "");
         u2.setUnitType(UnitType.RANGED);
         Unit u3 = new Unit("", "");
         u3.setUnitType(UnitType.SIEGE);
+        u3.setOwner(new Player(null, true));
 
         board.addUnit(u1, UnitType.MELEE, true);
         board.addUnit(u2, UnitType.RANGED, false);

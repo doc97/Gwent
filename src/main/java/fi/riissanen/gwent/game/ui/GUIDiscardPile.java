@@ -7,36 +7,24 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Graphical representation of hand.
+ * Graphical representation of the discard pile.
  * @author Daniel
  */
-public class GUIHand extends GUIComponent {
+public class GUIDiscardPile extends GUIComponent {
 
     private final Map<Card, GUICard> cards = new LinkedHashMap<>();
     private final TextCache cache;
     
-    /**
-     * Creates a GUI component containing GUI cards.
-     * @param texture The texture
-     * @param cache The text cache to add component texts to
-     */
-    public GUIHand(Texture texture, TextCache cache) {
+    public GUIDiscardPile(Texture texture, TextCache cache) {
         super(texture);
         this.cache = cache;
     }
-    
+
     @Override
     public void render(SpriteBatch batch) {
         super.render(batch);
         for (Card card : cards.keySet()) {
             cards.get(card).render(batch);
-        }
-    }
-    
-    @Override
-    public void update() {
-        for (Card card : cards.keySet()) {
-            cards.get(card).update();
         }
     }
     
@@ -47,8 +35,14 @@ public class GUIHand extends GUIComponent {
      */
     public void addCard(Card card, GUICard guiCard) {
         if (!cards.containsKey(card)) {
-            guiCard.setPosition(x + 10 + cards.size() * (guiCard.getWidth() + 10),
-                    y + (height - guiCard.getHeight()) / 2);
+            if (cards.size() < 4) {
+                guiCard.setPosition(x + (cards.size() + 1) * 2,
+                    y + height - GUICard.HEIGHT - (cards.size() + 1) * 3);
+            } else {
+                guiCard.setPosition(x + 5 * 2,
+                    y + height - GUICard.HEIGHT - 5 * 3);
+            }
+            
             cards.put(card, guiCard);
         }
     }
@@ -64,8 +58,11 @@ public class GUIHand extends GUIComponent {
         int i = 0;
         for (Card c : cards.keySet()) {
             GUICard guiCard = cards.get(c);
-            guiCard.setPosition(x + 10 + i * (guiCard.width + 10),
-                    y + (height - guiCard.getHeight()) / 2);
+            if (i < 4) {
+                guiCard.setPosition(x + (i + 1) * 2, y - (i + 1) * 3);
+            } else {
+                guiCard.setPosition(x + 5 * 2, y - 5 * 3);
+            }
             i++;
         }
     }

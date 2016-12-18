@@ -2,6 +2,7 @@ package fi.riissanen.gwent.game.states;
 
 import fi.riissanen.gwent.engine.Engine;
 import fi.riissanen.gwent.game.Gwent;
+import fi.riissanen.gwent.game.events.CardDiscardedEvent;
 import fi.riissanen.gwent.game.events.CardPlayedEvent;
 import fi.riissanen.gwent.game.events.CardStageEvent;
 import fi.riissanen.gwent.game.events.DrawCardEvent;
@@ -47,7 +48,7 @@ public class GameStateSystem {
     }
     
     /**
-     * Initialises states and adds them to a map.
+     * Initializes states and adds them to a map.
      */
     public void initialize() {
         EventSystem eventSys = game.getEventSystem();
@@ -56,6 +57,7 @@ public class GameStateSystem {
         eventSys.addListener(DrawCardEvent.class, normalState);
         eventSys.addListener(CardStageEvent.class, normalState);
         eventSys.addListener(CardPlayedEvent.class, normalState);
+        eventSys.addListener(CardDiscardedEvent.class, normalState);
         eventSys.addListener(CardStageEvent.class, stageState);
         eventSys.addListener(CardPlayedEvent.class, stageState);
         

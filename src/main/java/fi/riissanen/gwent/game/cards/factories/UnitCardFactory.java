@@ -2,12 +2,9 @@ package fi.riissanen.gwent.game.cards.factories;
 
 import fi.riissanen.gwent.game.cards.UnitCard;
 import fi.riissanen.gwent.game.cards.abilities.Ability;
-import fi.riissanen.gwent.game.cards.abilities.Fog;
-import fi.riissanen.gwent.game.cards.abilities.Frost;
 import fi.riissanen.gwent.game.cards.abilities.Medic;
 import fi.riissanen.gwent.game.cards.abilities.MoraleBoost;
 import fi.riissanen.gwent.game.cards.abilities.Muster;
-import fi.riissanen.gwent.game.cards.abilities.Rain;
 import fi.riissanen.gwent.game.cards.abilities.TightBond;
 import fi.riissanen.gwent.game.cards.attributes.Agile;
 import fi.riissanen.gwent.game.cards.attributes.Attribute;

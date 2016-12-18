@@ -1,8 +1,5 @@
 package fi.riissanen.gwent.game.cards.abilities;
 
-import fi.riissanen.gwent.engine.Engine;
-import fi.riissanen.gwent.engine.render.SpriteBatch;
-import fi.riissanen.gwent.game.GameSystem;
 import fi.riissanen.gwent.game.Gwent;
 import fi.riissanen.gwent.game.Player;
 import fi.riissanen.gwent.game.cards.UnitCard;

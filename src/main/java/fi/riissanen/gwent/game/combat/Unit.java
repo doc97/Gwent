@@ -1,5 +1,6 @@
 package fi.riissanen.gwent.game.combat;
 
+import fi.riissanen.gwent.game.Player;
 import fi.riissanen.gwent.game.cards.Card;
 import fi.riissanen.gwent.game.cards.abilities.Ability;
 import fi.riissanen.gwent.game.cards.attributes.Attribute;
@@ -15,6 +16,7 @@ import java.util.List;
  */
 public class Unit {
 
+    private Player owner;
     private Card card;
     private final List<Ability> abilities = new ArrayList<>();
     private final List<Attribute> attributes = new ArrayList<>();
@@ -50,6 +52,10 @@ public class Unit {
 
     public void setCard(Card card) {
         this.card = card;
+    }
+    
+    public void setOwner(Player owner) {
+        this.owner = owner;
     }
 
     /**
@@ -211,6 +217,10 @@ public class Unit {
         return card;
     }
 
+    public Player getOwner() {
+        return owner;
+    }
+    
     public String getName() {
         return name;
     }

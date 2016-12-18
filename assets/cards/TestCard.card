@@ -10,7 +10,7 @@ Abilities=Morale boost
 Strength=2
 
 # Agile/Hero/Spy
-Attributes=
+Attributes=Agile
 
 # Melee/Ranged/Siege
 UnitType=Melee

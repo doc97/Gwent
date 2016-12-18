@@ -8,6 +8,7 @@ import fi.riissanen.gwent.game.cards.Deck;
 import fi.riissanen.gwent.game.cards.Hand;
 import fi.riissanen.gwent.game.cards.UnitCard;
 import fi.riissanen.gwent.game.combat.Unit;
+import fi.riissanen.gwent.game.events.CardDiscardedEvent;
 import fi.riissanen.gwent.game.events.DrawCardEvent;
 import fi.riissanen.gwent.game.factions.Faction;
 import java.util.ArrayList;
@@ -81,6 +82,9 @@ public class Player {
      */
     public void discardCard(Card card) {
         discardPile.add(card);
+        if (game != null && game.getEventSystem() != null) {
+            game.getEventSystem().register(new CardDiscardedEvent(card));
+        }
     }
     
     /**

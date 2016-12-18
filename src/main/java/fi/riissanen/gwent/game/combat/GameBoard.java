@@ -20,7 +20,7 @@ public class GameBoard {
     private final List<Unit> savedUnits;
 
     /**
-     * Constructor, initialises arrays and lists.
+     * Constructor, initializes arrays and lists.
      */
     public GameBoard() {
         friendlyRows = new CombatRow[]{
@@ -85,6 +85,7 @@ public class GameBoard {
             for (Iterator<Unit> it = row.getUnits().iterator(); it.hasNext();) {
                 Unit unit = it.next();
                 if (!savedUnits.contains(unit)) {
+                    unit.getOwner().discardCard(unit.getCard());
                     it.remove();
                 }
             }

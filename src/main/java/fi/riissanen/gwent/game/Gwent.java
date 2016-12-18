@@ -96,13 +96,17 @@ public class Gwent implements Game {
         assets.load(new AssetParams("assets/lwjgl.png", Format.RGBA),
                 AssetManager.TEXTURE_LOADER);
         assets.load(new AssetParams("assets/textures/board.png", Format.RGBA),
-                        AssetManager.TEXTURE_LOADER);
+                AssetManager.TEXTURE_LOADER);
         assets.load(new AssetParams("assets/textures/cardbase.png", Format.RGBA),
                 AssetManager.TEXTURE_LOADER);
         assets.load(new AssetParams("assets/textures/cardfaction.png", Format.RGBA),
-                        AssetManager.TEXTURE_LOADER);
+                AssetManager.TEXTURE_LOADER);
         assets.load(new AssetParams("assets/textures/row.png", Format.RGBA),
-                        AssetManager.TEXTURE_LOADER);
+                AssetManager.TEXTURE_LOADER);
+        assets.load(new AssetParams("assets/textures/crystal.png", Format.RGBA),
+                AssetManager.TEXTURE_LOADER);
+        assets.load(new AssetParams("assets/textures/discardpile.png", Format.RGBA),
+                AssetManager.TEXTURE_LOADER);
 
         // Fonts
         assets.load("assets/fonts/arial.fnt", AssetManager.FONT_LOADER);

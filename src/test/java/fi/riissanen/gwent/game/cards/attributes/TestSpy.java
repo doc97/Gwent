@@ -1,6 +1,5 @@
 package fi.riissanen.gwent.game.cards.attributes;
 
-import fi.riissanen.gwent.game.GameSystem;
 import fi.riissanen.gwent.game.Gwent;
 import fi.riissanen.gwent.game.Player;
 import fi.riissanen.gwent.game.combat.Unit;
