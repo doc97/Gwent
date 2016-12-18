@@ -3,7 +3,7 @@ package fi.riissanen.gwent.game.input;
 import fi.riissanen.gwent.game.ui.GUIComponent;
 
 /**
- *
+ * Implements an {@link GUIInputListener}.
  * @author Daniel
  */
 public class GUIInputAdapter implements GUIInputListener {

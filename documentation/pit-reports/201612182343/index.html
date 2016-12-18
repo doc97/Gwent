@@ -1,0 +1,169 @@
+<html>
+<head>
+  
+    <style type='text/css'>
+   
+   .tests{ 
+     width : 50%;
+     float : left;
+   }
+   
+   .mutees{
+     float : right;
+     width : 50%;
+   }
+   
+   .unit {
+     padding-top : 20px;
+     clear : both;
+   }
+   
+   .coverage_bar {
+    display : inline-block;
+    height : 1.1em;
+    width: 130px;
+    background: #FAA;
+    margin: 0 5px;
+    vertical-align: middle;
+    border: 1px solid #AAA;
+    position : relative;
+   }
+   
+   .coverage_complete {
+    display : inline-block;
+    height : 100%;
+    background: #DFD;
+    float: left;
+   }
+   
+   .coverage_ledgend {
+        position : absolute;
+        height : 100%;
+        width : 100%;
+        left : 0;
+        top : 0;
+        text-align : center;
+   }
+   
+   .line, .mut {
+        vertical-align : middle;
+   }
+   
+   .coveragePercentage {
+    display: inline-block;
+    width: 3em;
+    text-align: right;
+   }
+  </style>
+  
+</head>
+<body>
+
+<h1>Pit Test Coverage Report</h1>
+
+<h3>Project Summary</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Number of Classes</th>
+            <th>Line Coverage</th>
+            <th>Mutation Coverage</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>40</td>
+            <td>71% <div class="coverage_bar"><div class="coverage_complete" style="width:71%"></div><div class="coverage_ledgend">618/872</div></div></td>
+            <td>52% <div class="coverage_bar"><div class="coverage_complete" style="width:52%"></div><div class="coverage_ledgend">268/520</div></div></td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h3>Breakdown by Package</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Number of Classes</th>
+            <th>Line Coverage</th>
+            <th>Mutation Coverage</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td><a href="./fi.riissanen.gwent.game/index.html">fi.riissanen.gwent.game</a></td>
+            <td>3</td>
+            <td><div class="coveragePercentage">70% </div><div class="coverage_bar"><div class="coverage_complete" style="width:70%"></div><div class="coverage_ledgend">133/191</div></div></td>
+            <td><div class="coveragePercentage">53% </div><div class="coverage_bar"><div class="coverage_complete" style="width:53%"></div><div class="coverage_ledgend">69/130</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./fi.riissanen.gwent.game.cards/index.html">fi.riissanen.gwent.game.cards</a></td>
+            <td>4</td>
+            <td><div class="coveragePercentage">97% </div><div class="coverage_bar"><div class="coverage_complete" style="width:97%"></div><div class="coverage_ledgend">31/32</div></div></td>
+            <td><div class="coveragePercentage">92% </div><div class="coverage_bar"><div class="coverage_complete" style="width:92%"></div><div class="coverage_ledgend">22/24</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./fi.riissanen.gwent.game.cards.abilities/index.html">fi.riissanen.gwent.game.cards.abilities</a></td>
+            <td>8</td>
+            <td><div class="coveragePercentage">59% </div><div class="coverage_bar"><div class="coverage_complete" style="width:59%"></div><div class="coverage_ledgend">60/101</div></div></td>
+            <td><div class="coveragePercentage">47% </div><div class="coverage_bar"><div class="coverage_complete" style="width:47%"></div><div class="coverage_ledgend">24/51</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./fi.riissanen.gwent.game.cards.attributes/index.html">fi.riissanen.gwent.game.cards.attributes</a></td>
+            <td>3</td>
+            <td><div class="coveragePercentage">71% </div><div class="coverage_bar"><div class="coverage_complete" style="width:71%"></div><div class="coverage_ledgend">15/21</div></div></td>
+            <td><div class="coveragePercentage">50% </div><div class="coverage_bar"><div class="coverage_complete" style="width:50%"></div><div class="coverage_ledgend">6/12</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./fi.riissanen.gwent.game.cards.neutral/index.html">fi.riissanen.gwent.game.cards.neutral</a></td>
+            <td>1</td>
+            <td><div class="coveragePercentage">91% </div><div class="coverage_bar"><div class="coverage_complete" style="width:91%"></div><div class="coverage_ledgend">10/11</div></div></td>
+            <td><div class="coveragePercentage">100% </div><div class="coverage_bar"><div class="coverage_complete" style="width:100%"></div><div class="coverage_ledgend">4/4</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./fi.riissanen.gwent.game.combat/index.html">fi.riissanen.gwent.game.combat</a></td>
+            <td>4</td>
+            <td><div class="coveragePercentage">88% </div><div class="coverage_bar"><div class="coverage_complete" style="width:88%"></div><div class="coverage_ledgend">144/163</div></div></td>
+            <td><div class="coveragePercentage">85% </div><div class="coverage_bar"><div class="coverage_complete" style="width:85%"></div><div class="coverage_ledgend">86/101</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./fi.riissanen.gwent.game.events/index.html">fi.riissanen.gwent.game.events</a></td>
+            <td>8</td>
+            <td><div class="coveragePercentage">81% </div><div class="coverage_bar"><div class="coverage_complete" style="width:81%"></div><div class="coverage_ledgend">59/73</div></div></td>
+            <td><div class="coveragePercentage">56% </div><div class="coverage_bar"><div class="coverage_complete" style="width:56%"></div><div class="coverage_ledgend">14/25</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./fi.riissanen.gwent.game.factions/index.html">fi.riissanen.gwent.game.factions</a></td>
+            <td>4</td>
+            <td><div class="coveragePercentage">85% </div><div class="coverage_bar"><div class="coverage_complete" style="width:85%"></div><div class="coverage_ledgend">57/67</div></div></td>
+            <td><div class="coveragePercentage">63% </div><div class="coverage_bar"><div class="coverage_complete" style="width:63%"></div><div class="coverage_ledgend">22/35</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./fi.riissanen.gwent.game.states/index.html">fi.riissanen.gwent.game.states</a></td>
+            <td>5</td>
+            <td><div class="coveragePercentage">51% </div><div class="coverage_bar"><div class="coverage_complete" style="width:51%"></div><div class="coverage_ledgend">109/213</div></div></td>
+            <td><div class="coveragePercentage">15% </div><div class="coverage_bar"><div class="coverage_complete" style="width:15%"></div><div class="coverage_ledgend">21/138</div></div></td>
+        </tr>
+
+     </tbody>
+</table>
+<br/>
+
+
+
+<hr/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.1.8
+
+</body>
+</html>

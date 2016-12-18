@@ -93,8 +93,6 @@ public class Gwent implements Game {
     
     private void loadAssets() {
         // Textures
-        assets.load(new AssetParams("assets/lwjgl.png", Format.RGBA),
-                AssetManager.TEXTURE_LOADER);
         assets.load(new AssetParams("assets/textures/board.png", Format.RGBA),
                 AssetManager.TEXTURE_LOADER);
         assets.load(new AssetParams("assets/textures/cardbase.png", Format.RGBA),

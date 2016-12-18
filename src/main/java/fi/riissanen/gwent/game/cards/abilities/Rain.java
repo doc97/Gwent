@@ -6,7 +6,7 @@ import fi.riissanen.gwent.game.combat.Unit;
 import fi.riissanen.gwent.game.combat.UnitType;
 
 /**
- *
+ * Weather card ability affecting siege units.
  * @author Daniel
  */
 public class Rain implements Ability {

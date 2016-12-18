@@ -3,7 +3,7 @@ package fi.riissanen.gwent.game.cards.abilities;
 import fi.riissanen.gwent.game.GameSystem;
 
 /**
- *
+ * Weather card ability that clears all other weather card effects.
  * @author Daniel
  */
 public class ClearWeather implements Ability {

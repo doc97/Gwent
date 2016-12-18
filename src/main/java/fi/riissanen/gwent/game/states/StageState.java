@@ -56,7 +56,7 @@ public class StageState extends GameStateAdapter implements EventListener {
         Viewport viewport = Engine.INSTANCE.batch.getViewport();
         guiCard.setPosition(
                 viewport.getSrcWidth() - 400 + (400 - guiCard.getWidth()) / 2,
-                (viewport.getSrcHeight() - guiCard.getHeight()) / 2 );
+                (viewport.getSrcHeight() - guiCard.getHeight()) / 2);
         gui.addComponent(guiCard);
     }
     

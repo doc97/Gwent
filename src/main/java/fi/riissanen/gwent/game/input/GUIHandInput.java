@@ -13,6 +13,10 @@ public class GUIHandInput extends GUIInputAdapter {
 
     private final Gwent game;
     
+    /**
+     * Constructor.
+     * @param game The game instance
+     */
     public GUIHandInput(Gwent game) {
         this.game = game;
     }

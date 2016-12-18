@@ -14,7 +14,13 @@ public class GUIDiscardPile extends GUIComponent {
 
     private final Map<Card, GUICard> cards = new LinkedHashMap<>();
     private final TextCache cache;
+    private GUICard lastCard;
     
+    /**
+     * Creates a {@link GUIComponent}.
+     * @param texture The texture
+     * @param cache The text cache
+     */
     public GUIDiscardPile(Texture texture, TextCache cache) {
         super(texture);
         this.cache = cache;
@@ -43,6 +49,11 @@ public class GUIDiscardPile extends GUIComponent {
                     y + height - GUICard.HEIGHT - 5 * 3);
             }
             
+            if (lastCard != null) {
+                cache.removeText(lastCard.getText());
+            }
+            lastCard = guiCard;
+            cache.addText(guiCard.getText());
             cards.put(card, guiCard);
         }
     }
@@ -63,10 +74,20 @@ public class GUIDiscardPile extends GUIComponent {
             } else {
                 guiCard.setPosition(x + 5 * 2, y - 5 * 3);
             }
+            
+            if (i == cards.size() - 1) {
+                lastCard = guiCard;
+                cache.addText(guiCard.getText());
+            }
             i++;
         }
     }
     
+    /**
+     * Gets the {@link GUICard} linked to a Card.
+     * @param card The card that is linked
+     * @return The GUICard
+     */
     public GUICard getGUICard(Card card) {
         return cards.get(card);
     }

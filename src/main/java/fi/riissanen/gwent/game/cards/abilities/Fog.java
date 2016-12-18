@@ -6,7 +6,7 @@ import fi.riissanen.gwent.game.combat.Unit;
 import fi.riissanen.gwent.game.combat.UnitType;
 
 /**
- *
+ * Weather card ability affecting ranged units.
  * @author Daniel
  */
 public class Fog implements Ability {

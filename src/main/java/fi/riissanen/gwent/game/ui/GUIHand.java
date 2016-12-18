@@ -13,16 +13,13 @@ import java.util.Map;
 public class GUIHand extends GUIComponent {
 
     private final Map<Card, GUICard> cards = new LinkedHashMap<>();
-    private final TextCache cache;
     
     /**
      * Creates a GUI component containing GUI cards.
      * @param texture The texture
-     * @param cache The text cache to add component texts to
      */
-    public GUIHand(Texture texture, TextCache cache) {
+    public GUIHand(Texture texture) {
         super(texture);
-        this.cache = cache;
     }
     
     @Override
@@ -70,6 +67,11 @@ public class GUIHand extends GUIComponent {
         }
     }
     
+    /**
+     * Gets the {@link GUICard} linked to a Card.
+     * @param card The card that is linked
+     * @return The GUICard
+     */
     public GUICard getGUICard(Card card) {
         return cards.get(card);
     }

@@ -78,7 +78,7 @@ public class NormalState extends GameStateAdapter implements EventListener {
                 Engine.INSTANCE.batch.getViewport().getSrcHeight());
         
         Texture handTex = (Texture) assets.get("assets/textures/row.png");
-        guiHand = new GUIHand(handTex, game.getTextCache());
+        guiHand = new GUIHand(handTex);
         guiHand.setPosition(400, 40);
         guiHand.setSize(Engine.INSTANCE.batch.getViewport().getSrcWidth() - 2 * 400 - 20,
                 GUICard.HEIGHT + 10);

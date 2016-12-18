@@ -24,7 +24,7 @@ public class WeatherCardFactory implements CardFactory {
         } else if (abilityStr.equals("Rain")) {
             ability = new Rain();
         } else if (abilityStr.equals("Clear")) {
-            ability = new ClearWeather() ;
+            ability = new ClearWeather();
         } else {
             return null;
         }

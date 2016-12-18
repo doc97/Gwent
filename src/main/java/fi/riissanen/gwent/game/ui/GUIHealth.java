@@ -19,6 +19,11 @@ public class GUIHealth extends GUIComponent {
     private final Color white = new Color(1, 1, 1, 1);
     private final Gwent game;
     
+    /**
+     * Creates a {@link GUIComponent}.
+     * @param game The game instance
+     * @param crystalTex The texture
+     */
     public GUIHealth(Gwent game, Texture crystalTex) {
         this.game = game;
         friendlyCrystals = new GUICrystal[MatchManager.MAX_LIVES];

@@ -60,6 +60,9 @@ public class GameSystem {
         stateSystem.push(CHOOSE_STARTING_PLAYER_STATE);
     }
     
+    /**
+     * Updates the game system.
+     */
     public void update() {
         stateSystem.update();
         if (matchManager.getMatchResult() != Result.NONE) {

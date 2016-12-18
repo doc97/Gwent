@@ -118,4 +118,8 @@ public class GUICard extends GUIComponent {
     public Card getCard() {
         return card;
     }
+    
+    public Text getText() {
+        return text;
+    }
 }

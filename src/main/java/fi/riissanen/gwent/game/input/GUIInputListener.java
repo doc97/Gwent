@@ -33,7 +33,7 @@ public interface GUIInputListener {
      * <p>
      * It represents a click, a button press and release without
      * the mouse leaving the component.
-     * @param component
+     * @param component The component
      * @param button The mouse button
      */
     public void releaseComponent(GUIComponent component, int button);

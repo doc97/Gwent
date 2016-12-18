@@ -8,6 +8,10 @@ import fi.riissanen.gwent.game.Gwent;
  */
 public class MatchOverState extends GameStateAdapter {
 
+    /**
+     * Constructor.
+     * @param game The game instance
+     */
     public MatchOverState(Gwent game) {
         super(game);
     }

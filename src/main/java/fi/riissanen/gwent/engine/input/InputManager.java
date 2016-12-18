@@ -26,6 +26,10 @@ public class InputManager {
     private final InputListener emptyListener = new InputAdapter();
     private InputListener listener = emptyListener;
 
+    /**
+     * Initializes GLFW input callbacks.
+     * @param window The GLFW window id
+     */
     public void init(long window) {
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         glfwSetErrorCallback(errCallback = GLFWErrorCallback.createPrint(System.err));
@@ -78,6 +82,9 @@ public class InputManager {
         }
     }
 
+    /**
+     * Free up callbacks.
+     */
     public void dispose() {
         keyCallback.free();
         errCallback.free();

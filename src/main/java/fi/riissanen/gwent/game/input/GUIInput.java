@@ -20,11 +20,17 @@ public class GUIInput extends InputAdapter {
     private final Map<GUIComponent, List<GUIInputListener>> listeners; 
     private Viewport viewport;
     
+    /**
+     * Constructor.
+     */
     public GUIInput() {
         states = new HashMap<>();
         listeners = new HashMap<>();
     }
     
+    /**
+     * Initializes viewport.
+     */
     public void initialize() {
         viewport = new Viewport(0, 0,
                 Engine.INSTANCE.display.getWidth(),
@@ -118,7 +124,7 @@ public class GUIInput extends InputAdapter {
     }
     
     /**
-     * Removes a listener from a component
+     * Removes a listener from a component.
      * @param component The component
      * @param listener The listener
      */
@@ -133,6 +139,10 @@ public class GUIInput extends InputAdapter {
         }
     }
     
+    /**
+     * Removes the listener from all components.
+     * @param listener The listener
+     */
     public void removeListenerFromAll(GUIInputListener listener) {
         for (GUIComponent component : listeners.keySet()) {
             listeners.get(component).remove(listener);
