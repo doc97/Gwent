@@ -22,7 +22,7 @@ public class UISelection extends GUIComponent {
     @Override
     public void render(SpriteBatch batch) {
         if (active) {
-            batch.draw(texture, x, y, width, height);
+            super.render(batch);
         }
     }
     

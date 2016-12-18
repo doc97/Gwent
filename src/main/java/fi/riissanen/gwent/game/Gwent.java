@@ -107,6 +107,8 @@ public class Gwent implements Game {
                 AssetManager.TEXTURE_LOADER);
         assets.load(new AssetParams("assets/textures/discardpile.png", Format.RGBA),
                 AssetManager.TEXTURE_LOADER);
+        assets.load(new AssetParams("assets/textures/dark.png", Format.RGBA),
+                AssetManager.TEXTURE_LOADER);
 
         // Fonts
         assets.load("assets/fonts/arial.fnt", AssetManager.FONT_LOADER);

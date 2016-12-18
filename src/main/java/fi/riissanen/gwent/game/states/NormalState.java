@@ -17,7 +17,6 @@ import fi.riissanen.gwent.game.events.CardStageEvent;
 import fi.riissanen.gwent.game.events.DrawCardEvent;
 import fi.riissanen.gwent.game.events.Event;
 import fi.riissanen.gwent.game.events.EventListener;
-import fi.riissanen.gwent.game.events.RoundEndEvent;
 import fi.riissanen.gwent.game.input.GUIHandInput;
 import fi.riissanen.gwent.game.input.GUIRowInput;
 import fi.riissanen.gwent.game.input.NormalStateInput;
@@ -44,6 +43,7 @@ public class NormalState extends GameStateAdapter implements EventListener {
     private final GUIRow[] friendlyRows;
     private final GUIRow[] enemyRows;
     private final GUI gui;
+    private GUIComponent guiOverlay;
     private GUIComponent guiBoard;
     private GUIDiscardPile guiDiscard;
     private GUIHealth guiHealth;
@@ -67,6 +67,11 @@ public class NormalState extends GameStateAdapter implements EventListener {
     
     @Override
     public void createGUI() {
+        Texture darkTex = (Texture) assets.get("assets/textures/dark.png");
+        guiOverlay = new GUIComponent(darkTex);
+        guiOverlay.setSize(Engine.INSTANCE.batch.getViewport().getSrcWidth(),
+                Engine.INSTANCE.batch.getViewport().getSrcHeight());
+        
         Texture boardTex = (Texture) assets.get("assets/textures/board.png");
         guiBoard = new GUIComponent(boardTex);
         guiBoard.setSize(Engine.INSTANCE.batch.getViewport().getSrcWidth(),
@@ -124,6 +129,7 @@ public class NormalState extends GameStateAdapter implements EventListener {
             gui.addComponent(friendlyRows[i]);
             gui.addComponent(enemyRows[i]);
         }
+        gui.addComponent(guiOverlay);
     }
     
     @Override
@@ -136,6 +142,7 @@ public class NormalState extends GameStateAdapter implements EventListener {
             gui.removeComponent(friendlyRows[i]);
             gui.removeComponent(enemyRows[i]);
         }
+        gui.removeComponent(guiOverlay);
     }
     
     @Override

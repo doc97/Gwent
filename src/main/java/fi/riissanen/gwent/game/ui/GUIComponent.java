@@ -9,7 +9,7 @@ import fi.riissanen.gwent.engine.render.Texture;
  */
 public class GUIComponent implements Renderable {
     
-    protected final Texture texture;
+    protected final Texture[] textures;
     protected float x;
     protected float y;
     protected float width;
@@ -17,16 +17,18 @@ public class GUIComponent implements Renderable {
     
     /**
      * Constructor.
-     * @param texture GUI component texture
+     * @param textures The array of textures that this component has
      */
-    public GUIComponent(Texture texture) {
-        this.texture = texture;
+    public GUIComponent(Texture... textures) {
+        this.textures = textures == null ? new Texture[0] : textures;
     }
     
     @Override
     public void render(SpriteBatch batch) {
-        if (texture != null) {
-            batch.draw(texture, x, y, width, height);
+        for (Texture texture : textures) {
+            if (texture != null) {
+                batch.draw(texture, x, y, width, height);
+            }
         }
     }
     
@@ -60,10 +62,6 @@ public class GUIComponent implements Renderable {
     public void setSize(float width, float height) {
         this.width = width;
         this.height = height;
-    }
-    
-    public Texture getTexture() {
-        return texture;
     }
     
     public float getX() {

@@ -20,7 +20,6 @@ public class GUIHealth extends GUIComponent {
     private final Gwent game;
     
     public GUIHealth(Gwent game, Texture crystalTex) {
-        super(null);
         this.game = game;
         friendlyCrystals = new GUICrystal[MatchManager.MAX_LIVES];
         enemyCrystals = new GUICrystal[MatchManager.MAX_LIVES];
