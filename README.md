@@ -2,7 +2,7 @@
 
 Welcome, this is a Java project for a course at the [University of Helsinki][1].
 The project is using Agile development and is test-driven. Documentation is a key
-part of this project and will be kept up-to-date.
+part of this project.
 
 ### Documentation ###
 - [Design document][2]
